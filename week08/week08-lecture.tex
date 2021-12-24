@@ -272,6 +272,27 @@
 \end{frame}
 
 
+\begin{frame}{Support Vector Machines}
+	
+	SVMs aim to find a hyperplane in an \(N\)-dimensional pace that distinctly classifies the datapoints.
+	
+	The best hyperplane is the one that has the maximum margin (distance) between the datapoints of both classes.
+	
+	\begin{center}
+		\includegraphics[width=\linewidth,height=0.5\textheight,keepaspectratio]{../pictures/optimal_hyperplane.png} \\\
+	\end{center}
+	
+\end{frame}
+
+\begin{frame}{Support Vector Machines}
+	
+	\begin{center}
+		\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{../pictures/SVM.png} \\\
+	\end{center}
+	
+\end{frame}
+
+
 \begin{frame}{Decision Trees and Random Forests}
 	
 	\begin{center}
@@ -399,7 +420,7 @@
 \section{Validating models}
 
 
-\begin{frame}{Validating Models}
+\begin{frame}{Precision and Recall}
 	
 	Precision quantifies the number of positive class predictions that actually belong to the positive cases. \\\ 
 	OR: How much of what we found is actually correct?
@@ -417,10 +438,10 @@
 	
 
 
-\begin{frame}{Validating Models}
+\begin{frame}{Precision and Recall}
 	
 	\begin{center}
-		\includegraphics{../pictures/classificationmatrix_words.png} \\\
+		\includegraphics{../pictures/confusionmatrix_words.png} \\\
 	\end{center}
 	
 % To estimate precision and recall, we can create a confusion matrix.
@@ -433,23 +454,31 @@
 \end{frame}
 
 
-\begin{frame}{Validating Models} 
+\begin{frame}{Precision and Recall} 
 	
 	\begin{columns}
 		\column{.3\textwidth}
 		\makebox[\columnwidth]{
-			\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/classificationmatrix_numbers.png}}
+			\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/confusionmatrix_numbers.png}}
 		\column{.7\textwidth}
 		Precision is calculated as: \(\frac{\rm{TP}}{\rm{TP}+\rm{FP}}\) \\\
 		In our case \(\frac{\rm{150}}{\rm{150}+\rm{50}}\) which is \(0.75\) \\\
 		Recall is calculated as \(\frac{\rm{TP}}{\rm{TP}+\rm{FN}}\) \\\
 		In our case \(\frac{\rm{150}}{\rm{150}+\rm{20}}\) which is \(0.88\)
 	\end{columns}
+
+
+% A not precise model may find a lot of the positives, but its selection method is noisy: it also wrongly detects many positives that aren’t actually positives.
+% A precise model is very “pure”: maybe it does not find all the positives, but the ones that the model does class as positive are very likely to be correct
+
+% A model with high recall succeeds well in finding all the positive cases in the data, even though they may also wrongly identify some negative cases as positive cases.
+% A model with low recall is not able to find all (or a large part) of the positive cases in the data.
+
 \end{frame}
 
 
 
-\begin{frame}{Validating Models}
+\begin{frame}{Precision and Recall}
 	
 	\begin{center}
 		\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{../pictures/VanZoonen.png} \\\
@@ -467,32 +496,116 @@
 \end{frame}
 
 
-\begin{frame}{Validating Models}
+\begin{frame}{Accuracy}
 	
-	Slide about accuracy. Discuss class imbalance (https://machinelearningmastery.com/what-is-imbalanced-classification/)
+		Accuracy: In which percentage of all cases was our classifier right? \\
+		
+		Class distribution: The number of examples that belong to each class. \\
+		
+		Imbalanced classification: A classification predictive modeling problem where the distribution of examples across the classes within a training dataset is not equal.
+	
+	% Slide about accuracy. Discuss class imbalance (https://machinelearningmastery.com/what-is-imbalanced-classification/)
+	
+\end{frame}
+
+
+\begin{frame}{Accuracy}
+	
+	\begin{center}
+		\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{../pictures/imbalance.png} 
+	\end{center}	
+	
+	Majority class (red dots) vs. minority class (grey dots) 
+	
+	% Problem of imbalance remains to be solved
+	% Some examples in which this is a problem: fraud detection, spam detection... and outlier detection
+	
+	%Linking back to accurcay: if we would label all dots as "red", we get a high accuracy score: we were right in almost all cases. But how valuable is this: we missed those crucial three cases that we wanted to learn more about!
+	
+	%More: https://machinelearningmastery.com/what-is-imbalanced-classification/	
+\end{frame}
+
+
+
+\begin{frame}{\(F_1\)-score}
+	
+	\(F_1\)-score: The harmonic mean of precision and recall. \\
+	
+	\(F_1\)-score \(= 2 \cdot \frac{\rm precision \cdot recall}{\rm precision + recall}\)
+
+% Since the F1 score is an average of Precision and Recall, it means that the F1 score gives equal weight to Precision and Recall:
+% A model will obtain a high F1 score if both Precision and Recall are high
+% A model will obtain a low F1 score if both Precision and Recall are low
+% A model will obtain a medium F1 score if one of Precision and Recall is low and the other is high
+
 	
 \end{frame}
 
 
 \begin{frame}{Validating Models}
 	
-	Slide about F1-score.
+	Many more metrics to validate models. \\
+	
+	Learn more using, for example, the scikit-learn documentation. 
 	
 \end{frame}
 
 
-\begin{frame}{Validating Models}
+\begin{frame}{Cross-validation and Grid Search}
 	
-	Slide about Area Under the Curve.
+	Overfitting: When a model fits \emph{exactly} against the data.
+	
+	When we calculate the metrics discussed above for multiple models on the same test dataset, we run the risk of overfitting on the test data.
+	
+	Potential solution: Split the dataset into three smaller sets. A training dataset, a validation dataset and a test dataset.
+	
+	However, this requires us to have a very large labeled dataset. In reality, this is not always the case!
+	
+	%Consequence of this is, for example, that your model can classify your training data perfectly, but it can't classify other data very well anymore.
+	
+	%Overfitting the model generally takes the form of making an overly complex model to explain idiosyncrasies in the data under study. In reality, the data often studied has some degree of error or random noise within it. Thus, attempting to make the model conform too closely to slightly inaccurate data can infect the model with substantial errors and reduce its predictive power.
 	
 \end{frame}
 
 
-\begin{frame}{Validating Models}
+\begin{frame}{Cross-validation}
 	
-	Slide about Cross-validation and grid search.
+	Cross-validation: A resampling procedure to evaluate ML models on a limited data sample.
+	
+	\(k\)-fold cross-validation, where \(k\) refers to the number of groups or folds in which a sample is split.
+
+\end{frame}
+
+
+\begin{frame}{\(k\)-fold cross-validation}
+	\(k\)-fold cross-validation step by step:
+	\begin{enumerate}
+		\item Shuffle the data
+		\item Split the data into \(k\) folds (groups)
+		\item For each unique group
+		\begin{enumerate}
+			\item Take the group as a test dataset
+			\item Take the remaining groups as one training dataset
+			\item Fit a model on the training set and evaluate it on the test set
+			\item Retain the evaluation score and discard the model
+		\end{enumerate}
+		\item Summarize the evaluation scores to assess the model \\\
+	\end{enumerate}
+
+\end{frame}
+	
+
+\begin{frame}{Cross-validation}
+	
+	Cross-validation is often used to compare many different model specifications, for example to find the best hyperparameters.
+	
+	Hyperparameters: Parameters of the model that are not estimated from the data. \\
+	\cite{van_atteveldt_computational_2022}
+	
+	More about hyperparameters in this week's tutorial!
 	
 \end{frame}
+
 
 
 
@@ -575,7 +688,7 @@
 	
 	This week's tutorial:
 	\begin{itemize}
-		\item Hands-on approach to take a further look into validating models
+		\item Hands-on approach to take a further look into the machine learning process
 		\item Tutorial goals:
 		\begin{itemize}
 			\item To get you some experience with the SML process and selecting a model
