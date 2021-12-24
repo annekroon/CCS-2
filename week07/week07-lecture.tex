@@ -114,7 +114,7 @@
 \newcommand{\instruction}[1]{\emph{\textcolor{gray}{[#1]}}}
 
 
-\title[Computational Communication Science 2]{\textbf{Computational Communication Science 2} \\Week 7 - Lecture\\ »Rule-based Text Classification and an Introduction to Supervised Machine Learning«}
+\title[Computational Communication Science 2]{\textbf{Computational Communication Science 2} \\Week 7 - Lecture\\ »Rule-based vs. Automated Text Classification«}
 \author[Marthe Möller, Anne Kroon]{Marthe Möller \\ Anne Kroon \\ ~ \\ \footnotesize{a.m.moller@uva.nl, @marthemoller \\a.c.kroon@uva.nl, @annekroon} \\}
 \date{May, 2022}
 \institute[Digital Society Minor, University of Amsterdam]{Digital Society Minor, University of Amsterdam}
@@ -131,13 +131,80 @@
 	\end{frame}
 	
 	
-	\section{What is SML?}
+	\section{Rule-based Text Classification}
+	
+	\begin{frame}{Text Classification} 
+		
+	Text classification: To assign a label to a text.
+	
+	For example, to distinguish between:
+	\begin{itemize}
+		\item newspaper articles about sports vs. economics.
+		\item reliable vs. unreliable information about vaccination.
+		\item webpages about holding companies vs. financing companies.
+		\item positive vs. negative movie reviews.
+	\end{itemize}
+	
+	\end{frame}
+		
+	\begin{frame}{Studying Flaming (Example)} 
+	
+	RQ: How problematic is flaming on Twitter? \\
+	Bag-of-words approach:
+	
+	\begin{enumerate}
+		\item Create a list with all the swearwords that exist.
+		\item For each tweet in the dataset, use the list to count the number of swearwords	
+	\end{enumerate}
+	
+
+\end{frame}
+
+
+	\begin{frame}{Sentiment Analysis} 
+	
+	We can add nuance by creating more rules.
+	
+	For example, in sentiment analyses, we can include a rule telling the machine what to do in case of negation or modifiers.
+	
+	"This movie is really not good." \\
+	"This movie is really good."
+		
+	\end{frame}
+
+
+	\begin{frame}{Rule-based Text Classifcation} 
+	
+	Advantages of rule-based text classification:
+	\begin{itemize}
+		\item Simple and therefore transparent
+		\item Cheap
+	\end{itemize}
+	
+	Challenges of rule-based text classification:
+	\begin{itemize}
+		\item Not a suitable way to anayze latent or abstract variables 
+		\item You must know all the categories beforehand
+	\end{itemize}
+
+	\end{frame}
+
+
+\begin{frame}{From Rule-based to Automated}
+
+	When it is easy for humans to decide to what class a text belongs, but we struggle to translate our decision process into straight-forward rules, we are likely to be better of using a form of automated text classification: Supervised Machine Learning.
+	
+\end{frame}
+
+
+	
+	\section{Automated Text Classification: SML}
 	
 	
 	\begin{frame}{What is SML?}
 		
 		\begin{center}
-			\includegraphics[width=4cm, height=7cm]{../pictures/CAPTCHA.png} \\\
+			\includegraphics[width=4cm, height=7cm]{../pictures/CAPTCHA.png} 
 		\end{center}
 		
 		
@@ -338,12 +405,12 @@
 	\begin{frame}{SML step by step}
 		
 		\begin{center}
-			\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{../pictures/MLprocess.png} \\\
+			\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{../pictures/MLprocess_model.png} \\\
+			
+			Next class, we look at some commonly used ML models and at the process of evaluating classifiers.
 		\end{center}
 		
-		\begin{tiny}
-			\fullcite{van_zoonen_social_2016} 
-		\end{tiny}
+
 		
 		% [connect each step to Van Zoonen & Van der Meer for an example]
 		% [note here the important assumption of SML: that the training set, test set, and the unlabeled data that are to be classified are (at least in principle and approximately) drawn from the same population. For example, you cannot train a classifier using movie reviews and then use that classifier to analyze Instagram comments]
@@ -354,7 +421,7 @@
 	
 	\begin{frame}{Zooming out} 
 		
-		We talked about:
+		Today, we talked about:
 		\begin{itemize}
 			\item The principles behind SML
 			\item The steps of SML \\\
@@ -363,6 +430,8 @@
 		Next, we will talk about:
 		\begin{itemize}
 			\item Some commonly used ML models
+			\item Validating models
+			\item The strengths and challenges associated to ML
 		\end{itemize}
 		
 	\end{frame}
