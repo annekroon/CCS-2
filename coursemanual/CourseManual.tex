@@ -2,7 +2,8 @@
 
 \documentclass[a4paper,10pt]{report}
 \usepackage[natbibapa,nosectionbib,tocbib,numberedbib]{apacite}
-\AtBeginDocument{\renewcommand{\bibname}{Literature}}
+\AtBeginDocument{\renewcommand{\bibname}{literature}}
+
 
 
 \usepackage[utf8x]{inputenc}
@@ -41,89 +42,102 @@
 \begin{document}
 	\maketitle
 	
-	%\tableofcontents
-	
+	\tableofcontents
+
 	
 	\chapter{About this course}
 	
-	The remainder of this document contains exclusively information that is not relevant for this course. 
-	This is because I am using the course manual of a different course to build the course manual for the current course but I haven't really started yet.
-	
-	This course manual contains general information, guidelines, rules and schedules for the Research Master course Big Data \& Automated Content Analysis Part I and II (12 ECTS). Please make sure you read it carefully, as it  contains information regarding assignments, deadlines and grading.
+	This course manual contains general information, guidelines, rules and schedules for the course Computational Communication Science 2 (6 ECTs), part of the Communication in the Digital Society Minor offered by the College of Communication at the University of Amsterdam. Please make sure you read it carefully, as it  contains information regarding assignments, deadlines and grading.
 	
 	\section{Course description}
 	
-%	\input{description}
+	A sales website that recommends new products to you personally, a company that uses a chatbot to answer your questions, or an algorithm that automatically identifies and warns you about fake news content: In our digital society, we use computational methods to communicate with each other every day. In this course, we will zoom in on the computational methods that lay behind these new ways of communication. We will explore the basic principles of their design, acquire an understanding of their implications, and learn how these methods can be used for science. We will work with some of these methods ourselves in the weekly tutorials to get hands-on experience with these techniques and experience their advantages and limitations first hand. During weekly lectures, we will critically discuss the role that these methods play in our daily lives and what responsibility we have when working with them. At the end of the course, you will have a basic understanding of the methods that underlie different ways of communication in the digital society, you can formulate an informed opinion about the implications of these new techniques, and you will have some first-hand experience in working with them.
+	
+	In this 7-week course, each week consists of one lecture that zooms in on a specific computational method and the possible applications of this method and of one tutorial in which we work with this method. Through this mixture of introductions to computational methods in the lectures and a hands-on approach during the tutorials, you will acquire knowledge on computational communication science that continues on the knowledge that you gained in CCS-2. In total, there are 28 contact hours in this course (7x 2-hour lecture and 7x 2-hour tutorial). 
 	
 	\section{Goals}
-	Upon completion of this course, the following goals are reached:
-	\begin{enumerate}[A]
-		\item Students can explain the research designs and methods employed in existing research articles on Big Data and automated content analysis.
-		\item Students can on their own and in own words critically discuss the pros and cons of research designs and methods employed in existing research articles on Big Data and automated content analysis; they can, based on this, give a critical evaluation of the methods and, where relevant, give advice to improve the study in question.
-		\item Students can identify research methods from computer science and computational linguistics which can be used for research in the domain of communication science; they can explain the principles of these methods and describe the value of these methods for communication science research.
-		\item Students can on their own formulate a research question and hypotheses for own empirical research in the domain of Big Data.
-		\item Students can on their own chose, execute and report on advanced research methods in the domain of Big Data and automatic content analysis.
-		\item Students know how to collect data with scrapers, crawlers and APIs; they know how to analyze these data and to this end, they have basic knowledge of the programming language Python and know how to use Python-modules for communication science research.
-		\item Students can critically discuss  strong and weak points of their own research and suggest improvements.
-		\item Students participate actively: reading the literature carefully and on time, completing assignments carefully and on time, active participation in discussions, and giving feedback on the work of fellow students give evidence of this.
+	Upon completion of this course, students should:
+	\begin{enumerate}[a]
+		\item Have a general understanding of state-of-the-art computational techniques useful to study communication phenomena in the digital society.
+		\item Have a basic understanding of how to apply rule-based, unsupervised and supervised techniques to answer research questions in the field of communication science.
+		\item Be able to identify key benefits and drawbacks associated with different rule-based and machine learning techniques.
+		\item Have basic knowledge of what communication scientific questions can be answered using computational methods.
+		\item Be able to apply a subset of these techniques independently in order to answer some basic research questions in the field of communication in the digital society.
+		\item Have experience with independently solving problems in Python scripts by gathering information from online platforms.
+		\item Be able to clearly communicate through written texts what steps were taken in a research project using computational methods.
 	\end{enumerate}
+
+	\section{Study materials}
+	During this course, Python is the programming language that we will be working with. Hence, students should bring a laptop to each class, with a working Python environment installed.  
 	
-	\section{Help with practical matters}
-	While making your first steps with programming in Python, you will probably have a lot of questions. 
-	Nevertheless, \url{htttp://google.com} and \url{http://stackoverflow.com} should be your first points of contact. After all, that's how we solve our problems as well\ldots
+	In addition, a list of assigned readings is made available on the course Canvas page. All readings are available for download online using the UvA Digital Library or Google Scholar. If a reading is not available online, the material will be made available on the course Canvas page.
 	
+
 	
 	\chapter{Rules, assignments, and grading}
-	The final grade of this course will be composed of the grade of two mid-term take home exam ($2 \times 20$\%) and one individual project (60\%).
+	Assessment for this course is based on a mixture of individual and group assignments. 
 	
-	\section{Mid-term take-home exams ($2 \times 20$\%)}
-	In two mid-term take-home exam, students will show their understanding of the literature and prove they have gained new insights during the lectures and lab sessions. They will be asked to critically assess various approaches to Big Data analysis and make own suggestions for research.
-	
-	\section{Final individual project ($60\%$)}
-	The final individual project typically consists of the following elements:
+	\section{Overview of assessments}
+	The overall course grade is based on the following assignments:
 	\begin{itemize}
-		\item introduction including references to relevant (course) literature, an overarching research question plus subquestions and/or hypotheses (1–2 pages);
-		\item an overview of the analytic strategy, referring to relevant methods learned in this course;
-		\item carefully collected and relevant dataset of non-trivial size;
-		\item a set of scripts for collecting, preprocessing, and analyzing the data. The scripts should be well-documented and tailored to the specific needs of the own project;
-		\item output files;
-		\item a well-substantiated conclusion with an answer to the RQ and directions for future research.
+		\item Individual assignment: Regular multiple-choice questions (\(20\%\))
+		\item Group assignment: Coding challenge: report (\(20\%\))
+		\item Group assignment: Coding challenge: presentation (\(10\%\))
+		\item Group assignment: Take-home exam (\(50\%\))
 	\end{itemize}
+
 	
-	\section{Grading and 2\textsuperscript{nd} try}
-	Students have to get a pass (5.5 or higher) for both mid-term take-home exams and the individual project. If the grade of one of these is lower, an improved version can be handed in within one week after the grade is communicated to the student. If the improved version still is graded lower than 5.5, the course cannot be completed. Improved versions of the final individual project cannot be graded higher than 6.0. 
+	\section{Regular multiple-choice questions ($20\%$)}
+	\textcolor{red}{Describe assignment here.}
 	
+	\section{Coding challenge: report ($20\%$)}
+	\textcolor{red}{Describe assignment here.}
+	
+	\section{Coding challenge: presentation ($10\%$)}
+	\textcolor{red}{Describe assignment here.}
+	
+	\section{Take-home exam ($50\%$)}
+	\textcolor{red}{Describe assignment here.}
+
+	\section{Grading}
+	\textcolor{red}{Students have to get a pass (5.5 or higher) for each of the following: the average mc-questions grade, the average of the group report and presentation, and for the take-home exam. If the average grade of the mc-questions or the average grade of the group assignments is lower than 5.5, a resit assignment is given to the student(s) for which they have one week to complete it. If the grade of the take-home exam is lower than 5.5, an improved version can be handed in within one week after the grade is communicated to the student. If the improved version still is graded lower than 5.5, the course cannot be completed. Improved versions of the take-home exam cannot be graded higher than 6.0.} 
+	
+	\section{Deadlines and submitting assignments}
+	Please send all assignments and papers as a PDF file to ensure that it can be read and is displayed the same way on any device. Hardcopies are not required. Multiple files should be compressed and handed in as one .zip file or .tar.gz file. Anything exceeding a reasonable file size (approximately 5 MB) has to be send via \url{https://filesender.surf.nl/} instead of direct email. \\
+	
+	\textcolor{red}{Assignments that are not completed on time, will be not be graded and receive the grade 1. 
+		\begin{itemize}
+			\item For the group report and the take-home exam, this means that all required files need to be submitted before the deadline. 
+			\item For the mc-questions, this means that the questions can only be answered during class. If a student cannot answer mc-questions due to missing class... --> tja, wat gebeurt er dan?
+			\item The group presentation needs to held during the assigned class, meaning that slides or any other material used for the presentation needs to be present in class as well as at least one group member to give the presentation. 
+		\end{itemize}
+		Note that the deadline of an assignment is only met when the all files are submitted \emph{before} the deadline.}
+
+	\section{Plagiarism \& fraud}
+	Plagiarism is a serious academic violation. Cases in which students use material such as online sources or any other sources in their written work and present this material as their own original work without citation/referencing, and thus conduct plagiarism, will be reported to the Examencommissie of the Department of Communication Science without any further negotiation. If the committee comes to the conclusion that a student has indeed committed plagiarism the course cannot be completed. 
+
+	General UvA regulations about fraud and plagiarism apply.
+
 	\section{Presence and participation}
-	Attendance is compulsory. Missing more than three meetings – for whatever reason – means the course cannot be completed.
+	\textcolor{red}{(Virtual) attendance is compulsory. Maximum two meetings can be missed \emph{if} both instructors are informed of this beforehand. Missing more than two meetings – for whatever reason – means the course cannot be completed.} 
 	
-	Next to attending the meetings, students are also required to prepare the assigned literature and to continue working on the programming tasks after the lab sessions. To successfully finish the course, attending the lab sessions is not enough, but has to go hand-in-hand with continuos self-study.
+	As you will have noticed in Computational Communication Science 1 and/or similar courses on coding, developing your skills to work with computational methods requires you to practice regularly and to be proactive when it comes to solving problems in your code. Hence, students of Computational Communication Science 2 are expected to practice with and revise the materials discussed in class at home. By practicing at home regularly in between classes, you will get the most out of this course and you will acquire the skills that you need to continue developing your programming knowledge after you finished this course.
 	
 	\section{Staying informed}
-	It is your responsibility to check the means of communications used for this course (i.e., your email account, but – if applicable – also e-learning platforms or any other tool that the lecturer decides to use) on a regular basis, which in most cases means daily.
-	
-	\section{Plagiarism \& fraud}
-	Plagiarism is a serious academic violation. Cases in which students use material such as online sources or any other sources in their written work and present this material as their own original work without citation/referencing, and thus conduct plagiarism, will be reported to the Examencommissie of the Department of Communication without any further negotiation. If the committee comes to the conclusion that a student has indeed committed plagiarism the course cannot be completed. 
-	
-	General UvA regulations about fraud and plagiarism apply.
-	
-	\section{Deadlines and handing in}
-	Please send all assignments and papers as a PDF file to ensure that it can be read and is displayed the same way on any device. Hardcopies are not required. Multiple files should be compressed and handed in as one .zip file or .tar.gz file. Anything exceeding a reasonable file size (approximately 5 MB) has to be send via \url{https://filesender.surf.nl/} instead of direct email.
-	
-	Final papers and take-home exams that are not handed in on time, will be not be graded and receive the grade 1. This rule also applies for any other assignment that might be given. The deadline is only met when the all files are submitted.
+	It is your responsibility to check the means of communications used for this course (i.e., your email account, the course Canvas page, and the course Github page) on a regular basis, which in most cases means daily.
 	
 	
+
+	
+
 	
 	
+	\chapter{Course Schedule}
 	
-	\chapter{Schedule and Literature}
+	\input{CourseSchedule.tex}
 	
-%	\input{literature}
-	
-%	\input{schedule}
-	
-	\bibliographystyle{apacite}
-	\bibliography{../../bdaca}
-	
+%	\bibliographystyle{apacite}
+%	\bibliography{../literature.bib}
 	
 	
 	
