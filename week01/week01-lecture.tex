@@ -137,23 +137,22 @@
 \section{Introducing\ldots}
 \subsection{\ldots the people}
 
-\begin{frame} 
-	Introducing\ldots \\
-	~~~~~~~~\ldots the people
-\end{frame}
 
-
-\begin{frame}{Introducing\ldots} {\huge{Marte}} \small{} 
+\begin{frame}{Introducing\ldots} {\huge{Marthe}} \small{} 
 	
 	\begin{columns}
 		\column{.3\textwidth}
 		\makebox[\columnwidth]{
 			\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/marthe.jpg}}
 		\column{.7\textwidth}
-		dr. Marthe Möller \\
-		Assistant Professor
+		dr. A. Marthe Möller \\
+		Assistant Professor Entertainment Communication
 		\begin{itemize}
-			\item interested in... 
+			\item Studying entertainment experiences in the digital space using:
+			\begin{itemize}
+				\item Computational methods (e.g., ACA of user comments)
+				\item Experimental methods
+			\end{itemize}
 		\end{itemize}
 		@marthemoller \textbar A.M.Moller@uva.nl, \textbar \url{https://www.uva.nl/profiel/m/o/a.m.moller/a.m.moller.html} 
 	\end{columns}
@@ -166,7 +165,7 @@
 			%\item Studied Journalism and Communication,  2006 - 2013
 			%\item PhD candidate corporate communication at ASCoR (University of Amsterdam), 2014 - 2017
 			\item Research focus on biased AI in recruitment, and media bias regarding minorities
-			\item text analysis using automated approaches, word embeddings
+			\item Text analysis using automated approaches, word embeddings
 		\end{itemize} @annekroon \textbar a.c.kroon@uva.nl  \textbar \url{http://www.uva.nl/profiel/k/r/a.c.kroon/a.c.kroon.html} 
 	\end{columns} 
 \end{frame}
@@ -182,46 +181,114 @@
 		\column{.7\textwidth}
 		Your name?\\
 		Your background?\\
-		Your reason to follow this course?\\
+		Your reason for taking this course?\\
 		Do you have a dataset you are working on?
 	\end{columns}
 \end{frame}
 
-% example with a reference
 
-\section{An example with a reference}
-\begin{frame}{Why program your own tool?}
-	\begin{block}{\textcite{Vis2013}}
-		``{[}\ldots{]} these {[}commercial{]} tools are often unsuitable for academic purposes because of their cost, along with the problematic `black box' nature of many of these tools.''
-	\end{block}
-\end{frame}
+\section{Introducing\ldots}
+\subsection{\ldots the course}
 
-% This prints the bibliography on the slide
+\begin{frame}{About CCS-2} 
 
-
-\section{An example with some Python code\dots}
-
-\begin{frame}[fragile]{A simple bottom-up approach}
-\begin{lstlisting}
-from collections import Counter
-texts = ["I really really really love him, I do", "I hate him"]
-
-for t in texts:
-    print(Counter(t.split()).most_common(3))
-\end{lstlisting}
-
-\begin{lstlistingoutput}
-[('really', 3), ('I', 2), ('love', 1)]
-[('I', 1), ('hate', 1), ('him', 1)]
-\end{lstlistingoutput}
-\end{frame}
-
-
-
-\begin{frame}
-	\frametitle{References}
-	\printbibliography
-\end{frame}
+What is CCS-2?
+	\begin{itemize}
+		\item Next step after CCS-1 %we assume you know the basics!
+		\item How to use what you learned in CCS-1 for research?
+		\begin{itemize}
+			\item Learn computational techniques (e.g. data vectorization, machine learning)
+			\item Learn how to use these techniques for research (e.g., content analysis)
+		\end{itemize}
+		\item By the end of the course, you'll be prepared to do computational research in the Research Project
+	\end{itemize}
 	
+\end{frame}
+
+
+\begin{frame}{About CCS-2}
+	
+	\begin{center}
+		\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{../pictures/Roadmap.png} 
+	\end{center}
+	
+\end{frame}
+
+
+\begin{frame}{About CCS-2}
+	
+	\begin{center}
+		\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{../pictures/Roadmap_terms.png} 
+	\end{center}
+	
+\end{frame}
+
+
+\begin{frame}{About CCS-2} 
+
+How to master this course?	
+	\begin{itemize}
+		\item We discuss techniques in the lectures
+		\item We practice with techniques in the tutorials
+		\item Graded assignments to master the techniques:
+		\begin{itemize}
+			\item Regular multiple choice questions (\(20\%\)) about readings that use the techniques we discuss
+			\item Coding challenge (group assignment): Get more experienced with the techniques and build a recommender system
+			\begin{itemize}
+				\item Report (\(20\%\))
+				\item Presentation (\(10\%\))
+			\end{itemize}
+			\item Take-home exam (\(50\%\)) at the end of the course so you can show off what you learned
+		\end{itemize}
+		\item We provide structure through the meetings and assignments, you do the (home-)work
+	\end{itemize}
+	
+\end{frame}
+
+
+\begin{frame}{About CCS-2} 
+	
+	How to stay informed and where to find all the materials? Regularly check:	
+	\begin{itemize}
+		\item The course Canvas page
+		\item Your email
+		\item The course Github page
+	\end{itemize}
+
+	In addition, make sure that you read the course manual so that you know all the ins and outs of this course!
+
+\end{frame}
+
+
+\begin{frame}{About CCS-2} 
+	
+	How to contact Anne and Marthe?	
+	
+	\textcolor{red}{We kunnen hier eventueel iets over zeggen: mogen ze mailen, zijn er spreekuren etc.?}
+	
+\end{frame}
+
+\begin{frame}{Ready? Set? Go!} 
+	
+	Without further ado\dots
+	
+	\dots let's get started!
+	
+\end{frame}
+
+
+
+\section{Text as Data}
+
+\begin{frame}{Text as Data}
+	
+	\begin{center}
+		\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{../pictures/textvsvector.png} 
+	\end{center}
+	
+\end{frame}
+
+
+
 
 \end{document}
