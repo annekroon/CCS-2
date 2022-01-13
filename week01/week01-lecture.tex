@@ -134,11 +134,10 @@
 	~~~~~~~~\url{https://github.com/annekroon/CCS-2}
 \end{frame}
 
-\section{Introducing\ldots}
-\subsection{\ldots the people}
+\section{Introducing\ldots the people}
 
 
-\begin{frame}{Introducing\ldots} {\huge{Marthe}} \small{} 
+\begin{frame}{Introducing\ldots \huge{Marthe}} 
 	
 	\begin{columns}
 		\column{.3\textwidth}
@@ -154,11 +153,11 @@
 				\item Experimental methods
 			\end{itemize}
 		\end{itemize}
-		@marthemoller \textbar A.M.Moller@uva.nl, \textbar \url{https://www.uva.nl/profiel/m/o/a.m.moller/a.m.moller.html} 
+		@marthemoller \textbar A.M.Moller@uva.nl \textbar \url{https://www.uva.nl/profiel/m/o/a.m.moller/a.m.moller.html} 
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Introducing\ldots} {\huge{Anne}} \small{} 
+\begin{frame}{Introducing\ldots \huge{Anne}} 
 	\begin{columns}[] \column{.3\textwidth} \makebox[\columnwidth]{ \includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/anne.jpg}} \column{.7\textwidth} dr. Anne Kroon \\ 
 		Assistant Professor Corporate Communication
 		\begin{itemize} 
@@ -171,7 +170,7 @@
 \end{frame}
 
 
-\begin{frame}{Introducing\ldots}
+\begin{frame}{Introducing\ldots \huge{You}}
 	{\huge{You}}
 	\small{}
 	\begin{columns}
@@ -187,8 +186,8 @@
 \end{frame}
 
 
-\section{Introducing\ldots}
-\subsection{\ldots the course}
+\section{Introducing\ldots the course}
+
 
 \begin{frame}{About CCS-2} 
 
@@ -226,7 +225,7 @@ What is CCS-2?
 
 \begin{frame}{About CCS-2} 
 
-How to master this course?	
+What will we do in this course?	
 	\begin{itemize}
 		\item We discuss techniques in the lectures
 		\item We practice with techniques in the tutorials
@@ -244,6 +243,7 @@ How to master this course?
 	\end{itemize}
 	
 \end{frame}
+
 
 
 \begin{frame}{About CCS-2} 
@@ -280,14 +280,97 @@ How to master this course?
 
 \section{Text as Data}
 
+
 \begin{frame}{Text as Data}
 	
-	\begin{center}
-		\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{../pictures/textvsvector.png} 
-	\end{center}
+CCS-1: You learned how to...
+	\begin{itemize}
+	\item Work with Python, for example, you:
+	\begin{itemize}
+		\item Store text in json-files, csv-files etc.
+		\item Work with texts in Python
+	\end{itemize}
+\end{itemize}
 	
 \end{frame}
 
+\begin{frame}{Text as Data}
+	
+	Studying text can teach us a lot about human behavior: \\~
+	
+	What topics do people discuss on online cancer-related platforms? \\
+	\begin{tiny}
+		(\cite{sanders_different_2020}) \\
+	\end{tiny}
+
+	To what extent does content differ between online and print news? \\
+	\begin{tiny}
+	(\cite{burggraaff_through_2020}) \\
+	\end{tiny}
+
+	What topics do people discuss in their movie reviews? \\
+	\begin{tiny}
+	(\cite{schneider_what_2020}) \\
+	\end{tiny}	
+
+% Within communication science, text is often the subject of study
+	
+\end{frame}
+
+
+\begin{frame}{Text as Data}
+	
+	Studying text can give us information we can use to answer broader questions: \\~
+	
+	Analyze textual information about movies from IMDB to learn about the representation of women in movies \\
+	\begin{tiny}
+	(\cite{poma-murialdo_gender_2019}) \\
+	\end{tiny}
+
+	Automatically distinguish between reliable and unreliable online information about vaccines by investigating what characterizes reliable and unreliable texts \\
+	\begin{tiny}
+	(\cite{meppelink_reliable_2021}) \\
+	\end{tiny}	
+	
+	% Within communication science, text is often the subject of study
+	
+\end{frame}
+
+
+\begin{frame}{Text as Data}
+	
+	We can use data about text in combination with other methods: \\~
+	
+	Combining data about media content and survey data to investigate how media coverage affects citizens' trust in the EU \\
+	\begin{tiny}
+		(\cite{brosius_trust_2019}) \\
+	\end{tiny}
+	
+	
+	% Within communication science, text is often the subject of study
+	
+\end{frame}
+
+
+\section{Analyzing songtexts}
+
+\begin{frame}[fragile]{Analyzing songtexts}
+	
+	What did people sing about in traditional songs? 
+	\begin{lstlisting}
+
+		texts = ["Of all the money that e'er I had, I spent it in good company", "Down by the Sally Gardens, my lover and I did meet", "Speed, bonny boat, like a bird on the wing"]
+
+	\end{lstlisting}
+	
+	\begin{lstlistingoutput}
+		[('really', 3), ('I', 2), ('love', 1)]
+		[('I', 1), ('hate', 1), ('him', 1)]
+	\end{lstlistingoutput}
+\end{frame}
+
+
+%hier verder en met dit voorbeeld deze dingen bespreken: Working with strings, Text cleaning = stopword removal, punctioation and noise removal, and regexp
 
 
 
