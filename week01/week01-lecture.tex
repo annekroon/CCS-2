@@ -294,7 +294,7 @@ CCS-1: You learned how to...
 	
 \end{frame}
 
-\begin{frame}{Text as Data}
+\begin{frame}{Text as Data: \small{Learning from text directly}}
 	
 	Studying text can teach us a lot about human behavior: \\~
 	
@@ -318,7 +318,7 @@ CCS-1: You learned how to...
 \end{frame}
 
 
-\begin{frame}{Text as Data}
+\begin{frame}{Text as Data: \small{Analzing text as a means}}
 	
 	Studying text can give us information we can use to answer broader questions: \\~
 	
@@ -337,7 +337,7 @@ CCS-1: You learned how to...
 \end{frame}
 
 
-\begin{frame}{Text as Data}
+\begin{frame}{Text as Data: \small{Combining text analysis with other methods}}
 	
 	We can use data about text in combination with other methods: \\~
 	
@@ -354,21 +354,105 @@ CCS-1: You learned how to...
 
 \section{Analyzing songtexts}
 
-\begin{frame}[fragile]{Analyzing songtexts}
+\begin{frame}[fragile]{Molly Malone}
 	
-	What did people sing about in traditional songs? 
+	What is the song "Molly Malone" about? 
 	\begin{lstlisting}
 
-		texts = ["Of all the money that e'er I had, I spent it in good company", "Down by the Sally Gardens, my lover and I did meet", "Speed, bonny boat, like a bird on the wing"]
+		MollyMalone = "In Dublin's fair city where the girls are so pretty,
+		I first set my eyes on sweet Molly Malone." 
+		
+		print(MollyMalone)
 
 	\end{lstlisting}
 	
 	\begin{lstlistingoutput}
-		[('really', 3), ('I', 2), ('love', 1)]
-		[('I', 1), ('hate', 1), ('him', 1)]
+		In Dublin's fair city, where the girls are so pretty, I first set my eyes on sweet Molly Malone.
 	\end{lstlistingoutput}
 \end{frame}
 
+
+\begin{frame}[fragile]{Molly Malone}
+	
+	\begin{lstlisting}
+		
+		print(type(MollyMalone))
+		print(len(MollyMalone))
+		print(MollyMalone[0])
+		print(MollyMalone[-1:])
+		
+	\end{lstlisting}
+	
+	\begin{lstlistingoutput}
+		<class 'str'>
+		96
+		I
+		.
+	\end{lstlistingoutput}
+
+% You can see that this datatype is a string that has 96 characters, the first one being I and the last one being a period.
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Molly Malone}
+	
+	\begin{lstlisting}
+		
+		print(Counter(MollyMalone.split()).most_common(13))
+		
+	\end{lstlisting}
+	
+	\begin{lstlistingoutput}
+		[('In', 1), ("Dublin's", 1), ('fair', 1), ('city,', 1), ('where', 1), ('the', 1), ('girls', 1), ('are', 1), ('so', 1), ('pretty,', 1), ('I', 1), ('first', 1), ('set', 1)]
+	\end{lstlistingoutput}
+
+% let's create a list with the 13 most common words in this sentence. We can see that the most common words are also the most meaningless words, namely: stopwords. Let's clean up our data and remove the stopwords so that there are only meaningful words left!
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Molly Malone}
+	
+	\begin{lstlisting}
+		
+	stopwords = ['in', 'the', 'and', 'a','I', 'she', 'her', 'are']
+	nostopwords = ' '
+
+	for line in MollyMalone.split():
+		if line not in stopwords:
+			nostopwords=nostopwords+line+' '
+
+
+	print(nostopwords)
+		
+	\end{lstlisting}
+	
+	\begin{lstlistingoutput}
+	 In Dublin's fair city, where girls so pretty, first set my eyes on sweet Molly Malone. 
+	\end{lstlistingoutput}
+
+%The easiest way to do this is to create list with stopwords and then loop over our text and filter out the words in our text that are also in our stopwords-list.
+
+%Of course, it is a bit of a hassle if we need to make such a list ourselves all the time. But there are files available online that contain stopwords and we can also just load those files and use them!
+\end{frame}
+
+
+\begin{frame}[fragile]{Molly Malone}
+	
+	\begin{lstlisting}
+		
+		print(Counter(nostopwords.split()).most_common(13))
+		
+	\end{lstlisting}
+	
+	\begin{lstlistingoutput}
+		[('In', 1), ("Dublin's", 1), ('fair', 1), ('city,', 1), ('where', 1), ('the', 1), ('girls', 1), ('are', 1), ('so', 1), ('pretty,', 1), ('I', 1), ('first', 1), ('set', 1)]
+	\end{lstlistingoutput}
+	
+	% let's do it again! Now we see that words that are once spelled with a capital letter and once without are counted as seperate words. To solve this, we can make all the letters lower letters.
+	
+\end{frame}
 
 %hier verder en met dit voorbeeld deze dingen bespreken: Working with strings, Text cleaning = stopword removal, punctioation and noise removal, and regexp
 
