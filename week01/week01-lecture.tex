@@ -352,43 +352,47 @@ CCS-1: You learned how to...
 \end{frame}
 
 
-\section{Analyzing songtexts}
+\begin{frame}{Text as Data: NLP}
+	
+	"\textbf{Natural language processing (NLP)} refers to the branch of computer science — and more specifically, the branch of artificial intelligence or AI — concerned with giving computers the ability to understand text and spoken words in much the same way human beings can."  \\
+	\tiny{(IBM, 2020)}
+	
+	
+	% Within communication science, text is often the subject of study
+	
+\end{frame}
+
+
+
+
+
+\section{Analyzing songtexts: NLP}
 
 \begin{frame}[fragile]{Molly Malone}
 	
-	What is the song "Molly Malone" about? 
-	\begin{lstlisting}
-
-		MollyMalone = "In Dublin's fair city where the girls are so pretty,
-		I first set my eyes on sweet Molly Malone." 
-		
-		print(MollyMalone)
-
-	\end{lstlisting}
+\begin{lstlisting} 
+MollyMalone = "In Dublin's fair city, where the girls are so pretty, I first set my eyes on sweet Molly Malone. As she wheeled her wheelbarrow, Through streets broad and narrow Crying, Cockles and mussels, alive, alive, oh! Alive, alive, oh, Alive, alive, oh, Crying, Cockles and mussels, alive, alive, oh."  
+\end{lstlisting}
 	
-	\begin{lstlistingoutput}
-		In Dublin's fair city, where the girls are so pretty, I first set my eyes on sweet Molly Malone.
-	\end{lstlistingoutput}
+
 \end{frame}
 
 
 \begin{frame}[fragile]{Molly Malone}
 	
-	\begin{lstlisting}
-		
-		print(type(MollyMalone))
-		print(len(MollyMalone))
-		print(MollyMalone[0])
-		print(MollyMalone[-1:])
-		
-	\end{lstlisting}
+\begin{lstlisting}
+print(type(MollyMalone))
+print(len(MollyMalone))
+print(MollyMalone[0])
+print(MollyMalone[-1:])
+\end{lstlisting}
 	
-	\begin{lstlistingoutput}
-		<class 'str'>
-		96
-		I
-		.
-	\end{lstlistingoutput}
+\begin{lstlistingoutput}
+<class 'str'>
+96
+I
+.
+\end{lstlistingoutput}
 
 % You can see that this datatype is a string that has 96 characters, the first one being I and the last one being a period.
 \end{frame}
@@ -397,40 +401,35 @@ CCS-1: You learned how to...
 
 \begin{frame}[fragile]{Molly Malone}
 	
-	\begin{lstlisting}
-		
-		print(Counter(MollyMalone.split()).most_common(13))
-		
-	\end{lstlisting}
+\begin{lstlisting}		
+print(Counter(MollyMalone.split()).most_common(3))
+\end{lstlisting}
 	
-	\begin{lstlistingoutput}
-		[('In', 1), ("Dublin's", 1), ('fair', 1), ('city,', 1), ('where', 1), ('the', 1), ('girls', 1), ('are', 1), ('so', 1), ('pretty,', 1), ('I', 1), ('first', 1), ('set', 1)]
-	\end{lstlistingoutput}
+\begin{lstlistingoutput}
+[('alive,', 6), ('and', 3), ('Crying,', 2)]
+\end{lstlistingoutput}
 
-% let's create a list with the 13 most common words in this sentence. We can see that the most common words are also the most meaningless words, namely: stopwords. Let's clean up our data and remove the stopwords so that there are only meaningful words left!
+% let's create a list with the 3 most common words in this sentence. We can see a few problems arise: first, one of the most common words is also a pretty meaningless word: 'and'. Let's clean up our data and remove the stopwords so that there are only meaningful words left!
 \end{frame}
 
 
 
 \begin{frame}[fragile]{Molly Malone}
 	
-	\begin{lstlisting}
-		
-	stopwords = ['in', 'the', 'and', 'a','I', 'she', 'her', 'are']
-	nostopwords = ' '
+\begin{lstlisting}		
+stopwords = ['in', 'the', 'and', 'a','I', 'she', 'her', 'are', 'so', 'on', 'me', 'my', 'mine', 'oh']
+nostopwords = ' '
 
-	for line in MollyMalone.split():
-		if line not in stopwords:
-			nostopwords=nostopwords+line+' '
+for line in MollyMalone.split():
+	if line not in stopwords:
+		nostopwords=nostopwords+line+' '
 
-
-	print(nostopwords)
-		
-	\end{lstlisting}
+print(nostopwords)
+\end{lstlisting}
 	
-	\begin{lstlistingoutput}
-	 In Dublin's fair city, where girls so pretty, first set my eyes on sweet Molly Malone. 
-	\end{lstlistingoutput}
+\begin{lstlistingoutput}
+In Dublin's fair city, where girls pretty, first set eyes sweet Molly Malone. As wheeled wheelbarrow, Through streets broad narrow Crying, Cockles mussels, alive, alive, oh! Alive, alive, oh, Alive, alive, oh, Crying, Cockles mussels, alive, alive, oh. 
+\end{lstlistingoutput}
 
 %The easiest way to do this is to create list with stopwords and then loop over our text and filter out the words in our text that are also in our stopwords-list.
 
@@ -440,21 +439,204 @@ CCS-1: You learned how to...
 
 \begin{frame}[fragile]{Molly Malone}
 	
-	\begin{lstlisting}
-		
-		print(Counter(nostopwords.split()).most_common(13))
-		
+\begin{lstlisting}
+print(Counter(nostopwords.split()).most_common(3))
 	\end{lstlisting}
 	
-	\begin{lstlistingoutput}
-		[('In', 1), ("Dublin's", 1), ('fair', 1), ('city,', 1), ('where', 1), ('the', 1), ('girls', 1), ('are', 1), ('so', 1), ('pretty,', 1), ('I', 1), ('first', 1), ('set', 1)]
-	\end{lstlistingoutput}
+\begin{lstlistingoutput}
+[('alive,', 6), ('Crying,', 2), ('Cockles', 2)]
+\end{lstlistingoutput}
 	
-	% let's do it again! Now we see that words that are once spelled with a capital letter and once without are counted as seperate words. To solve this, we can make all the letters lower letters.
+	%Let's check again what words are the most used. We see that 'and' is no longer among them. However, there is another strange thing: the two most commonly used words are 'alive-comma', and 'Crying-comma'. 
+	
+	%Because of these comma's , the stopword 'oh' (that we did include in our stopword list) is not removed, because the computer only sees 'oh-comma'.
+	
+	% In a similar way that we removed the stopwords, let's remove punctuation from the text!
 	
 \end{frame}
 
-%hier verder en met dit voorbeeld deze dingen bespreken: Working with strings, Text cleaning = stopword removal, punctioation and noise removal, and regexp
+
+\begin{frame}[fragile]{Molly Malone}
+	
+\begin{lstlisting}
+nopunct=nostopwords.replace(",","").replace("!","").replace(".","")
+print(nopunct)
+\end{lstlisting}
+	
+\begin{lstlistingoutput}
+In Dublin's fair city where girls pretty first set eyes sweet Molly Malone. As wheeled wheelbarrow Through streets broad narrow Crying Cockles mussels alive alive oh Alive alive oh Alive alive oh Crying Cockles mussels alive alive oh
+\end{lstlistingoutput}
+	
+% Now you can see that the computer removed all the comma's, periods, and exclamation marks.
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{Molly Malone}
+	
+\begin{lstlisting}
+print(Counter(nopunct.split()).most_common(3))
+\end{lstlisting}
+	
+\begin{lstlistingoutput}
+[('alive', 6), ('oh', 4), ('Crying', 2)]
+\end{lstlistingoutput}
+	
+%Let's check the three most common words again. Oh is now the second most used word, because the computer now counts all the 'oh's' (before it considered oh, oh-comma and oh-period as three different words).
+
+%Let's remove the stopwords again so that the word 'oh' (that is now recognized) is removed.
+
+%However, one thing is still not quite correct. It says that the most common word is 'alive' and that this word occurs 6 times. But if we cound ourselves, we see that it is in fact used 8 times. However, sometimes it has a capital letter and sometimes it doesn't. Let's remove the capital letters.
+\end{frame}
+
+\begin{frame}[fragile]{Molly Malone}
+	
+\begin{lstlisting}
+nostopnopunct = ' '
+
+for line in nopunct.split():
+	if line not in stopwords:
+		nostopnopunct=nostopnopunct+line+' '
+
+print(nostopnopunct)
+\end{lstlisting}
+	
+\begin{lstlistingoutput}
+In Dublin's fair city where girls pretty first set eyes sweet Molly Malone As wheeled wheelbarrow Through streets broad narrow Crying Cockles mussels alive alive Alive alive Alive alive Crying Cockles mussels alive alive
+\end{lstlistingoutput}
+	
+%However, one thing is still not quite correct. It says that the most common word is 'alive' and that this word occurs 6 times. But if we cound ourselves, we see that it is in fact used 8 times. However, sometimes it has a capital letter and sometimes it doesn't. Let's remove the capital letters.
+\end{frame}
+
+\begin{frame}[fragile]{Molly Malone}
+\begin{lstlisting}
+lowercase = nostopnopunct.lower()
+
+print(lowercase)
+\end{lstlisting}
+
+\begin{lstlistingoutput}
+in dublin's fair city where girls pretty first set eyes sweet molly malone as wheeled wheelbarrow through streets broad narrow crying cockles mussels alive alive alive alive alive alive crying cockles mussels alive alive
+\end{lstlistingoutput}
+
+%The lower-function allows us to do this.
+\end{frame}
+
+
+\begin{frame}[fragile]{Molly Malone}
+\begin{lstlisting}
+print(Counter(lowercase.split()).most_common(3))
+\end{lstlisting}
+
+\begin{lstlistingoutput}
+[('alive,', 8), ('crying', 2), ('cockles', 2)]
+\end{lstlistingoutput}
+
+%Now, we see that the computer correctly counted all 8 times the word 'alive' was used.
+
+\end{frame}
+
+
+\section{Analyzing songtexts: RegEx}
+
+\begin{frame}[fragile]{RegEx}
+	
+	"A \textit{regular expression} or \textit{regex} is a powerful language to locate strings that conform to a given pattern. [...] Specifically, regular expressions are a sequence of characters that we can use to design a pattern and then use this pattern to \textit{find} strings (identify or extract) and also \textit{replace} those strings by new ones." \\
+	\begin{tiny}
+		\cite{van_atteveldt_computational_2022} 
+	\end{tiny}
+	
+
+\end{frame}
+
+
+\begin{frame}[fragile]{RegEx}
+
+\begin{lstlisting}
+for word in MollyMalone_words:
+	if re.search("[Aa]live", word):
+		print(word)
+\end{lstlisting}
+	
+\begin{lstlistingoutput}
+		alive
+		alive
+		Alive
+		alive
+		Alive
+		alive
+		alive
+		alive
+\end{lstlistingoutput}
+	
+	%For example, instead of first making everything in Molly Malone's lyrics lowercase, we could also use regular expressions to find the word "alive" (with and without capital).
+	
+\end{frame}
+
+
+
+\begin{frame}[fragile]{RegEx}
+
+\lstinline{m[oa]lly} matches molly, but also mally \\
+\lstinline{m.lly} matches molly, but also mally, or melly, or milly...
+
+	
+	%RegEx has some wildcards. 
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{Quantifiers}
+	
+\lstinline{mol+y} matches moly, molly, mollly, molllly...  \\
+\lstinline{[mM]ol+y} matches moly, molly, and mollly, but also Moly, Molly, Mollly, Molllly... 
+	
+	
+	%You can also specify how often you want a character to occur.
+
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{Quantifiers}
+	
+	<b>Molly Malone</b> \\
+	\lstinline{<.*>} is greedy and will select everything   \\
+	\lstinline{<.*?>} is non-greedy and will match <b> and </b>
+
+	
+	
+	%Note that by default, quantifiers are greedy, meaning that they will match as many characters as possible.
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{Groups}
+	
+	\lstinline{That was (not)? the end of sweet Molly Malone} \\ 
+	will select both:   \\
+	That was the end of sweet Molly Malone and That was not the end of sweet Molly Malone
+		
+	%You can use brackets to create groups.
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{Character classes}
+	
+	
+	The Dublin Millennium Commission proclaimed 13 June to be "Molly Malone Day"
+	\lstinline{[1-9]+.[A-Z][a-z]+} \\ 
+	will select 13 June
+
+	
+	%With character classes, you can specify a number of different characters that you want to match. You can use - to indicate a range.
+	
+\end{frame}
+
+
+% more examples of regular expressions
+%practice using: https://regexr.com/6dhpi --> find all the dates mentioned in the text
 
 
 
