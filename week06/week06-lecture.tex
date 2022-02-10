@@ -1,0 +1,209 @@
+% !TeX document-id = {a90a2b0a-e08e-44ed-850a-35793bedbf3a}
+% !TeX TS-program = xelatex
+
+% !BIB program = biber
+%\documentclass[handout]{beamer}
+\documentclass[compress]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage{pifont}
+\usetheme[block=fill,subsectionpage=progressbar,sectionpage=progressbar]{metropolis} 
+
+
+\definecolor{Purple}{HTML}{911146}
+\definecolor{Orange}{HTML}{CF4A30}
+
+% Theme colors are derived from these two elements
+\setbeamercolor{alerted text}{fg=Orange}
+
+% ... however you can of course override styles of all elements
+\setbeamercolor{frametitle}{bg=Purple}
+
+
+\usepackage{wasysym}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+
+\usepackage{threeparttable}
+\usepackage{subcaption}
+
+\usepackage{tikz-qtree}
+\setbeamercovered{still covered={\opaqueness<1->{5}},again covered={\opaqueness<1->{100}}}
+
+
+\usepackage{listings}
+
+\lstset{
+	basicstyle=\scriptsize\ttfamily,
+	columns=flexible,
+	breaklines=true,
+	numbers=left,
+	%stepsize=1,
+	numberstyle=\tiny,
+	backgroundcolor=\color[rgb]{0.85,0.90,1}
+}
+
+
+
+\lstnewenvironment{lstlistingoutput}{\lstset{basicstyle=\footnotesize\ttfamily,
+		columns=flexible,
+		breaklines=true,
+		numbers=left,
+		%stepsize=1,
+		numberstyle=\tiny,
+		backgroundcolor=\color[rgb]{.7,.7,.7}}}{}
+
+
+\lstnewenvironment{lstlistingoutputtiny}{\lstset{basicstyle=\tiny\ttfamily,
+		columns=flexible,
+		breaklines=true,
+		numbers=left,
+		%stepsize=1,
+		numberstyle=\tiny,
+		backgroundcolor=\color[rgb]{.7,.7,.7}}}{}
+
+
+\usepackage[american]{babel}
+\usepackage{csquotes}
+\usepackage[style=apa, backend = biber]{biblatex}
+\DeclareLanguageMapping{american}{american-UoN}
+\addbibresource{../literature.bib}
+\renewcommand*{\bibfont}{\tiny}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,matrix}
+\usepackage{multicol}
+
+\usepackage{subcaption}
+
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+\graphicspath{{../pictures/}}
+
+\makeatletter
+\setbeamertemplate{headline}{%
+	\begin{beamercolorbox}[colsep=1.5pt]{upper separation line head}
+	\end{beamercolorbox}
+	\begin{beamercolorbox}{section in head/foot}
+		\vskip2pt\insertnavigation{\paperwidth}\vskip2pt
+	\end{beamercolorbox}%
+	\begin{beamercolorbox}[colsep=1.5pt]{lower separation line head}
+	\end{beamercolorbox}
+}
+\makeatother
+
+
+
+\setbeamercolor{section in head/foot}{fg=normal text.bg, bg=structure.fg}
+
+
+
+\newcommand{\question}[1]{
+	\begin{frame}[plain]
+		\begin{columns}
+			\column{.3\textwidth}
+			\makebox[\columnwidth]{
+				\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/mannetje.png}}
+			\column{.7\textwidth}
+			\large
+			\textcolor{orange}{\textbf{\emph{#1}}}
+		\end{columns}
+\end{frame}}
+
+\newcommand{\instruction}[1]{\emph{\textcolor{gray}{[#1]}}}
+
+
+\title[Computational Communication Science 2]{\textbf{Computational Communication Science 2} \\Week 6 - Lecture\\ »Recommender systems«}
+\author[Marthe Möller, Anne Kroon]{Marthe Möller \\ Anne Kroon \\ ~ \\ \footnotesize{A.M.Moller@uva.nl, @MartheMoller \\a.c.kroon@uva.nl, @annekroon} \\}
+\date{April, 2022}
+\institute[Digital Society Minor, University of Amsterdam]{Digital Society Minor, University of Amsterdam}
+
+
+\begin{document}
+	
+	\begin{frame}{}
+		\titlepage
+	\end{frame}
+	
+	\begin{frame}{Today}
+		\tableofcontents
+	\end{frame}
+
+\section{recommender systems}
+
+\begin{frame}
+	\makebox[\linewidth]{
+		\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/social_media.jpeg}}
+\end{frame}
+
+% recommender systems are everywhere around us.
+
+\begin{frame}{Recommender Systems} 
+	\begin{block}{How do recommender systems learn?}
+		\begin{enumerate}
+			\item<2-> \alert{Explicit user preferences}.  e.g., ratings or responses 
+			\item<3-> \alert{Implicit user preferences}.  e.g., clicks or viewing time
+			\item<3-> \alert{Content}. e.g., based on text similarity techniques
+		\end{enumerate}
+	\end{block}
+\end{frame}
+
+\begin{frame}{Recommender Systems} 
+	\begin{block}{Two central problems within Recommender Systems}
+		\begin{enumerate}
+			\item<2-> \alert{Predicting problem}. Typical problem involves a lot of missing data (e.g., user only rated a small subset of movies/ news articles/ etc.) How can we deal with missing data? 
+			\item<3-> \alert{Ranking problem}.  Given \textit{n} items, can we identify the top \textit{k} items to recommend?
+		\end{enumerate}
+	\end{block}
+\only<4->{These problems are not isolated; rather, they are connected. }
+\end{frame}
+
+\begin{frame}{Recommender Systems} 
+	\begin{block}{Types of recommender systems  \parencite{Wieland2021, Locherbach2018, Moller2018}}
+\begin{enumerate}
+	\item 'Basic' knowledge-base recommender systems
+	\item Content-based recommender systems
+	\item Collaborative  recommenders 
+\end{enumerate}
+	\end{block}
+\end{frame}
+
+\section{Knowledge-based recommender system}
+\begin{frame}{Knowledge-based recommender system} 
+	\begin{block}{When to use?}
+		\begin{itemize}
+			
+			\item<2-> To overcome the \textbf{cold start problem}; when we do not have ratings of individual users. 
+			\item<3-> Typical use case: Real-estate. Buying a house is, for most families, a rare/ single event. 
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+% This prints the bibliography on the slide
+
+
+\section{An example with some Python code\dots}
+
+\begin{frame}[fragile]{A simple bottom-up approach}
+\begin{lstlisting}
+from collections import Counter
+texts = ["I really really really love him, I do", "I hate him"]
+
+for t in texts:
+    print(Counter(t.split()).most_common(3))
+\end{lstlisting}
+
+\begin{lstlistingoutput}
+[('really', 3), ('I', 2), ('love', 1)]
+[('I', 1), ('hate', 1), ('him', 1)]
+\end{lstlistingoutput}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{References}
+	\printbibliography
+\end{frame}
+	
+
+\end{document}
