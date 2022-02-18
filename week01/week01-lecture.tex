@@ -375,6 +375,8 @@ MollyMalone = "In Dublin's fair city, where the girls are so pretty, I first set
 \end{lstlisting}
 	
 
+% Let's start with a simple example to get an understanding of what can be done when analyzing texts. For this example, we take part of the song text of the traditional song "Molly Malone"
+
 \end{frame}
 
 
@@ -399,124 +401,227 @@ I
 
 
 
-\begin{frame}[fragile]{Molly Malone}
+\begin{frame}[fragile]{NLTK}
 	
-\begin{lstlisting}		
-print(Counter(MollyMalone.split()).most_common(3))
-\end{lstlisting}
-	
-\begin{lstlistingoutput}
-[('alive,', 6), ('and', 3), ('Crying,', 2)]
-\end{lstlistingoutput}
+%What if we wanted to learn more about this song. Say, we want to know what words are used most in this text.
+%We can use the NLTK package to help us with this.
+%For example, it can help us with tokenaization which we need to look at the individual words of the text.
 
-% let's create a list with the 3 most common words in this sentence. We can see a few problems arise: first, one of the most common words is also a pretty meaningless word: 'and'. Let's clean up our data and remove the stopwords so that there are only meaningful words left!
+NLTK: Natural Language Toolkit (www.nltk.org) \\
+
+Tokenization: The process of breaking text (sentences, paragraphs, chapters, etc.) into smaller parts (individual sentences, words, etc.)
+
+
 \end{frame}
 
 
 
-\begin{frame}[fragile]{Molly Malone}
+\begin{frame}[fragile]{Tokenization}
+	
+\begin{lstlisting}		
+MM_words = word_tokenize(MollyMalone)
+
+print(MM_words)
+\end{lstlisting}
+	
+\begin{lstlistingoutput}
+['In', 'Dublin', "'s", 'fair', 'city', ',', 'where', 'the', 'girls', 'are', 'so', 'pretty', ',', 'I', 'first', 'set', 'my', 'eyes', 'on', 'sweet', 'Molly', 'Malone', '.', 'As', 'she', 'wheeled', 'her', 'wheelbarrow', ',', 'Through', 'streets', 'broad', 'and', 'narrow', 'Crying', ',', 'Cockles', 'and', 'mussels', ',', 'alive', ',', 'alive', ',', 'oh', '!', 'Alive', ',', 'alive', ',', 'oh', ',', 'Alive', ',', 'alive', ',', 'oh', ',', 'Crying', ',', 'Cockles', 'and', 'mussels', ',', 'alive', ',', 'alive', ',', 'oh', '.']
+\end{lstlistingoutput}
+
+% let's create a list with the 3 most common words in this sentence. We can see a few problems arise: first, one of the most common words is also a pretty meaningless word: 'and'. Let's clean up our data and remove the stopwords so that there are only meaningful words left!
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Tokenization}
+	
+	\begin{lstlisting}		
+		print(Counter(MM_words).most_common(3))
+	\end{lstlisting}
+	
+	\begin{lstlistingoutput}
+		[(',', 17), ('alive', 6), ('oh', 4)]
+	\end{lstlistingoutput}
+	
+	% let's create a list with the 3 most common words in this sentence. We can see a few problems arise: first, one of the most common words is also a pretty meaningless word: 'oh'. Let's clean up our data and remove the stopwords so that there are only meaningful words left!
+	
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{Removing Stopwords}
 	
 \begin{lstlisting}		
 stopwords = ['in', 'the', 'and', 'a','I', 'she', 'her', 'are', 'so', 'on', 'me', 'my', 'mine', 'oh']
-nostopwords = ' '
+nostopwords = []
 
-for line in MollyMalone.split():
-	if line not in stopwords:
-		nostopwords=nostopwords+line+' '
+for word in MM_words:
+	if word not in stopwords:
+		nostopwords.append(word)
+
 
 print(nostopwords)
 \end{lstlisting}
 	
 \begin{lstlistingoutput}
-In Dublin's fair city, where girls pretty, first set eyes sweet Molly Malone. As wheeled wheelbarrow, Through streets broad narrow Crying, Cockles mussels, alive, alive, oh! Alive, alive, oh, Alive, alive, oh, Crying, Cockles mussels, alive, alive, oh. 
+['In', 'Dublin', "'s", 'fair', 'city', ',', 'where', 'girls', 'pretty', ',', 'first', 'set', 'eyes', 'sweet', 'Molly', 'Malone', '.', 'As', 'wheeled', 'wheelbarrow', ',', 'Through', 'streets', 'broad', 'narrow', 'Crying', ',', 'Cockles', 'mussels', ',', 'alive', ',', 'alive', ',', '!', 'Alive', ',', 'alive', ',', ',', 'Alive', ',', 'alive', ',', ',', 'Crying', ',', 'Cockles', 'mussels', ',', 'alive', ',', 'alive', ',', '.'] 
 \end{lstlistingoutput}
 
 %The easiest way to do this is to create list with stopwords and then loop over our text and filter out the words in our text that are also in our stopwords-list.
 
-%Of course, it is a bit of a hassle if we need to make such a list ourselves all the time. But there are files available online that contain stopwords and we can also just load those files and use them!
+%Of course, it is a bit of a hassle if we need to make such a list ourselves all the time. But there are files available online that contain stopwords and we can also just load those files and use them! --> The NLTK package has such a list.
 \end{frame}
+
+
+\begin{frame}[fragile]{Removing Stopwords}
+	
+	\begin{lstlisting}		
+print(Counter(nostopwords).most_common(3))
+	\end{lstlisting}
+	
+	\begin{lstlistingoutput}
+
+[(',', 17), ('alive', 6), ('.', 2)]
+	\end{lstlistingoutput}
+	
+	%The easiest way to do this is to create list with stopwords and then loop over our text and filter out the words in our text that are also in our stopwords-list.
+	
+	%Of course, it is a bit of a hassle if we need to make such a list ourselves all the time. But there are files available online that contain stopwords and we can also just load those files and use them! --> The NLTK package has such a list.
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Removing Stopwords}
+	
+	\begin{lstlisting}		
+		from nltk.corpus import stopwords
+		
+		print(len(stop_words))
+	\end{lstlisting}
+	
+	\begin{lstlistingoutput}
+		179
+	\end{lstlistingoutput}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Removing Stopwords}
+	
+	\begin{lstlisting}		
+nostopwords = []
+
+for word in MM_words:
+	if word not in stop_words:
+		nostopwords.append(word)
+
+
+print(nostopwords)
+	\end{lstlisting}
+	
+	\begin{lstlistingoutput}
+['In', 'Dublin', "'s", 'fair', 'city', ',', 'girls', 'pretty', ',', 'I', 'first', 'set', 'eyes', 'sweet', 'Molly', 'Malone', '.', 'As', 'wheeled', 'wheelbarrow', ',', 'Through', 'streets', 'broad', 'narrow', 'Crying', ',', 'Cockles', 'mussels', ',', 'alive', ',', 'alive', ',', 'oh', '!', 'Alive', ',', 'alive', ',', 'oh', ',', 'Alive', ',', 'alive', ',', 'oh', ',', 'Crying', ',', 'Cockles', 'mussels', ',', 'alive', ',', 'alive', ',', 'oh', '.']
+	\end{lstlistingoutput}
+	
+\end{frame}
+
 
 
 \begin{frame}[fragile]{Molly Malone}
 	
 \begin{lstlisting}
-print(Counter(nostopwords.split()).most_common(3))
+print(Counter(nostopwords).most_common(3))
 	\end{lstlisting}
 	
 \begin{lstlistingoutput}
-[('alive,', 6), ('Crying,', 2), ('Cockles', 2)]
+[(',', 17), ('alive', 6), ('oh', 4)]
 \end{lstlistingoutput}
 	
-	%Let's check again what words are the most used. We see that 'and' is no longer among them. However, there is another strange thing: the two most commonly used words are 'alive-comma', and 'Crying-comma'. 
-	
-	%Because of these comma's , the stopword 'oh' (that we did include in our stopword list) is not removed, because the computer only sees 'oh-comma'.
+ %As you can see, in the ready-made stopword list, 'oh' was not included in a stopwords and it is therefore still there. In this case, we can add this as a stopword to the NLTK list to customize it for our research.
+ 
+ %But still we see that the most commonly used "word" is the comma. But this is not a word!
 	
 	% In a similar way that we removed the stopwords, let's remove punctuation from the text!
 	
 \end{frame}
 
 
+
 \begin{frame}[fragile]{Molly Malone}
 	
-\begin{lstlisting}
-nopunct=nostopwords.replace(",","").replace("!","").replace(".","")
-print(nopunct)
-\end{lstlisting}
+	\begin{lstlisting}
+import string
+punct = list(string.punctuation)
+print(punct[:5])
+	\end{lstlisting}
 	
-\begin{lstlistingoutput}
-In Dublin's fair city where girls pretty first set eyes sweet Molly Malone. As wheeled wheelbarrow Through streets broad narrow Crying Cockles mussels alive alive oh Alive alive oh Alive alive oh Crying Cockles mussels alive alive oh
-\end{lstlistingoutput}
+	\begin{lstlistingoutput}
+		['!', '"', '#', '$', '%']
+	\end{lstlistingoutput}
 	
-% Now you can see that the computer removed all the comma's, periods, and exclamation marks.
+	% Again, we can use a ready made collection of punctuation marks for this. 
+
 	
 \end{frame}
 
 
-\begin{frame}[fragile]{Molly Malone}
-	
-\begin{lstlisting}
-print(Counter(nopunct.split()).most_common(3))
-\end{lstlisting}
-	
-\begin{lstlistingoutput}
-[('alive', 6), ('oh', 4), ('Crying', 2)]
-\end{lstlistingoutput}
-	
-%Let's check the three most common words again. Oh is now the second most used word, because the computer now counts all the 'oh's' (before it considered oh, oh-comma and oh-period as three different words).
-
-%Let's remove the stopwords again so that the word 'oh' (that is now recognized) is removed.
-
-%However, one thing is still not quite correct. It says that the most common word is 'alive' and that this word occurs 6 times. But if we cound ourselves, we see that it is in fact used 8 times. However, sometimes it has a capital letter and sometimes it doesn't. Let's remove the capital letters.
-\end{frame}
 
 \begin{frame}[fragile]{Molly Malone}
 	
-\begin{lstlisting}
-nostopnopunct = ' '
+	\begin{lstlisting}
+nostopnopunct = []
 
-for line in nopunct.split():
-	if line not in stopwords:
-		nostopnopunct=nostopnopunct+line+' '
+for word in nostopwords:
+if word not in punct:
+nostopnopunct.append(word)
+
 
 print(nostopnopunct)
+	\end{lstlisting}
+	
+	\begin{lstlistingoutput}
+['In', 'Dublin', "'s", 'fair', 'city', 'where', 'girls', 'pretty', 'first', 'set', 'eyes', 'sweet', 'Molly', 'Malone', 'As', 'wheeled', 'wheelbarrow', 'Through', 'streets', 'broad', 'narrow', 'Crying', 'Cockles', 'mussels', 'alive', 'alive', 'Alive', 'alive', 'Alive', 'alive', 'Crying', 'Cockles', 'mussels', 'alive', 'alive']
+	\end{lstlistingoutput}
+	
+
+	%Now you can see that the computer removed all the comma's, periods, and exclamation marks.
+	
+\end{frame}
+
+
+
+
+
+\begin{frame}[fragile]{Molly Malone}
+	
+\begin{lstlisting}
+print(Counter(nostopnopunct).most_common(3))
 \end{lstlisting}
 	
 \begin{lstlistingoutput}
-In Dublin's fair city where girls pretty first set eyes sweet Molly Malone As wheeled wheelbarrow Through streets broad narrow Crying Cockles mussels alive alive Alive alive Alive alive Crying Cockles mussels alive alive
+[('alive', 6), ('Crying', 2), ('Cockles', 2)]
 \end{lstlistingoutput}
 	
+
 %However, one thing is still not quite correct. It says that the most common word is 'alive' and that this word occurs 6 times. But if we cound ourselves, we see that it is in fact used 8 times. However, sometimes it has a capital letter and sometimes it doesn't. Let's remove the capital letters.
 \end{frame}
 
+
+
 \begin{frame}[fragile]{Molly Malone}
 \begin{lstlisting}
-lowercase = nostopnopunct.lower()
+lower = []
 
-print(lowercase)
+for word in nostopnopunct:
+lower.append(word.lower())
+
+print(lower)
 \end{lstlisting}
 
 \begin{lstlistingoutput}
-in dublin's fair city where girls pretty first set eyes sweet molly malone as wheeled wheelbarrow through streets broad narrow crying cockles mussels alive alive alive alive alive alive crying cockles mussels alive alive
+['in', 'dublin', "'s", 'fair', 'city', 'where', 'girls', 'pretty', 'first', 'set', 'eyes', 'sweet', 'molly', 'malone', 'as', 'wheeled', 'wheelbarrow', 'through', 'streets', 'broad', 'narrow', 'crying', 'cockles', 'mussels', 'alive', 'alive', 'alive', 'alive', 'alive', 'alive', 'crying', 'cockles', 'mussels', 'alive', 'alive']
 \end{lstlistingoutput}
 
 %The lower-function allows us to do this.
@@ -525,7 +630,7 @@ in dublin's fair city where girls pretty first set eyes sweet molly malone as wh
 
 \begin{frame}[fragile]{Molly Malone}
 \begin{lstlisting}
-print(Counter(lowercase.split()).most_common(3))
+print(Counter(lower).most_common(3))
 \end{lstlisting}
 
 \begin{lstlistingoutput}
@@ -538,6 +643,13 @@ print(Counter(lowercase.split()).most_common(3))
 
 
 \section{Analyzing songtexts: RegEx}
+
+
+\begin{frame}{Note}
+	
+	Hier moet ook nog iets over search vs findall etc.
+
+\end{frame}
 
 \begin{frame}[fragile]{RegEx}
 	
@@ -632,12 +744,27 @@ for word in MollyMalone_words:
 	
 	%With character classes, you can specify a number of different characters that you want to match. You can use - to indicate a range.
 	
-\end{frame}
-
-
 % more examples of regular expressions
 %practice using: https://regexr.com/6dhpi --> find all the dates mentioned in the text
 
+\end{frame}
+
+
+\begin{frame}{Note}
+	
+	En ook iets met stemming en lemming --> dus dan combineer je NLTK met Regex; wheeled wheelbarrow
+
+\end{frame}
+
+
+\begin{frame}{note}
+	
+	En dan eindigen met: terug naar onderzoek, wat kun je hier nu precies mee?
+	En dan noem je de Twitter-artikelen als voorbeeld, zodat er weer terugkoppeling is van pietje-precieze code dingen naar onderzoek
+	
+	+ schietgebedje dat het niet allemaal veeeeel te veel is :) 
+	
+\end{frame}
 
 
 \end{document}
