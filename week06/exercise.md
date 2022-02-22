@@ -9,7 +9,6 @@ Place the files a `data/` folder.
 
 ## 1. Explore and preprocess the data.
 
-----
 
 ### a.  Explore the data
 
@@ -55,8 +54,6 @@ data['genres'] = data['genres'].apply(get_genres)
 
 ## 2.   Create a knowledge-based recommender system
 
-----
-
 ### a. Transform the data from wide to long
 
 In order to create a knowledge-based recommender system, that leverages information on genre, we need to transform our data so that each genre is a single observation. Hence, we want a single genre in the rows. We will therefore transform the data from a wide to a long format:
@@ -97,11 +94,8 @@ def knowledge_based_recommender(data):
 
 We can further improve this algorithm by accounting for the fact that some movies have not been frequently rated. See for an improved scoring algorithm that is typically employed by IMDB [here](https://www.datacamp.com/community/tutorials/recommender-systems-python)
 
-----
 
 ## 3. Create a content-based recommender system
-
----
 
 Use the "wide" dataset (hence, before exploding the data to a long format, at step 1b).
 
