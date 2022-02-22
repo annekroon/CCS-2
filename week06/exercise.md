@@ -8,7 +8,8 @@ Download the following datasets [here](https://www.kaggle.com/tmdb/tmdb-movie-me
 Place the files a `data/` folder.
 
 ## 1. Explore and preprocess the data.
---
+
+----
 
 ### a.  Explore the data
 
@@ -53,7 +54,8 @@ data['genres'] = data['genres'].apply(get_genres)
 ```
 
 ## 2.   Create a knowledge-based recommender system
---
+
+----
 
 ### a. Transform the data from wide to long
 
@@ -98,7 +100,8 @@ We can further improve this algorithm by accounting for the fact that some movie
 ----
 
 ## 3. Create a content-based recommender system
---
+
+---
 
 Use the "wide" dataset (hence, before exploding the data to a long format, at step 1b).
 
