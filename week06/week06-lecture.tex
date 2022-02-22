@@ -1,5 +1,6 @@
 % !TeX document-id = {a90a2b0a-e08e-44ed-850a-35793bedbf3a}
-% !TeX TS-program = xelatex
+
+% !TeX TS-program = PdfLateX
 
 % !BIB program = biber
 %\documentclass[handout]{beamer}
@@ -8,6 +9,7 @@
 \usepackage{pifont}
 \usetheme[block=fill,subsectionpage=progressbar,sectionpage=progressbar]{metropolis} 
 
+\usepackage{minted}
 
 \usepackage{hyperref}
 \hypersetup{ %
@@ -140,7 +142,7 @@
 		\tableofcontents
 	\end{frame}
 
-\section{Recommender systems}
+\section{Recommender Systems}
 
 %nowadays, recommender systems are everywhere.
 %Recommender systems have been around for several years now, but many people don't realize the extent to which they are ingrained into the experiences we have with technology.
@@ -155,7 +157,6 @@
 
 % recommender systems are everywhere around us.
 
-
 \begin{frame}{Recommender Systems in Communication Science} 
 	\begin{block}{New research questions}
 		\begin{enumerate}
@@ -165,7 +166,6 @@
 			\item<5--> \alert{Entertainment communication}. E.g., movie recommenders
 				\end{enumerate}
 	\end{block}
-
 \end{frame}
 
 \begin{frame}{Recommender Systems} 
@@ -198,7 +198,7 @@
 	\end{block}{\tiny }
 \end{frame}
 
-\section{Knowledge-based recommender system}
+\section{Knowledge-based RecSys}
 \begin{frame}{Knowledge-based recommender system} 
 	\begin{block}{When to use?}
 		\begin{itemize}
@@ -226,17 +226,18 @@
 \question{What are relevant variables to use in a knowledge-based recommender system?}
 
 \begin{frame}[fragile]{Knowledge-based recommender system}
-How can we work with user input without a front-end (such as the website of funda? ) 
+How can we work with user input without a front-end (such as the website of funda? 
 \pause
 \\
 $\rightarrow$ enter python's native \alert{input()} function.
 \pause
 \\
-\begin{lstlisting}
+\begin{minted}{python}
 print("What is your favorite movie genre?")
 genre = input()
-\end{lstlisting}
-	
+\end{minted}
+\pause
+\\
 \begin{lstlistingoutput}
 what is your favorite movie genre?
 [...]
@@ -256,29 +257,41 @@ what is your favorite movie genre?
 \end{block}
 
 \pause
-\begin{lstlisting}
+\begin{minted}
 recommend_movies = movies.sort_values('vote_average', ascending=False)
-\end{lstlisting}
+\end{minted}
 \end{frame}
 
 
-\section{Content-based recommender systems}
+\section{Content-based RecSys}
 
 \begin{frame}
 \begin{block}{Content-based systems}
 	\begin{itemize}
-		\item Recommends items based on user's profiles. 
-		\item Profiles are based on e.g., ratings, and represents user's tasts/ preferences. 
+		\item <1-> Recommends items based on user's profiles. 
+		\item <2-> Profiles are based on e.g., ratings, and represents user's tasts/ preferences. 
 		\begin{itemize}
-			\item For example, how often a user has clicked on, or liked, a movie. 
+			\item <3-> For example, how often a user has clicked on, or liked, a movie. 
 		\end{itemize}
-		\item Recommendation is based on \alert{similarity} beween items in the content.
+		\item <4-> Recommendation is based on \alert{similarity} beween items in the content.
 		\begin{itemize}
-			\item Content is here: e.g., genre, tags, plot, authors, directors, location, etc. 
+			\item <5-> Content is here: e.g., genre, tags, plot, authors, directors, location, etc. 
 		\end{itemize}
 	\end{itemize}
 \end{block}
 \end{frame}
+
+\begin{frame}{Example of a content-based recsys}
+	\makebox[\linewidth]{
+		\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/harry1.png}}
+\end{frame}
+
+\begin{frame}{Example of a content-based recsys}
+	\makebox[\linewidth]{
+		\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/harry2.png}}
+\end{frame}
+
+%as you can see, it works quite well, but also has its drawbacks.. can be quite obvious.
 
 %using information of the items themselves, rather than the aggregate user data. Even for more advanced recommender systems, baking in some knowledge about the content can be very helpful. 
 
@@ -288,20 +301,111 @@ recommend_movies = movies.sort_values('vote_average', ascending=False)
 % there is all sort of information availabe here, that we might use. 
 
 \begin{frame}{Use case: ImDb database}
+Let's have a look at our use-case again. \\
+Are there attributes that you could use to estimate similarity in movies?
 	\makebox[\linewidth]{
 		\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/data}}
 \end{frame}
 
 % how can we calculate similarity, just based on genre?
+% Cosine is very handy, not only for textule data, but also for different types of numeric data. 
+
+% to make it easier to understand, lets imagine that every movie has only one of the follwoing genres: 
+%romance or comedy
+
+\begin{frame}{Similarity between movies}
+	\makebox[\linewidth]{
+		\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/Slide1.png}}
+\end{frame}
+
+\begin{frame}{Similarity between movies}
+	\makebox[\linewidth]{
+		\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/Slide2.png}}
+\end{frame}
+
+\begin{frame}{Similarity between movies}
+	\makebox[\linewidth]{
+		\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/Slide3.png}}
+\end{frame}
+
+\begin{frame}{Similarity between movies}
+	\makebox[\linewidth]{
+		\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/Slide4.png}}
+\end{frame}
+
+\begin{frame}{Similarity between movies}
+	\makebox[\linewidth]{
+		\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/Slide5.png}}
+\end{frame}
+
+\begin{frame}[fragile]{Let's put this in code!}
+\pause
+First, create a create a toy dataset.
+\pause
+\begin{minted}{python}
+data = data.sample(6)
+data[['title', 'genres']]
+\end{minted}
+\pause
+	\makebox[\linewidth]{
+	\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/toy}}
+\end{frame}
 
 
+\begin{frame}[fragile]{Feature selection and vectorization}
+Let's assume we want to calculate similiarity based on genres. Therefore, we need to vectorize this column. 
+	\begin{minted}{python}
+tfidf = TfidfVectorizer(stop_words='english')
+tfidf_matrix = tfidf.fit_transform(data['genres'])
+	\end{minted}
+\pause
+Note that we use \alert{tfidf vectorizer} here, but we you might opt for a different one. 
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Calculate similiarity}
+Now, let's calculate cosine similarity scores between the genre attributes of the movies
+	\begin{minted}{python}
+from sklearn.metrics.pairwise import cosine_similarity
+
+sim = cosine_similarity(tfidf_matrix)
+	\end{minted}
+	\pause
+This returns an array of the similiarity scores between each movie and all other movies. 
+\end{frame}
+
+\begin{frame}[fragile]{Cosine Similairity}
+Let's inspect the output...
+	\begin{minted}{python}
+print(sim)
+[[1.         0.34503493 0.         0.         0.40824829 0.        ]
+[0.34503493 1.         0.16581288 0.         0.28171984 0.29130219]
+[0.         0.16581288 1.         0.25964992 0.         0.56921261]
+[0.         0.         0.25964992 1.         0.44115109 0.4561563 ]
+[0.40824829 0.28171984 0.         0.44115109 1.         0.        ]
+[0.         0.29130219 0.56921261 0.4561563  0.         1.        ]]
+	\end{minted}
+\end{frame}
+
+
+\begin{frame}[plain]
+	\makebox[\linewidth]{
+		\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/cosine_sim}}
+\pause
+Based on this overview, you may assume that users that like \textit{Avatar}, may be interested in \textit{John Carter}. 
+\pause
+\\
+\\
+\footnotesize{If you want to convert output of \alert{cosine\_similarity} to a \alert{df} type of object, see here \url{https://github.com/annekroon/CCS-2/blob/main/week06/cosine_to_df.md} }
+\end{frame}
 
 \begin{frame}
 \begin{block}{Feature selection and engineering}
 \begin{itemize}
-	\item Feature engineering is very important here. What qualities do we want to incorporate?
+	\item Feature engineering is very important here. What qualities or attributes do we want to incorporate?
 	\pause
-	\item 
+	\item Think about this critically. Instead of using genres or authors, you could think about crafting features yourself, such as topics. 
 	\pause
 \end{itemize}
 \end{block}
@@ -309,14 +413,32 @@ recommend_movies = movies.sort_values('vote_average', ascending=False)
 
 
 \begin{frame}
-\begin{block}{benefits and drawbacks}
+\begin{exampleblock}{Benefits}
 \begin{itemize}
-	\item can be very efficient...
-	\item but: features that are not part of the user profile will be neglected; e.g., if the user does not like Super Hero movies, the recommender system wil never recommend this. 
-	\item does not use the power community data. recommendations may be obvious (e.g., \textit{Harry Potter} recommendation when you like \textit{Lord of the Rings})
+	\item <1-> Content-based recommender systems can be very efficient...
+	\item <2->They are often part of more complex recommender systems that leverage (deep) supervised learning
 \end{itemize}
-\end{block}
+\end{exampleblock}
+\begin{alertblock}{Drawbacks}
+	\begin{itemize}
+		\item <3->Features that are not part of the user profile will be neglected; e.g., if the user does not like Super Hero movies, the recommender system wil never recommend this. 
+		\item <4->does not use the power community data. Recommendations may be obvious (e.g., \textit{Harry Potter} recommendation when you like \textit{Lord of the Rings})
+	\end{itemize}
+\end{alertblock}
 \end{frame}
+
+\section{Collaborative  RecSys}
+\begin{frame}
+	\begin{block}{Collaborative recommender systems}
+		\begin{itemize}
+			\item <1-> Tries to overcome some of the limitations of content-based systems
+			\item <2->Leverages the power of the community, tries to give relevant, but also suprising recommendations. 
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\section{Group assignment}
+\url{https://www.kaggle.com/saurabhbagchi/books-dataset}
 
 
 \begin{frame}
