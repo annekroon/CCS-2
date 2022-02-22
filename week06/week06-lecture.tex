@@ -9,6 +9,14 @@
 \usetheme[block=fill,subsectionpage=progressbar,sectionpage=progressbar]{metropolis} 
 
 
+\usepackage{hyperref}
+\hypersetup{ %
+	pdfborder = {0 0 0},
+	colorlinks=true,
+}
+
+
+
 \definecolor{Purple}{HTML}{911146}
 \definecolor{Orange}{HTML}{CF4A30}
 
@@ -28,6 +36,9 @@
 
 \usepackage{tikz-qtree}
 \setbeamercovered{still covered={\opaqueness<1->{5}},again covered={\opaqueness<1->{100}}}
+
+
+
 
 
 \usepackage{listings}
@@ -101,10 +112,10 @@
 \newcommand{\question}[1]{
 	\begin{frame}[plain]
 		\begin{columns}
-			\column{.3\textwidth}
+			\column{.4\textwidth}
 			\makebox[\columnwidth]{
 				\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/mannetje.png}}
-			\column{.7\textwidth}
+			\column{.6\textwidth}
 			\large
 			\textcolor{orange}{\textbf{\emph{#1}}}
 		\end{columns}
@@ -129,7 +140,13 @@
 		\tableofcontents
 	\end{frame}
 
-\section{recommender systems}
+\section{Recommender systems}
+
+%nowadays, recommender systems are everywhere.
+%Recommender systems have been around for several years now, but many people don't realize the extent to which they are ingrained into the experiences we have with technology.
+%When you log into Netflix and see movie suggestions, that's their recommender system at work. 
+%When you log into Amazon and it suggests products to you, that's their recommender system at work.
+%When you fire up Facebook, both the posts that show up in your news feed and the friend recommendations they provide are examples of %their recommender systems at work.
 
 \begin{frame}
 	\makebox[\linewidth]{
@@ -138,24 +155,37 @@
 
 % recommender systems are everywhere around us.
 
-\begin{frame}{Recommender Systems} 
-	\begin{block}{How do recommender systems learn?}
+
+\begin{frame}{Recommender Systems in Communication Science} 
+	\begin{block}{New research questions}
 		\begin{enumerate}
-			\item<2-> \alert{Explicit user preferences}.  e.g., ratings or responses 
-			\item<3-> \alert{Implicit user preferences}.  e.g., clicks or viewing time
-			\item<3-> \alert{Content}. e.g., based on text similarity techniques
-		\end{enumerate}
+			\item<2-> \alert{Political communication and journalism}. E.g., to craft personalized news diets. This may have, however, consequences for the diversity of news diets and for democracy \parencite{Moller2018, Locherbach2018}
+			\item<3-> \alert{Organizational and corporate communication}. E.g., applications in the field of hiring and recruitment.
+			\item<4-> \alert{Persuasive communication}. E.g., in the health domain--recommendation algorithms for tailored health interventions \parencite{Kim2019}
+			\item<5--> \alert{Entertainment communication}. E.g., movie recommenders
+				\end{enumerate}
 	\end{block}
+
 \end{frame}
 
 \begin{frame}{Recommender Systems} 
 	\begin{block}{Two central problems within Recommender Systems}
 		\begin{enumerate}
-			\item<2-> \alert{Predicting problem}. Typical problem involves a lot of missing data (e.g., user only rated a small subset of movies/ news articles/ etc.) How can we deal with missing data? 
+			\item<2-> \alert{Predicting problem}. Typical problem involves a lot of missing data (e.g., user only rated a small subset of movies/news articles/ etc.) How can we deal with missing data? 
 			\item<3-> \alert{Ranking problem}.  Given \textit{n} items, can we identify the top \textit{k} items to recommend?
 		\end{enumerate}
 	\end{block}
 \only<4->{These problems are not isolated; rather, they are connected. }
+\end{frame}
+
+\begin{frame}{Recommender Systems} 
+	\begin{block}{How do recommender systems learn?}
+		\begin{enumerate}
+			\item<2-> \alert{Explicit user preferences}. Ratings or responses 
+			\item<3-> \alert{Implicit user preferences}. E.g., clicks or viewing time
+			\item<3-> \alert{Content}. E.g., based on text similarity techniques
+		\end{enumerate}
+	\end{block}
 \end{frame}
 
 \begin{frame}{Recommender Systems} 
@@ -165,38 +195,127 @@
 	\item Content-based recommender systems
 	\item Collaborative  recommenders 
 \end{enumerate}
-	\end{block}
+	\end{block}{\tiny }
 \end{frame}
 
 \section{Knowledge-based recommender system}
 \begin{frame}{Knowledge-based recommender system} 
 	\begin{block}{When to use?}
 		\begin{itemize}
-			
 			\item<2-> To overcome the \textbf{cold start problem}; when we do not have ratings of individual users. 
-			\item<3-> Typical use case: Real-estate. Buying a house is, for most families, a rare/ single event. 
+			\item<3-> Simple model. It does not rely on user's explicit or implicit ratings, but on specific queries.
+			\item<4-> Typical use case: Real-estate. Buying a house is, for most families, a rare/ single event. 
 		\end{itemize}
 	\end{block}
 \end{frame}
 
 % This prints the bibliography on the slide
+%\section{An example with some Python code\dots}
 
 
-\section{An example with some Python code\dots}
+\begin{frame}
+	\makebox[\linewidth]{
+		\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/funda}}
+\end{frame}
 
-\begin{frame}[fragile]{A simple bottom-up approach}
+\begin{frame}{Use case: ImDb database}
+	\makebox[\linewidth]{
+		\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/data}}
+\end{frame}
+
+\question{What are relevant variables to use in a knowledge-based recommender system?}
+
+\begin{frame}[fragile]{Knowledge-based recommender system}
+How can we work with user input without a front-end (such as the website of funda? ) 
+\pause
+\\
+$\rightarrow$ enter python's native \alert{input()} function.
+\pause
+\\
 \begin{lstlisting}
-from collections import Counter
-texts = ["I really really really love him, I do", "I hate him"]
-
-for t in texts:
-    print(Counter(t.split()).most_common(3))
+print("What is your favorite movie genre?")
+genre = input()
 \end{lstlisting}
-
+	
 \begin{lstlistingoutput}
-[('really', 3), ('I', 2), ('love', 1)]
-[('I', 1), ('hate', 1), ('him', 1)]
+what is your favorite movie genre?
+[...]
 \end{lstlistingoutput}
+\end{frame}
+
+
+\begin{frame}[fragile]{Improving knowledge-based recommender system}
+	
+\begin{block}{When to use?}
+\begin{itemize}
+\item It is important to think about ways to make the recommendation relevant for individuals
+\pause
+\item Do you have more information in your db that make your top-listed recommendations as relevant as possible?
+\pause
+\end{itemize}
+\end{block}
+
+\pause
+\begin{lstlisting}
+recommend_movies = movies.sort_values('vote_average', ascending=False)
+\end{lstlisting}
+\end{frame}
+
+
+\section{Content-based recommender systems}
+
+\begin{frame}
+\begin{block}{Content-based systems}
+	\begin{itemize}
+		\item Recommends items based on user's profiles. 
+		\item Profiles are based on e.g., ratings, and represents user's tasts/ preferences. 
+		\begin{itemize}
+			\item For example, how often a user has clicked on, or liked, a movie. 
+		\end{itemize}
+		\item Recommendation is based on \alert{similarity} beween items in the content.
+		\begin{itemize}
+			\item Content is here: e.g., genre, tags, plot, authors, directors, location, etc. 
+		\end{itemize}
+	\end{itemize}
+\end{block}
+\end{frame}
+
+%using information of the items themselves, rather than the aggregate user data. Even for more advanced recommender systems, baking in some knowledge about the content can be very helpful. 
+
+%The movielens dataset does not give us a lot of information, but it does 
+
+%Let's have a look again at the MovieLens dataset. If we know given user likes a specific genre, the user might also like other genres. In addition, we can use year of release. We can narrow it down further to movies that are close to a specific release data. 
+% there is all sort of information availabe here, that we might use. 
+
+\begin{frame}{Use case: ImDb database}
+	\makebox[\linewidth]{
+		\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/data}}
+\end{frame}
+
+% how can we calculate similarity, just based on genre?
+
+
+
+\begin{frame}
+\begin{block}{Feature selection and engineering}
+\begin{itemize}
+	\item Feature engineering is very important here. What qualities do we want to incorporate?
+	\pause
+	\item 
+	\pause
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+\begin{frame}
+\begin{block}{benefits and drawbacks}
+\begin{itemize}
+	\item can be very efficient...
+	\item but: features that are not part of the user profile will be neglected; e.g., if the user does not like Super Hero movies, the recommender system wil never recommend this. 
+	\item does not use the power community data. recommendations may be obvious (e.g., \textit{Harry Potter} recommendation when you like \textit{Lord of the Rings})
+\end{itemize}
+\end{block}
 \end{frame}
 
 
