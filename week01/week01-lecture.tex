@@ -409,7 +409,7 @@ I
 
 NLTK: Natural Language Toolkit (www.nltk.org) \\
 
-Tokenization: The process of breaking text (sentences, paragraphs, chapters, etc.) into smaller parts (individual sentences, words, etc.)
+Tokenization: The process of breaking text (paragraphs, sentences, etc.) into smaller parts (individual sentences, words, etc.)
 
 
 \end{frame}
@@ -435,13 +435,15 @@ print(MM_words)
 
 \begin{frame}[fragile]{Tokenization}
 	
-	\begin{lstlisting}		
-		print(Counter(MM_words).most_common(3))
-	\end{lstlisting}
-	
-	\begin{lstlistingoutput}
-		[(',', 17), ('alive', 6), ('oh', 4)]
-	\end{lstlistingoutput}
+\begin{lstlisting}		
+print(Counter(MM_words).most_common(3))
+\end{lstlisting}	
+
+
+\begin{lstlistingoutput}
+[(',', 17), ('alive', 6), ('oh', 4)]
+\end{lstlistingoutput}
+
 	
 	% let's create a list with the 3 most common words in this sentence. We can see a few problems arise: first, one of the most common words is also a pretty meaningless word: 'oh'. Let's clean up our data and remove the stopwords so that there are only meaningful words left!
 	
@@ -457,9 +459,8 @@ stopwords = ['in', 'the', 'and', 'a','I', 'she', 'her', 'are', 'so', 'on', 'me',
 nostopwords = []
 
 for word in MM_words:
-	if word not in stopwords:
-		nostopwords.append(word)
-
+   if word not in stopwords:
+      nostopwords.append(word)
 
 print(nostopwords)
 \end{lstlisting}
@@ -476,14 +477,13 @@ print(nostopwords)
 
 \begin{frame}[fragile]{Removing Stopwords}
 	
-	\begin{lstlisting}		
+\begin{lstlisting}		
 print(Counter(nostopwords).most_common(3))
-	\end{lstlisting}
-	
-	\begin{lstlistingoutput}
+\end{lstlisting}
 
+\begin{lstlistingoutput}
 [(',', 17), ('alive', 6), ('.', 2)]
-	\end{lstlistingoutput}
+\end{lstlistingoutput}
 	
 	%The easiest way to do this is to create list with stopwords and then loop over our text and filter out the words in our text that are also in our stopwords-list.
 	
@@ -494,15 +494,15 @@ print(Counter(nostopwords).most_common(3))
 
 \begin{frame}[fragile]{Removing Stopwords}
 	
-	\begin{lstlisting}		
-		from nltk.corpus import stopwords
-		
-		print(len(stop_words))
-	\end{lstlisting}
+\begin{lstlisting}		
+
+from nltk.corpus import stopwords
+print(len(stop_words))
+\end{lstlisting}
 	
-	\begin{lstlistingoutput}
-		179
-	\end{lstlistingoutput}
+\begin{lstlistingoutput}
+179
+\end{lstlistingoutput}
 
 \end{frame}
 
@@ -510,20 +510,19 @@ print(Counter(nostopwords).most_common(3))
 
 \begin{frame}[fragile]{Removing Stopwords}
 	
-	\begin{lstlisting}		
+\begin{lstlisting}		
 nostopwords = []
 
 for word in MM_words:
-	if word not in stop_words:
-		nostopwords.append(word)
-
+   if word not in stop_words:
+      nostopwords.append(word)
 
 print(nostopwords)
-	\end{lstlisting}
+\end{lstlisting}
 	
-	\begin{lstlistingoutput}
+\begin{lstlistingoutput}
 ['In', 'Dublin', "'s", 'fair', 'city', ',', 'girls', 'pretty', ',', 'I', 'first', 'set', 'eyes', 'sweet', 'Molly', 'Malone', '.', 'As', 'wheeled', 'wheelbarrow', ',', 'Through', 'streets', 'broad', 'narrow', 'Crying', ',', 'Cockles', 'mussels', ',', 'alive', ',', 'alive', ',', 'oh', '!', 'Alive', ',', 'alive', ',', 'oh', ',', 'Alive', ',', 'alive', ',', 'oh', ',', 'Crying', ',', 'Cockles', 'mussels', ',', 'alive', ',', 'alive', ',', 'oh', '.']
-	\end{lstlistingoutput}
+\end{lstlistingoutput}
 	
 \end{frame}
 
@@ -533,7 +532,7 @@ print(nostopwords)
 	
 \begin{lstlisting}
 print(Counter(nostopwords).most_common(3))
-	\end{lstlisting}
+\end{lstlisting}
 	
 \begin{lstlistingoutput}
 [(',', 17), ('alive', 6), ('oh', 4)]
@@ -551,15 +550,15 @@ print(Counter(nostopwords).most_common(3))
 
 \begin{frame}[fragile]{Molly Malone}
 	
-	\begin{lstlisting}
+\begin{lstlisting}
 import string
 punct = list(string.punctuation)
 print(punct[:5])
-	\end{lstlisting}
+\end{lstlisting}
 	
-	\begin{lstlistingoutput}
-		['!', '"', '#', '$', '%']
-	\end{lstlistingoutput}
+\begin{lstlistingoutput}
+['!', '"', '#', '$', '%']
+\end{lstlistingoutput}
 	
 	% Again, we can use a ready made collection of punctuation marks for this. 
 
@@ -574,16 +573,15 @@ print(punct[:5])
 nostopnopunct = []
 
 for word in nostopwords:
-if word not in punct:
-nostopnopunct.append(word)
-
+   if word not in punct:
+      nostopnopunct.append(word)
 
 print(nostopnopunct)
-	\end{lstlisting}
+\end{lstlisting}
 	
-	\begin{lstlistingoutput}
+\begin{lstlistingoutput}
 ['In', 'Dublin', "'s", 'fair', 'city', 'where', 'girls', 'pretty', 'first', 'set', 'eyes', 'sweet', 'Molly', 'Malone', 'As', 'wheeled', 'wheelbarrow', 'Through', 'streets', 'broad', 'narrow', 'Crying', 'Cockles', 'mussels', 'alive', 'alive', 'Alive', 'alive', 'Alive', 'alive', 'Crying', 'Cockles', 'mussels', 'alive', 'alive']
-	\end{lstlistingoutput}
+\end{lstlistingoutput}
 	
 
 	%Now you can see that the computer removed all the comma's, periods, and exclamation marks.
@@ -642,14 +640,63 @@ print(Counter(lower).most_common(3))
 \end{frame}
 
 
-\section{Analyzing songtexts: RegEx}
+\begin{frame}[fragile]{Stemming }
+
+	\begin{lstlisting}
+words = (Counter(lower).most_common(3))
+
+from nltk.stem.porter import *
+stemmer = PorterStemmer()
+
+stems = [stemmer.stem(words) for wrd in words]
+print(stems)
+	\end{lstlisting}
+
+	\begin{lstlistingoutput}
+out put here
+	\end{lstlistingoutput}
+
+\end{frame}
+
+% Another thing that is often done when working with text is stemming. Stemming refers to the process of reducing words to their 'root'. 
+% NLTK offers different stemmers (that each follow their own set of rules)
+%Let's have a look at the Porter stemmer here
+	
+
+
+
+\begin{frame}[fragile]{Lemmatization}
+	
+\begin{lstlisting}
+words = (Counter(lower).most_common(3))
+		
+from nltk.stem import WordNetLemmatizer
+lemmatizer = WorddNetLemmatizer()
+
+lems = [lemmatizer.lemmatize(words) for wrd in words]
+print(stems)
+\end{lstlisting}
+	
+\begin{lstlistingoutput}
+output here
+\end{lstlistingoutput}
+
+	\end{frame}
+%When you use stemming, the stems that are returned can very well be stems that are not words; they don't mean anything
+% Lemmatization, unlike Stemming, reduces the inflected words properly ensuring that the root word belongs to the language. 
 
 
 \begin{frame}{Note}
 	
-	Hier moet ook nog iets over search vs findall etc.
-
+Liefst hier even een terugkoppeling naar een voorbeeld: wat kun jen u doen met lemmatization and stemming?
+	
 \end{frame}
+
+
+
+
+\section{Analyzing songtexts: RegEx}
+
 
 \begin{frame}[fragile]{RegEx}
 	
@@ -662,23 +709,68 @@ print(Counter(lower).most_common(3))
 \end{frame}
 
 
+
+\begin{frame}[fragile]{RegEx: Search, Match, or Findall}
+	
+\begin{lstlisting}
+print(re.search("live", "Alive"))
+\end{lstlisting}
+	
+\begin{lstlistingoutput}
+live
+\end{lstlistingoutput}
+
+\begin{lstlisting}
+print(re.match("live", "Alive"))
+\end{lstlisting}
+
+\begin{lstlistingoutput}
+ 
+\end{lstlistingoutput}
+
+
+\begin{lstlisting}
+print(re.match("live", MollyMalone_words))
+\end{lstlisting}
+
+\begin{lstlistingoutput}
+live
+live
+live
+live
+live
+live
+live
+live
+\end{lstlistingoutput}
+
+
+% For exmple, I acn use regex to find how often the letters "live" occur in atext.
+% re.match() checks for a match only at the beginning of a string
+% re.search() checks for a mtach anywhere in the string
+% re.findall() searches for all occurences that match a given pattern
+	
+\end{frame}
+
+
+
 \begin{frame}[fragile]{RegEx}
 
 \begin{lstlisting}
 for word in MollyMalone_words:
-	if re.search("[Aa]live", word):
-		print(word)
+   if re.search("[Aa]live", word):
+      print(word)
 \end{lstlisting}
 	
 \begin{lstlistingoutput}
-		alive
-		alive
-		Alive
-		alive
-		Alive
-		alive
-		alive
-		alive
+alive
+alive
+Alive
+alive
+Alive
+alive
+alive
+alive
 \end{lstlistingoutput}
 	
 	%For example, instead of first making everything in Molly Malone's lyrics lowercase, we could also use regular expressions to find the word "alive" (with and without capital).
@@ -737,7 +829,7 @@ for word in MollyMalone_words:
 \begin{frame}[fragile]{Character classes}
 	
 	
-	The Dublin Millennium Commission proclaimed 13 June to be "Molly Malone Day"
+	The Dublin Millennium Commission proclaimed 13 June to be "Molly Malone Day" \\
 	\lstinline{[1-9]+.[A-Z][a-z]+} \\ 
 	will select 13 June
 
@@ -750,11 +842,6 @@ for word in MollyMalone_words:
 \end{frame}
 
 
-\begin{frame}{Note}
-	
-	En ook iets met stemming en lemming --> dus dan combineer je NLTK met Regex; wheeled wheelbarrow
-
-\end{frame}
 
 
 \begin{frame}{note}
