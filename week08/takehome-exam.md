@@ -15,7 +15,7 @@ the code you create.
       - Do you consider supervised machine learning to be a predominantly rule-based approach or an automated approach? Why?
 
   2.  **Exploring Twitter data**
-      Download the data that is available on https://www.dropbox.com/sh/4mapojr85a6sc76/AABYMkjLVG-HhueAgd0qM9kwa?dl=0 (hatespeech_text_label_vote_RESTRICTED_100K.csv). This dataset consists of the texts of tweets and of a variable categorizing the tweet as being either normal, abusive, hateful, or spam. **Describe** the dataset using an inductive analysis.
+      Download the data that is available on https://www.dropbox.com/sh/4mapojr85a6sc76/AABYMkjLVG-HhueAgd0qM9kwa?dl=0 (hatespeech_text_label_vote_RESTRICTED_100K.csv). This dataset consists of the texts of tweets and of a variable categorizing the tweet as being either normal, abusive, hateful, or spam. 
       - (coding question) Explore the dataset by calculating the amount of different tweets that are present in the dataset. 
       - (context question) Are some types of tweets present more often then others? Why is it relevant to check this?
   
