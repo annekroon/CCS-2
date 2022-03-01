@@ -30,7 +30,7 @@ the code you create.
       - Training the classifiers
     
       Note that you have a few options here: you can build a machine that differentiates between the four different types of tweets, or you can choose to combine categories. You can play around with this and decide what approach you prefer.  
-      Use the materials used in weeks 7 and 8 (including the example code used in this week's tutorial) to figure out what steps you need to take. 
+      Use the materials used in weeks 7 and 8 to find example code. 
       
                                                
   4.  **Validating the classifier**
