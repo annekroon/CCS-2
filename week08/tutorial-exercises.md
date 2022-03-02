@@ -1,4 +1,4 @@
-```python
+
 # Getting some hands-on experience with supervised machine learning
 
 ## Question 1. 
