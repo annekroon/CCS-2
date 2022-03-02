@@ -639,56 +639,107 @@ print(Counter(lower).most_common(3))
 
 \end{frame}
 
+\begin{frame}{Zooming out} 
+	
+So far, we talked about:
+\begin{itemize}
+	\item Natural Language Processing and the NLTK
+	\item Tokenization \\\
+\end{itemize}
+	
+Next, we will talk about:
+	\begin{itemize}
+		\item Stemming and lemmatization
+	\end{itemize}
+	
+\end{frame}
+
+
 
 \begin{frame}[fragile]{Stemming }
 
-	\begin{lstlisting}
-words = (Counter(lower).most_common(3))
-
+\begin{lstlisting}
 from nltk.stem.porter import *
 stemmer = PorterStemmer()
 
-stems = [stemmer.stem(words) for wrd in words]
+stems = [stemmer.stem(word) for word in lower]
 print(stems)
-	\end{lstlisting}
+\end{lstlisting}
 
-	\begin{lstlistingoutput}
-out put here
-	\end{lstlistingoutput}
-
-\end{frame}
+\begin{lstlistingoutput}
+['in', 'dublin', "'s", 'fair', 'citi', 'where', 'girl', 'pretti', 'first', 'set', 'eye', 'sweet', 'molli', 'malon', 'as', 'wheel', 'wheelbarrow', 'through', 'street', 'broad', 'narrow', 'cri', 'cockl', 'mussel', 'aliv', 'aliv', 'aliv', 'aliv', 'aliv', 'aliv', 'cri', 'cockl', 'mussel', 'aliv', 'aliv']
+\end{lstlistingoutput}
 
 % Another thing that is often done when working with text is stemming. Stemming refers to the process of reducing words to their 'root'. 
 % NLTK offers different stemmers (that each follow their own set of rules)
 %Let's have a look at the Porter stemmer here
-	
+
+\end{frame}
+
+\begin{frame}[fragile]{Stemming}
+
+Compare:
+
+\begin{lstlistingoutput}
+['in', 'dublin', "'s", 'fair', 'citi', 'where', 'girl', 'pretti', 'first', 'set', 'eye', 'sweet', 'molli', 'malon', 'as', 'wheel', 'wheelbarrow', 'through', 'street', 'broad', 'narrow', 'cri', 'cockl', 'mussel', 'aliv', 'aliv', 'aliv', 'aliv', 'aliv', 'aliv', 'cri', 'cockl', 'mussel', 'aliv', 'aliv']
+\end{lstlistingoutput}
+
+\begin{lstlistingoutput}
+['in', 'dublin', "'s", 'fair', 'city', 'where', 'girls', 'pretty', 'first', 'set', 'eyes', 'sweet', 'molly', 'malone', 'as', 'wheeled', 'wheelbarrow', 'through', 'streets', 'broad', 'narrow', 'crying', 'cockles', 'mussels', 'alive', 'alive', 'alive', 'alive', 'alive', 'alive', 'crying', 'cockles', 'mussels', 'alive', 'alive']
+\end{lstlistingoutput}
+
+\end{frame}
 
 
 
 \begin{frame}[fragile]{Lemmatization}
 	
 \begin{lstlisting}
-words = (Counter(lower).most_common(3))
-		
 from nltk.stem import WordNetLemmatizer
-lemmatizer = WorddNetLemmatizer()
+lemmatizer = WorddNetLemmatizer(
+nltk.download('wordnet'))
 
-lems = [lemmatizer.lemmatize(words) for wrd in words]
-print(stems)
+lems = [lemmatizer.lemmatize(word) for word in lower]
+print(lems)
 \end{lstlisting}
 	
 \begin{lstlistingoutput}
-output here
+['in', 'dublin', "'s", 'fair', 'city', 'where', 'girl', 'pretty', 'first', 'set', 'eye', 'sweet', 'molly', 'malone', 'a', 'wheeled', 'wheelbarrow', 'through', 'street', 'broad', 'narrow', 'cry', 'cockle', 'mussel', 'alive', 'alive', 'alive', 'alive', 'alive', 'alive', 'cry', 'cockle', 'mussel', 'alive', 'alive']
 \end{lstlistingoutput}
 
-	\end{frame}
+
+\end{frame}
 %When you use stemming, the stems that are returned can very well be stems that are not words; they don't mean anything
 % Lemmatization, unlike Stemming, reduces the inflected words properly ensuring that the root word belongs to the language. 
 
-
-\begin{frame}{Note}
+\begin{frame}[fragile]{Lemmatization}
 	
-Liefst hier even een terugkoppeling naar een voorbeeld: wat kun jen u doen met lemmatization and stemming?
+Compare:
+
+\begin{lstlistingoutput}
+['in', 'dublin', "'s", 'fair', 'city', 'where', 'girl', 'pretty', 'first', 'set', 'eye', 'sweet', 'molly', 'malone', 'a', 'wheeled', 'wheelbarrow', 'through', 'street', 'broad', 'narrow', 'cry', 'cockle', 'mussel', 'alive', 'alive', 'alive', 'alive', 'alive', 'alive', 'cry', 'cockle', 'mussel', 'alive', 'alive']
+\end{lstlistingoutput}
+
+\begin{lstlistingoutput}
+['in', 'dublin', "'s", 'fair', 'citi', 'where', 'girl', 'pretti', 'first', 'set', 'eye', 'sweet', 'molli', 'malon', 'as', 'wheel', 'wheelbarrow', 'through', 'street', 'broad', 'narrow', 'cri', 'cockl', 'mussel', 'aliv', 'aliv', 'aliv', 'aliv', 'aliv', 'aliv', 'cri', 'cockl', 'mussel', 'aliv', 'aliv']
+\end{lstlistingoutput}
+
+\end{frame}
+
+
+\begin{frame}{Zooming out} 
+	
+So far, we talked about:
+\begin{itemize}
+	\item Natural Language Processing and the NLTK
+	\item Tokenization
+	\item Stemming and lemmatization \\\
+\end{itemize}
+	
+Next, we will talk about:
+\begin{itemize}
+	\item Regular expressions
+\end{itemize}
 	
 \end{frame}
 
@@ -844,12 +895,32 @@ alive
 
 
 
-\begin{frame}{note}
+\begin{frame}[fragile]{RegEx in ComScience}
+
+\begin{small}
+"Next to steps like conversion to lowercase and the removal of stop words and punctuation,we paid extensive attention to the recoding of potential firms mentioned in our datain order to circumvent underestimation of news attention to firms. We manually compileda list of companies – based on existing lists of Dutch and Non-Dutch multinationals, and AEX stock market–listed firms potentially relevant for our study. If a firm on this listcontained more than one word or had synonyms or different spellings, our program usedregular expressions to replace these by a unique term that we defined. For example, AirFrance KLM and different variations on it were all converted into Air\_France\_KLM andABN AMRO into ABN\_AMRO. In addition, we supplemented abbreviations like ABNby the full (new) name, if the full name was mentioned in the same text."
+\end{small}
+\begin{tiny}
+Jonkman et al. (2016), p. 1615 
+\end{tiny}
+
+\end{frame}
+
+
+\begin{frame}{Zooming out} 
 	
-	En dan eindigen met: terug naar onderzoek, wat kun je hier nu precies mee?
-	En dan noem je de Twitter-artikelen als voorbeeld, zodat er weer terugkoppeling is van pietje-precieze code dingen naar onderzoek
+Today, we talked about:
+\begin{itemize}
+	\item Natural Language Processing and the NLTK
+	\item Tokenization
+	\item Stemming and lemmatization
+	\item Regular expressions \\\
+\end{itemize}
 	
-	+ schietgebedje dat het niet allemaal veeeeel te veel is :) 
+In this weeks' tutorial, you will:
+\begin{itemize}
+	\item Practice with these processes, so that you can use them (amongst others) when you explore data next week!
+\end{itemize}
 	
 \end{frame}
 
