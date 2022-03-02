@@ -8,8 +8,8 @@ Download the file "WikipediaSongs.csv".
 ## 1. Retrieving some basics.
 First, focus on the text of the first song only.
 - As a first step, let's see how long this text is. Figure out: how many words are included in the text? And how many sentences? Think about the following:
- - Tokenization
- - Punction
+	- Tokenization
+	- Punction
 - What are the five most used (meaningful) words? 
 - Based on the stopwords list included in the NLTK, how often does a stopword occur in this text?
 
@@ -30,10 +30,10 @@ Hint: If you are having trouble finding useful regular expressions, have a look 
 ## 4. Tyding things up.
 Now, let's apply this to all the texts.
 - A researcher wants to examine the Wikipedia texts of many songs. Can you build a function that performs some of the tasks above for each text that it receives as input? For each text the function needs to indicate:
- - How many words are included in the text
- - How many sentences are included in the text
- - The five most commonly used (meaningful) words
- - How many times a source is mentioned 
- - How many verbs are used 
+	- How many words are included in the text
+	- How many sentences are included in the text		
+	- The five most commonly used (meaningful) words
+ 	- How many times a source is mentioned 
+ 	- How many verbs are used 
 
 - Can you store this information neatly in a datafile?
