@@ -245,6 +245,19 @@ What will we do in this course?
 \end{frame}
 
 
+\begin{frame}{About CCS-2} 
+	
+Course set-up:
+\begin{itemize}
+	\item Lectures: Introduction to techniques used in computational communication science
+	\item Tutorial meetings: Lab sessions to learn how to work with these techniques
+	\begin{itemize}
+		\item Possibility to ask questions about your code
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
 
 \begin{frame}{About CCS-2} 
 	
@@ -260,13 +273,6 @@ What will we do in this course?
 \end{frame}
 
 
-\begin{frame}{About CCS-2} 
-	
-	How to contact Anne and Marthe?	
-	
-	\textcolor{red}{We kunnen hier eventueel iets over zeggen: mogen ze mailen, zijn er spreekuren etc.?}
-	
-\end{frame}
 
 \begin{frame}{Ready? Set? Go!} 
 	
@@ -354,7 +360,7 @@ CCS-1: You learned how to...
 
 \begin{frame}{Text as Data: NLP}
 	
-	"\textbf{Natural language processing (NLP)} refers to the branch of computer science — and more specifically, the branch of artificial intelligence or AI — concerned with giving computers the ability to understand text and spoken words in much the same way human beings can."  \\
+	\textbf{Natural language processing (NLP)} refers to the branch of computer science — and more specifically, the branch of artificial intelligence or AI — concerned with giving computers the ability to understand text and spoken words in much the same way human beings can."  \\
 	\tiny{(IBM, 2020)}
 	
 	
@@ -391,7 +397,7 @@ print(MollyMalone[-1:])
 	
 \begin{lstlistingoutput}
 <class 'str'>
-96
+291
 I
 .
 \end{lstlistingoutput}
@@ -497,6 +503,7 @@ print(Counter(nostopwords).most_common(3))
 \begin{lstlisting}		
 
 from nltk.corpus import stopwords
+stop_words = stopwords.words("english")
 print(len(stop_words))
 \end{lstlisting}
 	
@@ -696,8 +703,8 @@ Compare:
 	
 \begin{lstlisting}
 from nltk.stem import WordNetLemmatizer
-lemmatizer = WorddNetLemmatizer(
-nltk.download('wordnet'))
+lemmatizer = WorddNetLemmatizer()
+nltk.download('wordnet')
 
 lems = [lemmatizer.lemmatize(word) for word in lower]
 print(lems)
@@ -780,21 +787,9 @@ print(re.match("live", "Alive"))
 \end{lstlistingoutput}
 
 
-\begin{lstlisting}
-print(re.match("live", MollyMalone_words))
-\end{lstlisting}
-
-\begin{lstlistingoutput}
-live
-live
-live
-live
-live
-live
-live
-live
-\end{lstlistingoutput}
-
+re.match() \\
+re.search() \\
+re.findall()
 
 % For exmple, I acn use regex to find how often the letters "live" occur in atext.
 % re.match() checks for a match only at the beginning of a string
@@ -870,7 +865,9 @@ alive
 	
 	\lstinline{That was (not)? the end of sweet Molly Malone} \\ 
 	will select both:   \\
-	That was the end of sweet Molly Malone and That was not the end of sweet Molly Malone
+	That was the end of sweet Molly Malone \\
+	and \\
+	That was not the end of sweet Molly Malone
 		
 	%You can use brackets to create groups.
 	
@@ -898,7 +895,7 @@ alive
 \begin{frame}[fragile]{RegEx in ComScience}
 
 \begin{small}
-"Next to steps like conversion to lowercase and the removal of stop words and punctuation,we paid extensive attention to the recoding of potential firms mentioned in our datain order to circumvent underestimation of news attention to firms. We manually compileda list of companies – based on existing lists of Dutch and Non-Dutch multinationals, and AEX stock market–listed firms potentially relevant for our study. If a firm on this listcontained more than one word or had synonyms or different spellings, our program usedregular expressions to replace these by a unique term that we defined. For example, AirFrance KLM and different variations on it were all converted into Air\_France\_KLM andABN AMRO into ABN\_AMRO. In addition, we supplemented abbreviations like ABNby the full (new) name, if the full name was mentioned in the same text."
+"Next to steps like conversion to lowercase and the removal of stop words and punctuation, we paid extensive attention to the recoding of potential firms mentioned in our data in order to circumvent underestimation of news attention to firms. We manually compiled a list of companies – based on existing lists of Dutch and Non-Dutch multinationals, and AEX stock market–listed firms potentially relevant for our study. If a firm on this list contained more than one word or had synonyms or different spellings, our program used regular expressions to replace these by a unique term that we defined. For example, AirFrance KLM and different variations on it were all converted into Air\_France\_KLM andABN AMRO into ABN\_AMRO. In addition, we supplemented abbreviations like ABNby the full (new) name, if the full name was mentioned in the same text."
 \end{small}
 \begin{tiny}
 Jonkman et al. (2016), p. 1615 
