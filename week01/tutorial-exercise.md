@@ -1,6 +1,6 @@
 # Working with text: Warming up
 
-Today, we will apply what we discussed in the lecture to Wikipedia texts about songs.
+Today, we will apply what we discussed in the lecture to Wikipedia texts about songs. Use the example code presented in the slides of this week's lecture to complete this exercise.
 
 Download the file "WikipediaSongs.csv". 
 
@@ -17,7 +17,7 @@ First, focus on the text of the first song only.
 ## 2. Counting words.
 - What are the five most used (meaningful) words? 
 - Based on the stopwords list included in the NLTK, how often does a stopword occur in this text?
-- Based on what you find, would you use the NLTK punctuation and stopword lists for this exercise straight away? If not, how would you modify them?
+- Based on what you find, would you use the NLTK punctuation and stopword lists for this exercise straight away? If not, write code to modify them so that they suit your goal better.
 
 
 ## 3. Using regular expressions.

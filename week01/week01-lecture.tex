@@ -170,22 +170,6 @@
 \end{frame}
 
 
-\begin{frame}{Introducing\ldots \huge{You}}
-	{\huge{You}}
-	\small{}
-	\begin{columns}
-		\column{.3\textwidth}
-		\makebox[\columnwidth]{
-			\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/mannetje.png}}
-		\column{.7\textwidth}
-		Your name?\\
-		Your background?\\
-		Your reason for taking this course?\\
-		Do you have a dataset you are working on?
-	\end{columns}
-\end{frame}
-
-
 \section{Introducing\ldots the course}
 
 
@@ -231,7 +215,7 @@ What will we do in this course?
 		\item We practice with techniques in the tutorials
 		\item Graded assignments to master the techniques:
 		\begin{itemize}
-			\item Regular multiple choice questions (\(20\%\)) about readings that use the techniques we discuss
+			\item Regular multiple choice questions (\(20\%\)) about the readings and techniques that we discuss
 			\item Coding challenge (group assignment): Get more experienced with the techniques and build a recommender system
 			\begin{itemize}
 				\item Report (\(20\%\))
@@ -338,7 +322,7 @@ CCS-1: You learned how to...
 	(\cite{meppelink_reliable_2021}) \\
 	\end{tiny}	
 	
-	% Within communication science, text is often the subject of study
+
 	
 \end{frame}
 
@@ -353,7 +337,7 @@ CCS-1: You learned how to...
 	\end{tiny}
 	
 	
-	% Within communication science, text is often the subject of study
+
 	
 \end{frame}
 
@@ -364,7 +348,6 @@ CCS-1: You learned how to...
 	\tiny{(IBM, 2020)}
 	
 	
-	% Within communication science, text is often the subject of study
 	
 \end{frame}
 
@@ -434,7 +417,6 @@ print(MM_words)
 ['In', 'Dublin', "'s", 'fair', 'city', ',', 'where', 'the', 'girls', 'are', 'so', 'pretty', ',', 'I', 'first', 'set', 'my', 'eyes', 'on', 'sweet', 'Molly', 'Malone', '.', 'As', 'she', 'wheeled', 'her', 'wheelbarrow', ',', 'Through', 'streets', 'broad', 'and', 'narrow', 'Crying', ',', 'Cockles', 'and', 'mussels', ',', 'alive', ',', 'alive', ',', 'oh', '!', 'Alive', ',', 'alive', ',', 'oh', ',', 'Alive', ',', 'alive', ',', 'oh', ',', 'Crying', ',', 'Cockles', 'and', 'mussels', ',', 'alive', ',', 'alive', ',', 'oh', '.']
 \end{lstlistingoutput}
 
-% let's create a list with the 3 most common words in this sentence. We can see a few problems arise: first, one of the most common words is also a pretty meaningless word: 'and'. Let's clean up our data and remove the stopwords so that there are only meaningful words left!
 
 \end{frame}
 
@@ -685,11 +667,13 @@ print(stems)
 
 \begin{frame}[fragile]{Stemming}
 
-Compare:
+Compare the new data:
 
 \begin{lstlistingoutput}
 ['in', 'dublin', "'s", 'fair', 'citi', 'where', 'girl', 'pretti', 'first', 'set', 'eye', 'sweet', 'molli', 'malon', 'as', 'wheel', 'wheelbarrow', 'through', 'street', 'broad', 'narrow', 'cri', 'cockl', 'mussel', 'aliv', 'aliv', 'aliv', 'aliv', 'aliv', 'aliv', 'cri', 'cockl', 'mussel', 'aliv', 'aliv']
 \end{lstlistingoutput}
+
+To the old data:
 
 \begin{lstlistingoutput}
 ['in', 'dublin', "'s", 'fair', 'city', 'where', 'girls', 'pretty', 'first', 'set', 'eyes', 'sweet', 'molly', 'malone', 'as', 'wheeled', 'wheelbarrow', 'through', 'streets', 'broad', 'narrow', 'crying', 'cockles', 'mussels', 'alive', 'alive', 'alive', 'alive', 'alive', 'alive', 'crying', 'cockles', 'mussels', 'alive', 'alive']
@@ -721,11 +705,13 @@ print(lems)
 
 \begin{frame}[fragile]{Lemmatization}
 	
-Compare:
+Compare lemmatization:
 
 \begin{lstlistingoutput}
 ['in', 'dublin', "'s", 'fair', 'city', 'where', 'girl', 'pretty', 'first', 'set', 'eye', 'sweet', 'molly', 'malone', 'a', 'wheeled', 'wheelbarrow', 'through', 'street', 'broad', 'narrow', 'cry', 'cockle', 'mussel', 'alive', 'alive', 'alive', 'alive', 'alive', 'alive', 'cry', 'cockle', 'mussel', 'alive', 'alive']
 \end{lstlistingoutput}
+
+To stemming:
 
 \begin{lstlistingoutput}
 ['in', 'dublin', "'s", 'fair', 'citi', 'where', 'girl', 'pretti', 'first', 'set', 'eye', 'sweet', 'molli', 'malon', 'as', 'wheel', 'wheelbarrow', 'through', 'street', 'broad', 'narrow', 'cri', 'cockl', 'mussel', 'aliv', 'aliv', 'aliv', 'aliv', 'aliv', 'aliv', 'cri', 'cockl', 'mussel', 'aliv', 'aliv']
@@ -895,7 +881,7 @@ alive
 \begin{frame}[fragile]{RegEx in ComScience}
 
 \begin{small}
-"Next to steps like conversion to lowercase and the removal of stop words and punctuation, we paid extensive attention to the recoding of potential firms mentioned in our data in order to circumvent underestimation of news attention to firms. We manually compiled a list of companies – based on existing lists of Dutch and Non-Dutch multinationals, and AEX stock market–listed firms potentially relevant for our study. If a firm on this list contained more than one word or had synonyms or different spellings, our program used regular expressions to replace these by a unique term that we defined. For example, AirFrance KLM and different variations on it were all converted into Air\_France\_KLM andABN AMRO into ABN\_AMRO. In addition, we supplemented abbreviations like ABNby the full (new) name, if the full name was mentioned in the same text."
+"Next to steps like conversion to lowercase and the removal of stop words and punctuation, we paid extensive attention to the recoding of potential firms mentioned in our data in order to circumvent underestimation of news attention to firms. We manually compiled a list of companies – based on existing lists of Dutch and Non-Dutch multinationals, and AEX stock market–listed firms potentially relevant for our study. If a firm on this list contained more than one word or had synonyms or different spellings, our program used regular expressions to replace these by a unique term that we defined. For example, AirFrance KLM and different variations on it were all converted into Air\_France\_KLM and ABN AMRO into ABN\_AMRO. In addition, we supplemented abbreviations like ABN by the full (new) name, if the full name was mentioned in the same text."
 \end{small}
 \begin{tiny}
 Jonkman et al. (2016), p. 1615 
