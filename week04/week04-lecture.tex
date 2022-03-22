@@ -1,6 +1,6 @@
 
-%\documentclass[handout]{beamer}
-\documentclass[compress]{beamer}
+\documentclass[handout]{beamer}
+%\documentclass[compress]{beamer}
 \usepackage[T1]{fontenc}
 \usepackage{pifont}
 \usetheme[block=fill,subsectionpage=progressbar,sectionpage=progressbar]{metropolis} 
@@ -127,7 +127,7 @@
 
 
 \title[Computational Communication Science 2]{\textbf{Computational Communication Science 2} \\Week 4 - Lecture\\ »Text similiarity and differences«}
-\author[Marthe Möller, Anne Kroon]{Marthe Möller \\ Anne Kroon \\ ~ \\ \footnotesize{A.M.Moller@uva.nl, @MartheMoller \\a.c.kroon@uva.nl, @annekroon} \\}
+\author[Anne Kroon]{Anne Kroon \\ ~ \\ \footnotesize{a.c.kroon@uva.nl, @annekroon} \\}
 \date{April, 2022}
 \institute[Digital Society Minor, University of Amsterdam]{Digital Society Minor, University of Amsterdam}
 
@@ -536,7 +536,7 @@ fasttext_model300 = api.load('fasttext-wiki-news-subwords-300')
 \begin{minted}[%
 breaklines,
 linenos,
-fontsize=\scriptsize,
+fontsize=\tiny,
 frame=single,
 xleftmargin=0pt,]
 	{python}
@@ -549,7 +549,7 @@ doc3 = "She likes cereal and coffee".lower()
 \begin{minted}[%
 breaklines,
 linenos,
-fontsize=\scriptsize,
+fontsize=\tiny,
 frame=single,
 xleftmargin=0pt,]
 {python}
@@ -562,7 +562,7 @@ dictionary = corpora.Dictionary([simple_preprocess(doc) for doc in [doc1, doc2, 
 \begin{minted}[%
 breaklines,
 linenos,
-fontsize=\scriptsize,
+fontsize=\tiny,
 frame=single,
 xleftmargin=0pt,]
 	{python}
@@ -981,7 +981,7 @@ pyLDAvis.display(vis_data)
 	frame=single,
 	xleftmargin=0pt,]
 	{python}
-mylda LdaModel(corpus=tfidfcorpus[ldacorpus], id2word=id2word, num_topics=50, alpha='auto', passes=10)
+mylda =LdaModel(corpus=tfidfcorpus[ldacorpus], id2word=id2word, num_topics=50, alpha='auto', passes=10)
 \end{minted}
 	
 \end{frame}
@@ -994,7 +994,7 @@ mylda LdaModel(corpus=tfidfcorpus[ldacorpus], id2word=id2word, num_topics=50, al
 	\end{itemize}
 	
 	\pause
-	Takeaway: Even though you can do \texttt{eta="auto"}, this usually does not help you much.
+Takeaway: Even though you can do \texttt{eta="auto"}, this usually does not help you much.
 	
 \end{frame}
 
@@ -1038,8 +1038,6 @@ mylda LdaModel(corpus=tfidfcorpus[ldacorpus], id2word=id2word, num_topics=50, al
 \end{frame}
 
 
-
-
 \section{Next steps}
 
 \begin{frame}[plain]
@@ -1047,8 +1045,8 @@ mylda LdaModel(corpus=tfidfcorpus[ldacorpus], id2word=id2word, num_topics=50, al
 	\begin{block}{Exercise for this week's lab session}
 		\footnotesize
 		\begin{itemize}
-			\item Work through the example notebook on LDA: \url{https://github.com/annekroon/gesis-machine-learning/blob/main/day3/excercise-afternoon/lda.ipynb}
-			\item Work through the example notebook on LDA:
+			\item Work through the example notebook on LDA: \url{https://github.com/annekroon/CCS-2/blob/main/week04/exercises/topic-modelling.ipynb}
+			\item Work through the example notebook on cosine and soft cosine: \url{https://github.com/annekroon/CCS-2/blob/main/week04/exercises/inclass-exercise-wk4.ipynb}
 			\item Practice with your own data
 		\end{itemize}
 	\end{block}
