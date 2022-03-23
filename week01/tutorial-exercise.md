@@ -27,7 +27,7 @@ First, focus on the text of the first song only.
 Hint: If you are having trouble finding useful regular expressions, have a look here: https://docs.python.org/3/howto/regex.html#regex-howto and here: https://regexr.com/
 
 
-## 3. Tidying things up.
+## 4. Tidying things up.
 Now, let's apply this to all the texts that are included in the datafile.
 - Can you build a function that performs some of the tasks above for each text that it receives as input? For each text the function needs to indicate:
 	- How many sentences are included in the text
