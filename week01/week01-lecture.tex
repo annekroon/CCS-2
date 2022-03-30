@@ -113,8 +113,8 @@
 \newcommand{\instruction}[1]{\emph{\textcolor{gray}{[#1]}}}
 
 
-\title[Computational Communication Science 2]{\textbf{Computational Communication Science 2} \\Week 1 - Lecture\\ »Introduction«}
-\author[Marthe Möller, Anne Kroon]{Marthe Möller \\ Anne Kroon \\ ~ \\ \footnotesize{A.M.Moller@uva.nl, @MartheMoller \\a.c.kroon@uva.nl, @annekroon} \\}
+\title[Computational Communication Science 2]{\textbf{Computational Communication Science 2} \\Week 1 - Lecture\\ »Introduction \& Lift Off«}
+\author[Marthe Möller, Anne Kroon]{Marthe Möller \\ Anne Kroon \\ ~ \\ \footnotesize{a.m.moller@uva.nl, @marthemoller \\a.c.kroon@uva.nl, @annekroon} \\}
 \date{April, 2022}
 \institute[Digital Society Minor, University of Amsterdam]{Digital Society Minor, University of Amsterdam}
 
@@ -129,10 +129,6 @@
 		\tableofcontents
 	\end{frame}
 
-\begin{frame} 
-	All course materials can be found at\ldots \\
-	~~~~~~~~\url{https://github.com/annekroon/CCS-2}
-\end{frame}
 
 \section{Introducing\ldots the people}
 
@@ -153,7 +149,7 @@
 				\item Experimental methods
 			\end{itemize}
 		\end{itemize}
-		@marthemoller \textbar A.M.Moller@uva.nl \textbar \url{https://www.uva.nl/profiel/m/o/a.m.moller/a.m.moller.html} 
+		@marthemoller \textbar a.m.moller@uva.nl \textbar \url{https://www.uva.nl/profiel/m/o/a.m.moller/a.m.moller.html} 
 	\end{columns}
 \end{frame}
 
@@ -173,27 +169,20 @@
 \section{Introducing\ldots the course}
 
 
+
 \begin{frame}{About CCS-2} 
 
 What is CCS-2?
 	\begin{itemize}
 		\item Next step after CCS-1 %we assume you know the basics!
-		\item How to use what you learned in CCS-1 for research?
+		\item Learn how to use what you learned in CCS-1 for research
+		\item Expand on what you learned in CCS-1
 		\begin{itemize}
 			\item Learn computational techniques (e.g. data vectorization, machine learning)
 			\item Learn how to use these techniques for research (e.g., content analysis)
 		\end{itemize}
-		\item By the end of the course, you'll be prepared to do computational research in the Research Project
+		\item By the end of the course, you'll be prepared for the Research Project
 	\end{itemize}
-	
-\end{frame}
-
-
-\begin{frame}{About CCS-2}
-	
-	\begin{center}
-		\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{../pictures/Roadmap.png} 
-	\end{center}
 	
 \end{frame}
 
@@ -242,6 +231,11 @@ Course set-up:
 
 \end{frame}
 
+\begin{frame} 
+	All course materials can be found at\ldots \\
+	~~~~~~~~\url{https://github.com/annekroon/CCS-2}
+\end{frame}
+
 
 \begin{frame}{About CCS-2} 
 	
@@ -278,13 +272,14 @@ CCS-1: You learned how to...
 	\item Work with Python, for example, you:
 	\begin{itemize}
 		\item Store text in json-files, csv-files etc.
-		\item Work with texts in Python
+		\item Difference between a dict, a list, a string etc.
+		\item Work with data (e.g., creating a loop)
 	\end{itemize}
 \end{itemize}
 	
 \end{frame}
 
-\begin{frame}{Text as Data: \small{Learning from text directly}}
+\begin{frame}{Text as Data: \small{Analyzing text as a goal}}
 	
 	Studying text can teach us a lot about human behavior: \\~
 	
@@ -344,7 +339,7 @@ CCS-1: You learned how to...
 
 \begin{frame}{Text as Data: NLP}
 	
-	\textbf{Natural language processing (NLP)} refers to the branch of computer science — and more specifically, the branch of artificial intelligence or AI — concerned with giving computers the ability to understand text and spoken words in much the same way human beings can."  \\
+	"\textbf{Natural language processing (NLP)} refers to the branch of computer science — and more specifically, the branch of artificial intelligence or AI — concerned with giving computers the ability to understand text and spoken words in much the same way human beings can."  \\
 	\tiny{(IBM, 2020)}
 	
 	
@@ -408,6 +403,10 @@ Tokenization: The process of breaking text (paragraphs, sentences, etc.) into sm
 \begin{frame}[fragile]{Tokenization}
 	
 \begin{lstlisting}		
+
+import nltk
+from nltk.tokenize import word_tokenize
+
 MM_words = word_tokenize(MollyMalone)
 
 print(MM_words)
@@ -424,6 +423,8 @@ print(MM_words)
 \begin{frame}[fragile]{Tokenization}
 	
 \begin{lstlisting}		
+from collections import Counter
+	
 print(Counter(MM_words).most_common(3))
 \end{lstlisting}	
 
@@ -431,6 +432,9 @@ print(Counter(MM_words).most_common(3))
 \begin{lstlistingoutput}
 [(',', 17), ('alive', 6), ('oh', 4)]
 \end{lstlistingoutput}
+
+
+What about stopwords?
 
 	
 	% let's create a list with the 3 most common words in this sentence. We can see a few problems arise: first, one of the most common words is also a pretty meaningless word: 'oh'. Let's clean up our data and remove the stopwords so that there are only meaningful words left!
@@ -524,7 +528,7 @@ print(Counter(nostopwords).most_common(3))
 \end{lstlisting}
 	
 \begin{lstlistingoutput}
-[(',', 17), ('alive', 6), ('oh', 4)]
+[(',', 17), ('alive', 6), ('.', 2)]
 \end{lstlistingoutput}
 	
  %As you can see, in the ready-made stopword list, 'oh' was not included in a stopwords and it is therefore still there. In this case, we can add this as a stopword to the NLTK list to customize it for our research.
@@ -602,7 +606,7 @@ print(Counter(nostopnopunct).most_common(3))
 lower = []
 
 for word in nostopnopunct:
-lower.append(word.lower())
+    lower.append(word.lower())
 
 print(lower)
 \end{lstlisting}
@@ -628,12 +632,20 @@ print(Counter(lower).most_common(3))
 
 \end{frame}
 
+
+\begin{frame}
+
+Many text analyses require steps ('preprocessing data') such as the ones discussed here.
+
+\end{frame}
+
 \begin{frame}{Zooming out} 
 	
 So far, we talked about:
 \begin{itemize}
 	\item Natural Language Processing and the NLTK
-	\item Tokenization \\\
+	\item Tokenization 
+	\item Preprocessing steps: stopword removal, punctuation removal, lowercase conversion \\\
 \end{itemize}
 	
 Next, we will talk about:
@@ -726,6 +738,7 @@ So far, we talked about:
 \begin{itemize}
 	\item Natural Language Processing and the NLTK
 	\item Tokenization
+	\item Preprocessing steps: stopword removal, punctuation removal, lowercase conversion
 	\item Stemming and lemmatization \\\
 \end{itemize}
 	
@@ -754,9 +767,19 @@ Next, we will talk about:
 
 
 
+\begin{frame}
+	
+	Find the strings that conform to this pattern: "live" . 
+	
+	In Dublin's fair city, where the girls are so pretty, I first set my eyes on sweet Molly Malone. As she wheeled her wheelbarrow, through streets broad and narrow crying, cockles and mussels, a\textcolor{red}{live} a\textcolor{red}{live}, oh! a\textcolor{red}{live}, a\textcolor{red}{live}, oh, A\textcolor{red}{live}, a\textcolor{red}{live}, oh, crying, cockles and mussels, A\textcolor{red}{live}, a\textcolor{red}{live}, oh.
+\end{frame}
+
+
+
 \begin{frame}[fragile]{RegEx: Search, Match, or Findall}
 	
 \begin{lstlisting}
+import re
 print(re.search("live", "Alive"))
 \end{lstlisting}
 	
@@ -773,13 +796,13 @@ print(re.match("live", "Alive"))
 \end{lstlistingoutput}
 
 
-re.match() \\
 re.search() \\
+re.match() \\
 re.findall()
 
 % For exmple, I acn use regex to find how often the letters "live" occur in atext.
-% re.match() checks for a match only at the beginning of a string
 % re.search() checks for a mtach anywhere in the string
+% re.match() checks for a match only at the beginning of a string
 % re.findall() searches for all occurences that match a given pattern
 	
 \end{frame}
@@ -811,43 +834,46 @@ alive
 
 
 
-\begin{frame}[fragile]{RegEx}
+\begin{frame}[fragile]{RegEx: Wildcards}
 
 \lstinline{m[oa]lly} matches molly, but also mally \\
 \lstinline{m.lly} matches molly, but also mally, or melly, or milly...
 
 	
 	%RegEx has some wildcards. 
+	%Preiod: Any character (except for the newline character) will be matched by a period in a regular expression
 	
 \end{frame}
 
 
-\begin{frame}[fragile]{Quantifiers}
+\begin{frame}[fragile]{RegEx: Quantifiers}
 	
 \lstinline{mol+y} matches moly, molly, mollly, molllly...  \\
 \lstinline{[mM]ol+y} matches moly, molly, and mollly, but also Moly, Molly, Mollly, Molllly... 
 	
 	
 	%You can also specify how often you want a character to occur.
-
+% + Repeats the previous item once or more. Greedy, so as many items as possible will be matched before trying permutations with less matches of the preceding item, up to the point where the preceding item is matched only once.
 	
 \end{frame}
 
 
-\begin{frame}[fragile]{Quantifiers}
+\begin{frame}[fragile]{RegEx: Greedy vs. Lazy}
 	
 	<b>Molly Malone</b> \\
 	\lstinline{<.*>} is greedy and will select everything   \\
-	\lstinline{<.*?>} is non-greedy and will match <b> and </b>
+	\lstinline{<.*?>} is non-greedy/lazy and will match <b> and </b>
 
-	
+	% * Repeats the previous item zero or more times. Greedy, so as many items as possible will be matched before trying permutations with less matches of the preceding item, up to the point where the preceding item is not matched at all.
 	
 	%Note that by default, quantifiers are greedy, meaning that they will match as many characters as possible.
+	
+	% Question mark. Makes the preceding item optional (zero or one). Greedy, so the optional item is included in the match if possible.
 	
 \end{frame}
 
 
-\begin{frame}[fragile]{Groups}
+\begin{frame}[fragile]{RegEx: Groups}
 	
 	\lstinline{That was (not)? the end of sweet Molly Malone} \\ 
 	will select both:   \\
@@ -864,7 +890,7 @@ alive
 	
 	
 	The Dublin Millennium Commission proclaimed 13 June to be "Molly Malone Day" \\
-	\lstinline{[1-9]+.[A-Z][a-z]+} \\ 
+	\lstinline{[1-9]+\s[A-Z][a-z]+} \\ 
 	will select 13 June
 
 	
@@ -881,7 +907,7 @@ alive
 \begin{frame}[fragile]{RegEx in ComScience}
 
 \begin{small}
-"Next to steps like conversion to lowercase and the removal of stop words and punctuation, we paid extensive attention to the recoding of potential firms mentioned in our data in order to circumvent underestimation of news attention to firms. We manually compiled a list of companies – based on existing lists of Dutch and Non-Dutch multinationals, and AEX stock market–listed firms potentially relevant for our study. If a firm on this list contained more than one word or had synonyms or different spellings, our program used regular expressions to replace these by a unique term that we defined. For example, AirFrance KLM and different variations on it were all converted into Air\_France\_KLM and ABN AMRO into ABN\_AMRO. In addition, we supplemented abbreviations like ABN by the full (new) name, if the full name was mentioned in the same text."
+"Next to steps like \textcolor{blue}{conversion to lowercase} and the  \textcolor{blue}{removal of stop words and punctuation}, we paid extensive attention to the recoding of potential firms mentioned in our data in order to circumvent underestimation of news attention to firms. We manually compiled a list of companies [...]. [...], our program used \textcolor{blue}{regular expressions to replace the different names of firms by a unique term that we defined}. For example, AirFrance KLM and different variations on it were all converted into Air\_France\_KLM and ABN AMRO into ABN\_AMRO. In addition, we supplemented abbreviations like ABN by the full (new) name, if the full name was mentioned in the same text."
 \end{small}
 \begin{tiny}
 Jonkman et al. (2016), p. 1615 
@@ -896,9 +922,14 @@ Today, we talked about:
 \begin{itemize}
 	\item Natural Language Processing and the NLTK
 	\item Tokenization
+	\item Preprocessing steps: stopword removal, punctuation removal, lowercase conversion
 	\item Stemming and lemmatization
 	\item Regular expressions \\\
 \end{itemize}
+
+\end{frame}
+
+\begin{frame}
 	
 In this weeks' tutorial, you will:
 \begin{itemize}
