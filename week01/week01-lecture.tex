@@ -384,6 +384,15 @@ I
 \end{frame}
 
 
+\begin{frame}[fragile]{NLTK}
+	
+What are the three most commonly used (meaningful) words in this song?
+	
+	
+\end{frame}
+
+
+
 
 \begin{frame}[fragile]{NLTK}
 	
@@ -424,7 +433,7 @@ print(MM_words)
 	
 \begin{lstlisting}		
 from collections import Counter
-	
+
 print(Counter(MM_words).most_common(3))
 \end{lstlisting}	
 
@@ -476,6 +485,8 @@ print(Counter(nostopwords).most_common(3))
 \begin{lstlistingoutput}
 [(',', 17), ('alive', 6), ('.', 2)]
 \end{lstlistingoutput}
+
+Stopword list provided by the NLTK.
 	
 	%The easiest way to do this is to create list with stopwords and then loop over our text and filter out the words in our text that are also in our stopwords-list.
 	
@@ -487,7 +498,6 @@ print(Counter(nostopwords).most_common(3))
 \begin{frame}[fragile]{Removing Stopwords}
 	
 \begin{lstlisting}		
-
 from nltk.corpus import stopwords
 stop_words = stopwords.words("english")
 print(len(stop_words))
@@ -656,6 +666,14 @@ Next, we will talk about:
 \end{frame}
 
 
+\begin{frame}{Zooming out} 
+	
+What if we want to compare many different songtexts to see how similar they are?
+
+In such cases, it may help to "normalize" text so that different texts are better comparable.
+
+\end{frame}
+
 
 \begin{frame}[fragile]{Stemming }
 
@@ -761,8 +779,18 @@ Next, we will talk about:
 	\begin{tiny}
 		\cite{van_atteveldt_computational_2022} 
 	\end{tiny}
-	
+\end{frame}
 
+
+\begin{frame}[fragile]{RegEx in ComScience}
+	
+	\begin{small}
+		"Next to steps like \textcolor{blue}{conversion to lowercase} and the  \textcolor{blue}{removal of stop words and punctuation}, we paid extensive attention to the recoding of potential firms mentioned in our data in order to circumvent underestimation of news attention to firms. [...] our program used \textcolor{blue}{regular expressions to replace the different names of firms by a unique term that we defined}."
+	\end{small}
+	\begin{tiny}
+		Jonkman et al. (2016), p. 1615 
+	\end{tiny}
+	
 \end{frame}
 
 
@@ -809,7 +837,7 @@ re.findall()
 
 
 
-\begin{frame}[fragile]{RegEx}
+\begin{frame}[fragile]{RegEx: I don't exactly know what I am looking for!}
 
 \begin{lstlisting}
 for word in MollyMalone_words:
@@ -837,7 +865,9 @@ alive
 \begin{frame}[fragile]{RegEx: Wildcards}
 
 \lstinline{m[oa]lly} matches molly, but also mally \\
-\lstinline{m.lly} matches molly, but also mally, or melly, or milly...
+\lstinline{m.lly} matches molly, but also mally, or melly, or milly... 
+
+
 
 	
 	%RegEx has some wildcards. 
@@ -848,8 +878,10 @@ alive
 
 \begin{frame}[fragile]{RegEx: Quantifiers}
 	
-\lstinline{mol+y} matches moly, molly, mollly, molllly...  \\
-\lstinline{[mM]ol+y} matches moly, molly, and mollly, but also Moly, Molly, Mollly, Molllly... 
+\lstinline{mol+y} matches molly, mollly, molllly, mollllly...  \\
+\lstinline{[mM]ol+y} matches molly, mollly, and molllly, but also Molly, Mollly, Molllly, Mollllly...  \\\
+
+By definition, quantifiers are greedy.
 	
 	
 	%You can also specify how often you want a character to occur.
@@ -895,25 +927,37 @@ alive
 
 	
 	%With character classes, you can specify a number of different characters that you want to match. You can use - to indicate a range.
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Character classes}
 	
-% more examples of regular expressions
-%practice using: https://regexr.com/6dhpi --> find all the dates mentioned in the text
 
+\lstinline{[1-9]+\s[A-Z][a-z]+} \\ 
+will select 13 June \\
+but also 15 August \\
+and 23 September
+	
+	
+
+	% more examples of regular expressions
+	%practice using: https://regexr.com/6dhpi --> find all the dates mentioned in the text
+	
+\end{frame}
+
+
+\begin{frame}{Back about this}
+	
+	\begin{center}
+		\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{../pictures/Roadmap.png} 
+	\end{center}
+	
 \end{frame}
 
 
 
-
-\begin{frame}[fragile]{RegEx in ComScience}
-
-\begin{small}
-"Next to steps like \textcolor{blue}{conversion to lowercase} and the  \textcolor{blue}{removal of stop words and punctuation}, we paid extensive attention to the recoding of potential firms mentioned in our data in order to circumvent underestimation of news attention to firms. We manually compiled a list of companies [...]. [...], our program used \textcolor{blue}{regular expressions to replace the different names of firms by a unique term that we defined}. For example, AirFrance KLM and different variations on it were all converted into Air\_France\_KLM and ABN AMRO into ABN\_AMRO. In addition, we supplemented abbreviations like ABN by the full (new) name, if the full name was mentioned in the same text."
-\end{small}
-\begin{tiny}
-Jonkman et al. (2016), p. 1615 
-\end{tiny}
-
-\end{frame}
 
 
 \begin{frame}{Zooming out} 
@@ -928,17 +972,6 @@ Today, we talked about:
 \end{itemize}
 
 \end{frame}
-
-
-\begin{frame}{Back about this}
-	
-	\begin{center}
-		\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{../pictures/Roadmap.png} 
-	\end{center}
-	
-\end{frame}
-
-
 
 
 \begin{frame}
