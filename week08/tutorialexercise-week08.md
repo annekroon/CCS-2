@@ -75,6 +75,19 @@ What does the output print? Based on this output, would you say the classifier p
 Let's try out some other classifiers as well to investigate which one would be best to use. Can you write a code that sets up a tf·idf vectorize and use this in a model based on Logistic Regression? Have a look at the code above and at the documentation of sklearn.
 
 
+Trouble figuring it out?
+```python
+tfidfvectorizer = TfidfVectorizer(stop_words="english")
+X_train = tfidfvectorizer.fit_transform(texts_train)
+X_test = tfidfvectorizer.transform(texts_test)
+
+logres = LogisticRegression()
+logres.fit(X_train, labels_train)
+
+y_pred = logres.predict(X_test)
+print(classification_report(labels_test, y_pred))
+```
+
 ## Question 6.
 As you saw in the article by Meppelink et al., we can try different combinations of these models (Naïve Bayes and Logistic Regression) and vectorisers. This results in four classifiers. 
 
@@ -105,7 +118,7 @@ for name, vectorizer, classifier in configs:
     print("\n")  
 ```
 
-What classifier performs the best?
+What classifier performs the best? Why do you think this is the best classifier?
 
 
 ## Question 7.
