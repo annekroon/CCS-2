@@ -72,7 +72,7 @@ print(classification_report(labels_test, y_pred))
 What does the output print? Based on this output, would you say the classifier performs well? Which metric is most important for you to base your decision on? Why?
 
 ## Question 5.
-Let's try out some other classifiers as well to investigate which one would be best to use. Can you write a code that sets up a tf·idf vectorize and uses this in a model based on Logistic Regression? Have a look at the code above and at the documentation of sklearn.
+Let's try out some other classifiers as well to investigate which one would be best to use. Can you write a code that sets up a tf·idf vectorize and use this in a model based on Logistic Regression? Have a look at the code above and at the documentation of sklearn.
 
 
 ## Question 6.
@@ -92,9 +92,6 @@ configs = [
    LogisticRegression(solver="liblinear"))]
 ```
 
-You will see that for each classifier, the min_df and the max_df are set to 5 and 0.5 respectively. Take a look at the documentation of scikit-learn (https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html). Can you figure out what these numbers mean? Would you like to change these numbers? Why?
-
-## Question 7.
 Now, we can create a loop that trains each classifier by calling the function that we build. Run this code:
 
 ```python
@@ -110,8 +107,12 @@ for name, vectorizer, classifier in configs:
 
 What classifier performs the best?
 
+
+## Question 7.
+In the first part of the code you are asked to run for question 6 (where you define the specifics of various classifiers) will see that for each classifier, the min_df and the max_df are set to 5 and 0.5 respectively. Take a look at the documentation of scikit-learn (https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html). Can you figure out what these numbers mean? Would you like to change these numbers? Why?
+
 ## Question 8.
-Question 6 asked you what the numbers 5 and 0.5 that were set for each classifier mean. In addition to these two hyperparameters, there are many more hyperparameters that we can set. It is up to you what hyperparameters to change from the default value and what value to give them (take a look at the documentation to learn more about each hyperparameter than you can set https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html). 
+Question 7 asked you what the numbers 5 and 0.5 that were set for each classifier mean. In addition to these two hyperparameters, there are many more hyperparameters that we can set. It is up to you what hyperparameters to change from the default value and what value to give them (take a look at the documentation to learn more about each hyperparameter than you can set https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html). 
 
 What if we want to figure out what the best score is for a few hyperparameters? We can do this by performing a gridsearch in which we cross-validate different model specifications. To perform a gridsearch, it is helpful to re-write our code into a pipeline with scikit-learn.
 
