@@ -22,23 +22,57 @@ import joblib
 ## Question 2. 
 
 As you noted when you read the article by Meppelink et al., there are a few steps that we need to take before we can use supervised machine learning. Namely:
-	- Determine the sample criteria
-	- Collect data
-	- Develop a codebook and hand-code the data
-	- Transform the text into vectors of numbers
+		- Determine the sample criteria
+		- Collect data
+		- Develop a codebook and hand-code the data
+		- Transform the text into vectors of numbers
 
 In this tutorial, we focus on the actual machine learning part of the process. Hence, we will use a database that already has a train subset and a test subset consisting of tweets and their labels. In this dataset, tweets are annoted according to six emotions (sadness, joy, fear, anger, love, and surprise). Hence, we skip the first three steps of the process described above.
 
 Download the data from: https://www.kaggle.com/praveengovi/emotions-dataset-for-nlp 
 
 Can you write a script that opens each file and:
-	- Creates one list with the texts from the test-set
-	- Creates one list with the labels from the test-set
-	- Creates one list with the texts from the train-set
-	- Creates one list with the labels form the train set 
+		- Creates one list with the texts from the test-set
+		- Creates one list with the labels from the test-set
+		- Creates one list with the texts from the train-set
+		- Creates one list with the labels form the train set 
 
 What could you do to check that this process went well? Can you explore the data a bit (e.g. by checking how often each label is present in the different datasets)?
 
+
+Trouble figuring it out? (Note that a potential solution is provided here, but it is important that you go through it and make sure you understand what happens here and not merely copy and run the code)
+```python
+test = "test.txt"
+train = "train.txt"
+
+texts_test = []
+labels_test = []
+
+texts_train = []
+labels_train = []
+
+with open(test) as fi:
+    data = csv.reader(fi, delimiter=';')
+    for row in data:
+        texts_test.append(row[0])
+        labels_test.append(row[1])
+
+with open(train) as fi:
+    data = csv.reader(fi, delimiter=';')
+    for row in data:
+        texts_train.append(row[0])
+        labels_train.append(row[1])
+
+        
+len(texts_test) == len(labels_test)
+len(texts_train) == len(labels_train)
+
+
+Counter(labels_train)
+Counter(labels_test)
+
+plt.bar(Counter(labels_test).keys(), Counter(labels_test).values())
+```
 
 ## Question 3.
 Now that we hopped over steps 1, 2, and 3, we will proceed to step 4: Transforming the text into numbers, or setting up a vectorizer. Let’s use a count vectorizer. Run this code:  
@@ -75,7 +109,7 @@ What does the output print? Based on this output, would you say the classifier p
 Let's try out some other classifiers as well to investigate which one would be best to use. Can you write a code that sets up a tf·idf vectorize and use this in a model based on Logistic Regression? Have a look at the code above and at the documentation of sklearn.
 
 
-Trouble figuring it out?
+Trouble figuring it out? (Note that a potential solution is provided here, but it is important that you go through it and make sure you understand what happens here and not merely copy and run the code)
 ```python
 tfidfvectorizer = TfidfVectorizer(stop_words="english")
 X_train = tfidfvectorizer.fit_transform(texts_train)
