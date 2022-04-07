@@ -22,23 +22,57 @@ import joblib
 ## Question 2. 
 
 As you noted when you read the article by Meppelink et al., there are a few steps that we need to take before we can use supervised machine learning. Namely:
-	- Determine the sample criteria
-	- Collect data
-	- Develop a codebook and hand-code the data
-	- Transform the text into vectors of numbers
+		- Determine the sample criteria
+		- Collect data
+		- Develop a codebook and hand-code the data
+		- Transform the text into vectors of numbers
 
 In this tutorial, we focus on the actual machine learning part of the process. Hence, we will use a database that already has a train subset and a test subset consisting of tweets and their labels. In this dataset, tweets are annoted according to six emotions (sadness, joy, fear, anger, love, and surprise). Hence, we skip the first three steps of the process described above.
 
 Download the data from: https://www.kaggle.com/praveengovi/emotions-dataset-for-nlp 
 
 Can you write a script that opens each file and:
-	- Creates one list with the texts from the test-set
-	- Creates one list with the labels from the test-set
-	- Creates one list with the texts from the train-set
-	- Creates one list with the labels form the train set 
+		- Creates one list with the texts from the test-set
+		- Creates one list with the labels from the test-set
+		- Creates one list with the texts from the train-set
+		- Creates one list with the labels form the train set 
 
 What could you do to check that this process went well? Can you explore the data a bit (e.g. by checking how often each label is present in the different datasets)?
 
+
+Trouble figuring it out? (Note that a potential solution is provided here, but it is important that you go through it and make sure you understand what happens here and not merely copy and run the code)
+```python
+test = "test.txt"
+train = "train.txt"
+
+texts_test = []
+labels_test = []
+
+texts_train = []
+labels_train = []
+
+with open(test) as fi:
+    data = csv.reader(fi, delimiter=';')
+    for row in data:
+        texts_test.append(row[0])
+        labels_test.append(row[1])
+
+with open(train) as fi:
+    data = csv.reader(fi, delimiter=';')
+    for row in data:
+        texts_train.append(row[0])
+        labels_train.append(row[1])
+
+        
+len(texts_test) == len(labels_test)
+len(texts_train) == len(labels_train)
+
+
+Counter(labels_train)
+Counter(labels_test)
+
+plt.bar(Counter(labels_test).keys(), Counter(labels_test).values())
+```
 
 ## Question 3.
 Now that we hopped over steps 1, 2, and 3, we will proceed to step 4: Transforming the text into numbers, or setting up a vectorizer. Let’s use a count vectorizer. Run this code:  
@@ -72,8 +106,21 @@ print(classification_report(labels_test, y_pred))
 What does the output print? Based on this output, would you say the classifier performs well? Which metric is most important for you to base your decision on? Why?
 
 ## Question 5.
-Let's try out some other classifiers as well to investigate which one would be best to use. Can you write a code that sets up a tf·idf vectorize and uses this in a model based on Logistic Regression? Have a look at the code above and at the documentation of sklearn.
+Let's try out some other classifiers as well to investigate which one would be best to use. Can you write a code that sets up a tf·idf vectorize and use this in a model based on Logistic Regression? Have a look at the code above and at the documentation of sklearn.
 
+
+Trouble figuring it out? (Note that a potential solution is provided here, but it is important that you go through it and make sure you understand what happens here and not merely copy and run the code)
+```python
+tfidfvectorizer = TfidfVectorizer(stop_words="english")
+X_train = tfidfvectorizer.fit_transform(texts_train)
+X_test = tfidfvectorizer.transform(texts_test)
+
+logres = LogisticRegression()
+logres.fit(X_train, labels_train)
+
+y_pred = logres.predict(X_test)
+print(classification_report(labels_test, y_pred))
+```
 
 ## Question 6.
 As you saw in the article by Meppelink et al., we can try different combinations of these models (Naïve Bayes and Logistic Regression) and vectorisers. This results in four classifiers. 
@@ -92,9 +139,6 @@ configs = [
    LogisticRegression(solver="liblinear"))]
 ```
 
-You will see that for each classifier, the min_df and the max_df are set to 5 and 0.5 respectively. Take a look at the documentation of scikit-learn (https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html). Can you figure out what these numbers mean? Would you like to change these numbers? Why?
-
-## Question 7.
 Now, we can create a loop that trains each classifier by calling the function that we build. Run this code:
 
 ```python
@@ -108,10 +152,14 @@ for name, vectorizer, classifier in configs:
     print("\n")  
 ```
 
-What classifier performs the best?
+What classifier performs the best? Why do you think this is the best classifier?
+
+
+## Question 7.
+In the first part of the code you are asked to run for question 6 (where you define the specifics of various classifiers) will see that for each classifier, the min_df and the max_df are set to 5 and 0.5 respectively. Take a look at the documentation of scikit-learn (https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html). Can you figure out what these numbers mean? Would you like to change these numbers? Why?
 
 ## Question 8.
-Question 6 asked you what the numbers 5 and 0.5 that were set for each classifier mean. In addition to these two hyperparameters, there are many more hyperparameters that we can set. It is up to you what hyperparameters to change from the default value and what value to give them (take a look at the documentation to learn more about each hyperparameter than you can set https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html). 
+Question 7 asked you what the numbers 5 and 0.5 that were set for each classifier mean. In addition to these two hyperparameters, there are many more hyperparameters that we can set. It is up to you what hyperparameters to change from the default value and what value to give them (take a look at the documentation to learn more about each hyperparameter than you can set https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html). 
 
 What if we want to figure out what the best score is for a few hyperparameters? We can do this by performing a gridsearch in which we cross-validate different model specifications. To perform a gridsearch, it is helpful to re-write our code into a pipeline with scikit-learn.
 
