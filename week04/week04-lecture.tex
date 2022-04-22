@@ -1,4 +1,3 @@
-
 \documentclass[handout]{beamer}
 %\documentclass[compress]{beamer}
 \usepackage[T1]{fontenc}
@@ -142,13 +141,32 @@
 	\tableofcontents
 \end{frame}
 
+
+\begin{frame}{The CCS toolbox}
+	\makebox[\columnwidth]{
+		\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/boumanstrilling2016}}
+	\\
+	\cite{Boumans2016}
+\end{frame}
+
+
 \section{Cosine Similarity}
 
-%nowadays, recommender systems are everywhere.
-%Recommender systems have been around for several years now, but many people don't realize the extent to which they are ingrained into the experiences we have with technology.
-%When you log into Netflix and see movie suggestions, that's their recommender system at work. 
-%When you log into Amazon and it suggests products to you, that's their recommender system at work.
-%When you fire up Facebook, both the posts that show up in your news feed and the friend recommendations they provide are examples of %their recommender systems at work.
+\begin{frame}{Cosine Similarity}
+	\begin{block}{Cosine Similarity}
+		\begin{itemize}[<+>]
+			\item A measure that helps you determine how similar two documents are, irrespective of their size
+		\end{itemize}
+	
+		\begin{exampleblock}{Applications in Communication Science}
+		\begin{itemize}
+			\item<1-> For example, to map \emph{linguistic alignment} of romantic couples over time \parencite{Brinberg2021}
+			\item<2->Or, in the political domain, agenda overlap between public opinion and political speech \parencite{Hager2020}
+		\end{itemize}
+	\end{exampleblock}
+	\end{block}
+\end{frame}
+
 \begin{frame}{Cosine Similarity} 
 $$
 \text { similarity }=\cos (\theta)=\frac{\mathbf{A} \cdot \mathbf{B}}{\|\mathbf{A}\|\|\mathbf{B}\|}=\frac{\sum_{i=1}^{n} A_{i} B_{i}}{\sqrt{\sum_{i=1}^{n} A_{i}^{2}} \sqrt{\sum_{i=1}^{n} B_{i}^{2}}}
@@ -157,18 +175,22 @@ $$
 \pause
 
 \begin{itemize}
-\item -1 means the opposite (180 degrees) 
-\item 0 means orthogonal vectors (90 degrees)
-\item 1 means vectors are the same (0 degrees)
+\item It measures the cosine of the angle between two vectors projected in a multi-dimensional space.
+\item 0 means orthogonal vectors (90 degrees); very dissimal
+\item 1 means vectors are the same (0 degrees); similar
 \end{itemize}
 \end{frame}
 
 
-\begin{frame}
-	\makebox[\linewidth]{
-		\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/cosine_sim.png}}
-Interpretation of cosine similarity  \footnote{https://www.learndatasci.com/glossary/cosine-similarity/}
+\begin{frame}{Cosine Similarity}
+	\makebox[\columnwidth]{
+		\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/cosine_angle.png}}
+	\\
+\footnote{https://towardsdatascience.com/what-is-cosine-similarity-how-to-compare-text-and-images-in-python-d2bb6e411ef0}
 \end{frame}
+
+
+
 
 % recommender systems are everywhere around us.
 \begin{frame}{how can we calculate this in python?}
@@ -198,10 +220,11 @@ print(pd.DataFrame(count_matrix.A, columns=vec.get_feature_names()).to_string())
 
 \pause
 %\begin{lstlistingoutput}
-\begin{minted}{python}
-   breakfast  drink  eat  like  tea  usually
-0          1      1    1     0    1        1
-1          1      0    0     1    1        0
+\begin{minted}[fontsize=\scriptsize]{python}
+     breakfast  cereal  coffee  drink  eat  like  likes  tea  usually
+0          1       0       0      1    1     0      0    1        1
+1          1       0       0      0    0     1      0    1        0
+2          0       1       1      0    0     0      1    0        0
 \end{minted}
 %\end{lstlistingoutput}s
 \end{frame}
@@ -224,8 +247,8 @@ print(f"The vector belonging to doc2: {doc2_vector}")
 	\pause
 	%\begin{lstlistingoutput}
 	\begin{minted}{python}
-The vector belonging to doc1: [1, 1, 1, 0, 1, 1]
-The vector belonging to doc2: [1, 0, 0, 1, 1, 0]
+The vector belonging to doc1: [1, 0, 0, 1, 1, 0, 0, 1, 1]
+The vector belonging to doc2: [1, 0, 0, 0, 0, 1, 0, 1, 0]
 	\end{minted}
 	%\end{lstlistingoutput}s
 \end{frame}
@@ -238,6 +261,16 @@ $$
 \sum_{i=1}^{n} A_{i} B_{i}
 $$
 
+\begin{minted}[fontsize=\scriptsize]{python}
+doc1: [1, 0, 0, 1, 1, 0, 0, 1, 1]
+doc2: [1, 0, 0, 0, 0, 1, 0, 1, 0]
+\end{minted}
+%\end{lstlistingoutput}s
+$$
+dot\_product = (1\cdot1) + (0\cdot0) + (0\cdot0) + (1\cdot0) + (1\cdot0) + (0\cdot0) + (1\cdot1) +(1\cdot0)
+$$
+\pause
+Or, using Python: 
 	\begin{minted}[%
 		breaklines,
 		linenos,
@@ -248,8 +281,7 @@ $$
 dot_product = sum([num1 * num2 for num1, num2 in zip(doc1_vector, doc2_vector)])
 print(dot_product)
 	\end{minted}
-	
-	\pause
+\pause
 	%\begin{lstlistingoutput}
 	\begin{minted}{python}
 2
@@ -260,11 +292,21 @@ print(dot_product)
 
 
 \begin{frame}[fragile]{Implementation in Python}
-    2.Execute the part of the formula in the denumerator. Take the product of the lengths of the vectors.
+    2.Execute the part of the formula in the denumerator. Take the cross product of the two vectors.
 
 $$
 \sqrt{\sum_{i=1}^{n} A_{i}^{2}} \sqrt{\sum_{i=1}^{n} B_{i}^{2}}
 $$
+\footnotesize{Calculate this by hand:
+$$
+doc1_ = \sqrt{1^2 + 0^2 + 0^2 + 1^2 + 1^2 + 0^2+ 1^2 + 1^2}
+$$
+$$
+doc1_ = \sqrt{1^2 + 0^2 + 0^2 + 0^2 + 1^2 + 0^2+ 1^2 + 0^2}
+$$
+}
+\pause
+Implementation in Python:
 	\begin{minted}[%
 		breaklines,
 		linenos,
@@ -310,7 +352,7 @@ print(cos_sim)
 
 \begin{frame}[fragile]{Implementation in Python}
 
-We can, however, do this much faster using sklearn's cosine\_similarity.
+We can, however, do this much faster using sklearn's \texttt{cosine\_similarity}.
 	
 \begin{minted}[%
 	breaklines,
@@ -331,12 +373,26 @@ array([[1.        , 0.51639778],
 	\end{minted}
 \end{frame}
 
+\begin{frame}{How to use this in practice}
+	\begin{block}{What can you do with this?}
+		\begin{itemize}[<+>]
+			\item This is especially powerful if you want to compare different news articles, movies, song texts, etc.
+			\item For example, which movies are most similair in terms of genre composition?
+			\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\makebox[\linewidth]{
+		\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/cosine_sim.png}}
+Indentify movies that are similar in terms of genre  \footnote{https://www.learndatasci.com/glossary/cosine-similarity/}
+\end{frame}
 
 \begin{frame}{Considering Cosine Similarity}
 	\begin{block}{Things to consider}
 		\begin{itemize}
 		\item <1-> What type of overlap are you interested in?
-		\item <2->What is the meaning of n-grams, stems, entities, stopwords when considering your RQ? How you should preproces, depends on your RQ and aim. 
+		\item <2->What is the meaning of n-grams, stems,  stopwords when considering your RQ? How you should preproces, depends on your RQ and aim. 
 		\item <3-> Computationally cheap and fast; works well in e.g., recommender systems (week 6!)
 		\end{itemize}
 	\end{block}
@@ -420,21 +476,6 @@ Zero overlap between doc3 and the other documents. Is that correct?
 \end{frame}
 
 
-\begin{frame}{Soft Cosine Measure (SCM)}
-	\begin{block}{SCM}
-		\begin{itemize}
-			\item <1-> Even if two sentences do not share the same words, we can calculate similarity by modelling \emph{synonym}
-			\item <2->For example, the words `play' and `game' are different but related \footnote{\url{http://www.scielo.org.mx/pdf/cys/v18n3/v18n3a7.pdf}}
-			\item<3->How can we capture `semantic' meaning?
-		\end{itemize}
-	\end{block}
-	\begin{exampleblock}{How?}
-		\begin{itemize}
-			\item <4-> Convert words to \emph{word vectors} and then compute similarities 
-		\end{itemize}
-	\end{exampleblock}
-\end{frame}
-
 \begin{frame}
 	\makebox[\linewidth]{
 		\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/soft-cosine}}
@@ -444,8 +485,7 @@ Zero overlap between doc3 and the other documents. Is that correct?
 \begin{frame}{Word embeddings}
 	\begin{block}{Word embeddings}
 		\begin{itemize}
-			\item <1->To use the SCM, you need embeddings. 
-			\item <2->Word embeddings
+			\item <1->To use the SCM, you need word embeddings. 
 		\end{itemize}
 	\end{block}
 \end{frame}
@@ -454,16 +494,18 @@ Zero overlap between doc3 and the other documents. Is that correct?
 
 \begin{frame}{Understanding SCM}
 SCM estimates extracts similarity from \alert{word embeddings}. 
-	\begin{block}{what are word embeddings?}
-		\begin{itemize}
-			\item<1->Word embeddings help capturing the meaning of text
-			\item<2->Word embeddings are low-dimensional vector representations that capture semantic meaning
-			\item<3->State-of-the-art in NLP...
-			\item<4-> \emph{``...a word is characterized by the company it keeps...''} (Firth, 1957)
+	\begin{block}{What are word embeddings?}
+		\begin{itemize}[<+>]
+			\item No technical details here, just the general idea
+			\item Word embeddings help capturing the meaning of text
+			\item Word embeddings are low-dimensional vector representations that capture semantic meaning
+			\item State-of-the-art in NLP...
+			\item \emph{``...a word is characterized by the company it keeps...''} (Firth, 1957)
 		\end{itemize}
 	\end{block}
 \end{frame}
 
+\iffalse
 \begin{frame}{}
 	\makebox[\linewidth]{\includegraphics[width=\linewidth,height=\textheight, keepaspectratio]{../pictures/google1.png}}
 \end{frame}
@@ -506,6 +548,9 @@ SCM estimates extracts similarity from \alert{word embeddings}.
 \begin{frame}{}
 	\makebox[\linewidth]{\includegraphics[width=\linewidth,height=\textheight, keepaspectratio]{../pictures/visual.png}}
 \end{frame}
+\fi
+
+
 
 \subsection{Implemention in Python}
 \begin{frame}[fragile]{SCM in Python}
@@ -637,15 +682,14 @@ doc2 <-> doc3: 0.28
 \end{frame}
 	
 \begin{frame}{Applications of cosine and soft cosine similarity}
-	Applications of \emph{cosine} and \emph{soft cosine} in the field of Communication Science
+	Applications of \emph{cosine} and \emph{soft cosine} in the field of Communication Science generally involve some overtime dynamics. 
 	\begin{exampleblock}{Trace convergence or agenda setting dynamics over time}
 		\begin{itemize}
-			\item<1-> For example, to map \emph{linguistic alignment} of romantic couples over time \parencite{Brinberg2021}
-			\item<2->Or, in the political domain, agenda overlap between public opinion and political speech \parencite{Hager2020}
+			\item Beyond the scope this course to discuss it here, but if you are interested in how you can apply cosine and soft cosine in an overtime analysis, we have prepared a notebook that will help you do just that. 
+			\item \url{https://github.com/annekroon/CCS-2/blob/main/week04/exercises/OPTIONAL_overtime_similarity.ipynb}
 		\end{itemize}
 	\end{exampleblock}
-\pause
-You will also look into overtime dynamics during this week's lab session!
+
 \end{frame}
 
 \section{Topic modelling}
@@ -709,7 +753,7 @@ text3, 9, 0, 1, 1, 0, 0 ...
 			\item Each document $D_i$ consists of a mixture of these topics, e.g.$80\% T_1, 15\% T_2, 0\% T_3, \ldots 5\% T_k $
 			\item On the next level, each topic consists of a specific probability distribution of words
 			\item Thus, based on the frequencies of words in $D_i$, one can infer its distribution of topics
-			\item Note that LDA (like PCA) is a Bag-of-Words (BOW) approach
+			\item Note that LDA is a Bag-of-Words (BOW) approach
 		\end{itemize}
 	\end{block}
 	
@@ -888,6 +932,7 @@ pyLDAvis.display(vis_data)
 		\includegraphics[width=\paperwidth,height=.5\paperheight,keepaspectratio]{../pictures/lda}}
 \end{frame}
 
+\iffalse
 \begin{frame}{Visualization with pyldavis}
 	Short note about the $\lambda$ setting:
 	
@@ -900,6 +945,7 @@ pyLDAvis.display(vis_data)
 	
 	\tiny{Maier, D., Waldherr, A., Miltner, P., Wiedemann, G., Niekler, A., Keinert, A., \ldots Adam, S. (2018). Applying LDA Topic Modeling in Communication Research: Toward a Valid and Reliable Methodology. \textit{Communication Methods and Measures, 12}(2--3), 93--118. doi:10.1080/19312458.2018.1430754}
 \end{frame}
+\fi
 
 \begin{frame}[plain]{Code examples}
 	
@@ -927,13 +973,13 @@ pyLDAvis.display(vis_data)
 
 
 
-\begin{frame}{Evaluation metrics (closer to zero is better)}
-	\begin{block}{perplexity}
-		A goodness-of-fit measure, answering the question: If we do a train-test split, how well does the trained model fit the test data?
+\begin{frame}{Evaluation metrics}
+	\begin{block}{qualitative: human judgement}
+	Observation and interpretation based: observe the top N words in your topic, and evaluate the quality of the coherence of the topic.  Can you identify words that do not belong to a topic?
 	\end{block}
 	
 	\pause 
-	\begin{block}{coherence}
+	\begin{block}{quantitative: coherence}
 		\begin{itemize}
 			\item mean coherence of the whole model: attempts to quantify the interpretability
 			\item coherence per topic: allows to get topics that are most likely to be coherently interpreted (\texttt{.top\_topics()})
@@ -945,7 +991,7 @@ pyLDAvis.display(vis_data)
 
 \begin{frame}{So, how do we do this?}
 	\begin{itemize}[<+->]
-		\item Basically, similar to the idea behind our grid search from two weeks ago: estimate multiple models, store the metrics for each model, and then compare them (numerically, or by plotting)
+		\item Estimate multiple models, store the metrics for each model, and then compare them (numerically, or by plotting)
 		\item Idea: We select some candidate models, and then look whether they can be interpreted.
 		\item But what can we tune?
 	\end{itemize}
@@ -957,7 +1003,7 @@ pyLDAvis.display(vis_data)
 		\item Typical values: $10<k<200$
 		\item Too low: losing nuance, so broad it becomes meaningless
 		\item Too high: picks up tiny pecularities instead of finding general patterns
-		\item There is no inherent ordering of topics (unlike PCA!)
+		\item There is no inherent ordering of topics
 		\item We can throw away or merge topics later, so if out of $k=50$ topics 5 are not interpretable and a couple of others overlap, it still may be a good model
 	\end{itemize}
 \end{frame}
@@ -972,8 +1018,9 @@ pyLDAvis.display(vis_data)
 	
 	\pause 
 	
-	Takeaway: It takes longer, but you probably want to learn alpha from the data, using multiple passes:
-	
+
+
+
 \begin{minted}[%
 	breaklines,
 	linenos,
@@ -987,6 +1034,7 @@ mylda =LdaModel(corpus=tfidfcorpus[ldacorpus], id2word=id2word, num_topics=50, a
 \end{frame}
 
 
+\iffalse
 \begin{frame}{Choosing $\eta$: how sparse should the topic-word distribution $\lambda$ be?}
 	\begin{itemize}
 		\item Can be used to boost specific words
@@ -997,7 +1045,8 @@ mylda =LdaModel(corpus=tfidfcorpus[ldacorpus], id2word=id2word, num_topics=50, a
 Takeaway: Even though you can do \texttt{eta="auto"}, this usually does not help you much.
 	
 \end{frame}
-
+	Takeaway: It takes longer, but you probably want to learn alpha from the data, using multiple passes:
+\fi
 
 % \subsection{Drawbacks of LDA topic models}
 
@@ -1026,18 +1075,6 @@ Takeaway: Even though you can do \texttt{eta="auto"}, this usually does not help
 
 
 
-\subsection{Other forms of topic models}
-
-\begin{frame}{Other forms of topic models}
-	\begin{itemize}
-		\item Author-topic models
-		\item Structural topic models
-		\item Non-negative matrix factorization
-		\item \ldots
-	\end{itemize}
-\end{frame}
-
-
 \section{Next steps}
 
 \begin{frame}[plain]
@@ -1045,9 +1082,10 @@ Takeaway: Even though you can do \texttt{eta="auto"}, this usually does not help
 	\begin{block}{Exercise for this week's lab session}
 		\footnotesize
 		\begin{itemize}
+			\item Work through the example notebook on cosine and soft cosine: \url{https://github.com/annekroon/CCS-2/blob/main/week04/exercises/cosine-similarity-basics.ipynb}
 			\item Work through the example notebook on LDA: \url{https://github.com/annekroon/CCS-2/blob/main/week04/exercises/topic-modelling.ipynb}
-			\item Work through the example notebook on cosine and soft cosine: \url{https://github.com/annekroon/CCS-2/blob/main/week04/exercises/inclass-exercise-wk4.ipynb}
-			\item Practice with your own data
+			\item \emph{Optional}: overtime analysis of cosine or soft cosine:
+			\url{https://github.com/annekroon/CCS-2/blob/main/week04/exercises/OPTIONAL_overtime_similarity.ipynb}
 		\end{itemize}
 	\end{block}
 	
