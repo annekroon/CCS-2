@@ -159,9 +159,9 @@
 		\end{itemize}
 	
 		\begin{exampleblock}{Applications in Communication Science}
-		\begin{itemize}
-			\item<1-> For example, to map \emph{linguistic alignment} of romantic couples over time \parencite{Brinberg2021}
-			\item<2->Or, in the political domain, agenda overlap between public opinion and political speech \parencite{Hager2020}
+		\begin{itemize}[<+>]
+			\item For example, to map \emph{linguistic alignment} of romantic couples over time \parencite{Brinberg2021}
+			\item Or, in the political domain, agenda overlap between public opinion and political speech \parencite{Hager2020}
 		\end{itemize}
 	\end{exampleblock}
 	\end{block}
@@ -174,7 +174,7 @@ $$
 
 \pause
 
-\begin{itemize}
+\begin{itemize}[<+>]
 \item It measures the cosine of the angle between two vectors projected in a multi-dimensional space.
 \item 0 means orthogonal vectors (90 degrees); very dissimal
 \item 1 means vectors are the same (0 degrees); similar
@@ -211,6 +211,7 @@ import pandas as pd
 
 doc1 = "When I eat breakfast, I usually drink some tea".lower()
 doc2 = "I like my tea with my breakfast".lower()
+doc3 = "She likes cereal and coffee".lower()
 
 vec = CountVectorizer(stop_words='english')
 count_matrix = vec.fit_transform([doc1, doc2])
