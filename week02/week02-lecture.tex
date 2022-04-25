@@ -1,5 +1,5 @@
-\documentclass[handout]{beamer}
-%\documentclass[compress]{beamer}
+%\documentclass[handout]{beamer}
+\documentclass[compress]{beamer}
 \usepackage[T1]{fontenc}
 \usepackage{pifont}
 \usetheme[block=fill,subsectionpage=progressbar,sectionpage=progressbar]{metropolis} 
@@ -148,7 +148,7 @@
 \end{frame}
 
 
-\begin{frame}{The ACA toolbox}
+\begin{frame}{The CCS toolbox}
 	\makebox[\columnwidth]{
 		\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/boumanstrilling2016}}
 	\\
@@ -189,7 +189,7 @@ from collections import Counter
 texts = ["Communication in the Digital Society is a very very complex phenomenon", "I like to study it"]
 bottom_up = []
 for t in texts:
-	bottom_up.append(Counter(t.lower().split()).most_common(3))
+    bottom_up.append(Counter(t.lower().split()).most_common(3))
 print(bottom_up)
 \end{minted}
 \pause
@@ -300,7 +300,6 @@ top_down = [[t.lower().count(f) for f in features] for t in texts]
 			\item [tokenization] How do we (best) split a sentence into tokens (terms, words)?
 			\item [pruning] How can we remove unneccessary words/ punctuation?
 			\item [lemmatization] How can we make sure that slight variations of the same word are not counted differently?
-			\item [parse sentences] How can identify and encode grammatical functions of tokens?
 		\end{description}
 	\end{block}
 \end{frame}
@@ -337,7 +336,7 @@ tokens = [d.split() for d in docs]
 
 
 \begin{frame}[fragile]{OK, good enough, perfect?}
-	\begin{block}{Tokenizers from the NLTK pacakge}
+	\begin{block}{Tokenizers from the NLTK package}
 		\begin{itemize}
 			\item multiple improved tokenizers that can be used instead of .split()
 			\item e.g., Treebank tokenizer:
@@ -412,15 +411,8 @@ fontsize=\scriptsize]
 from nltk.corpus import stopwords
 mystopwords = stopwords.words("english")
 mystopwords.extend(["test", "this"])
-		
-def tokenize_clean(s, stoplist):
-cleantokens = []
-for w in TreebankWordTokenizer().tokenize(s):
-    if w.lower() not in stoplist:
-        cleantokens.append(w)
-            return cleantokens
-		
-tokens = [tokenize_clean(d, mystopwords) for d in docs]
+
+tokens_without_stopwords = [[word for word in doc if word.lower() not in mystopwords] for doc in tokens]
 \end{minted}
 \begin{minted}[%
 fontsize=\scriptsize,]
@@ -452,72 +444,7 @@ tokenizer.tokenize("Hi students, what's up!")
 	fontsize=\scriptsize,]
 	{python}
 ['Hi', 'students', 'what', 's', 'up']
-\end{minted}
-\pause
-or, different way:
-\pause
-\begin{minted}[%
-	breaklines,
-	linenos,
-	fontsize=\scriptsize,
-	frame=single,
-	xleftmargin=0pt,]
-	{python}
-from string import punctuation
-doc = "Hi students, what's up!"
-"".join([w for w in doc if w not in punctuation])
-\end{minted}
-\pause
-\begin{minted}[%
-	fontsize=\scriptsize,]
-	{python}
-'Hi students whats up'
-\end{minted}
-	
-\end{frame}
-
-
-\subsection{Stemming and lemmatization}
-
-
-\begin{frame}{NLP: What and why?}
-	\begin{block}{Why do stemming?}
-		\begin{itemize}
-			\item Because we do not want to distinguish between smoke, smoked, smoking, \ldots
-			\item Typical preprocessing step (like stopword removal)
-		\end{itemize}
-	\end{block}
-\end{frame}
-
-\begin{frame}[fragile]{Stemming and lemmatization}
-	\begin{itemize}
-		\item Stemming: reduce words to its stem by removing last part (drinking $\rightarrow$ drink)
-		\item Lemmatization: find word that you would need to look up in a dictionary (drinking $\rightarrow$ drink, but also went $\rightarrow$ go)
-		\item stemming is simpler than lemmatization
-		\item lemmatization often better
-	\end{itemize}
-\end{frame}
-	
-\begin{frame}[fragile]
-Example below: tokenization and lemmatization with \texttt{spacy} in one go:
-\begin{minted}[%
-	breaklines,
-	linenos,
-	fontsize=\scriptsize,
-	frame=single,
-	xleftmargin=0pt,]
-	{python}
-import spacy
-nlp = spacy.load('en')   # potentially you need to install the language model first
-lemmatized_tokens = [[token.lemma_  for token in nlp(doc)] for doc in docs]
-\end{minted}
-
-\pause
-\begin{minted}[%
-	fontsize=\scriptsize,]
-	{python}
-[['this', 'be', 'a', 'text'], ['-PRON-', 'have', 'not', 'see', 'John', "'s", 'derring', '-', 'do', '.', 'second', 'sentence', '!']]
-\end{minted}
+\end{minted}	
 \end{frame}
 
 
