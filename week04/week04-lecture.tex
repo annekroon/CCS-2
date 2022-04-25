@@ -1,5 +1,5 @@
 \documentclass[handout]{beamer}
-%\documentclass[compress]{beamer}
+\documentclass[compress]{beamer}
 \usepackage[T1]{fontenc}
 \usepackage{pifont}
 \usetheme[block=fill,subsectionpage=progressbar,sectionpage=progressbar]{metropolis} 
@@ -214,7 +214,7 @@ doc2 = "I like my tea with my breakfast".lower()
 doc3 = "She likes cereal and coffee".lower()
 
 vec = CountVectorizer(stop_words='english')
-count_matrix = vec.fit_transform([doc1, doc2])
+count_matrix = vec.fit_transform([doc1, doc2, doc3])
 
 print(pd.DataFrame(count_matrix.A, columns=vec.get_feature_names()).to_string())
 \end{minted}
