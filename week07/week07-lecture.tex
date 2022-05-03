@@ -155,6 +155,7 @@
 	\begin{enumerate}
 		\item Create a list with all the swearwords that exist.
 		\item For each tweet in the dataset, use the list to count the number of swearwords	
+		\item If a tweet contains X number of swearwords label it as flaming
 	\end{enumerate}
 	
 
@@ -185,6 +186,7 @@
 	\begin{itemize}
 		\item Not a suitable way to anayze latent or abstract variables 
 		\item You must know all the categories beforehand
+		\item You must know and be able to express all the rules
 	\end{itemize}
 
 	\end{frame}
@@ -198,7 +200,7 @@
 
 
 	
-	\section{Automated Text Classification: SML}
+	\section{SML}
 	
 	
 	\begin{frame}{What is SML?}
@@ -229,20 +231,23 @@
 		
 		% To achieve their goal, contesters needed to use Machine Learning.
 		
-	\end{frame}
-	
-	\begin{frame}{What is SML?} 
-		
-		Machine Learning: A process whereby a machine learns how to predict a variable.
-		
 		% In this story, it is the process whereby the computer learns how to predict images’ score on a variable (let’s name it ‘animal’) which can be either (1) cat or (0) dog.
 		
 	\end{frame}
 	
-	
 	\begin{frame}{What is SML?} 
 		
 		Supervised Machine Learning (SML): “A form of machine learning, where we aim to predict a variable that, for a least part of our data is known.” \\\
+		
+		\begin{tiny}
+			\fullcite{van_atteveldt_computational_2022} 
+		\end{tiny}
+		
+	
+	\end{frame}
+	
+	
+	\begin{frame}{What is SML?} 
 		
 		“The goal of Supervised Machine Learning: estimate a model based on some data, and then use the model to predict the expected outcome for some new cases, for which we do not know the outcome yet.” \\\
 		
@@ -288,7 +293,6 @@
 		
 		\(y = 0 + 0.8 * x_1 + 0.2 * x_2\) \\\
 		
-		\(y = 0 + 0.8 * 1 + 0.2 * 0\) \\\
 		
 		% If we then fill out the scores of a participant on each independent variable, we can predict that person’s score on the dependent variable.
 		
@@ -360,13 +364,13 @@
 		
 		Next, we will talk about:
 		\begin{itemize}
-			\item The steps of SML
+			\item Some commonly used SML models
 		\end{itemize}
 		
 	\end{frame}
 	
 	
-	\section{SML step by step}
+	\section{SML models}
 	
 	\begin{frame}{SML step by step}
 		
@@ -385,6 +389,8 @@
 		\begin{center}
 			\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{../pictures/MLprocess.png} \\\
 		\end{center}
+	
+		Let's have a look at some commonly used ML models.
 		
 		
 		% With these ingredients, we can go through three steps.
@@ -393,65 +399,20 @@
 		
 		% If we connect this back to the regression equation we discussed earlier: We estimate the regression equation.
 		
+			% When we train a model, we can do so based on different functions. Any function can be used, as long as it uses features of cases as an input and produces a prediction based on these. 
+		
 		% Second, we test our classifier: We test how capable our model is to predict the correct labels. We do this using the test dataset.
 		
 		% (Why not use the same training dataset again? We could do this, but it would be a rather lenient test because the classifier has been trained on exactly these data. To truly assess how well our classifier performs, we need to use new data. We use the test data because for these data, we can verify if the classifier was correct (remember that the test data stems from our labeled dataset, so we know what the correct labels are!).
 		
 		% Third, we evaluate our classifier:
-		% More about this later today and this week!
+		% More about this later today and next week!
 		
-	\end{frame}
-	
-	
-	
-	\begin{frame}{SML step by step}
-		
-		\begin{center}
-			\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{../pictures/MLprocess_model.png} \\\
-			
-			Next class, we look at some commonly used ML models and at the process of evaluating classifiers.
-		\end{center}
-		
-
-		
-		% [connect each step to Van Zoonen & Van der Meer for an example]
-		% [note here the important assumption of SML: that the training set, test set, and the unlabeled data that are to be classified are (at least in principle and approximately) drawn from the same population. For example, you cannot train a classifier using movie reviews and then use that classifier to analyze Instagram comments]
+			% [note here the important assumption of SML: that the training set, test set, and the unlabeled data that are to be classified are (at least in principle and approximately) drawn from the same population. For example, you cannot train a classifier using movie reviews and then use that classifier to analyze Instagram comments]
 		
 		
 	\end{frame}
 	
-	
-	\begin{frame}{Zooming out} 
-		
-We talked about:
-		\begin{itemize}
-			\item Rule-based Text Classification
-			\item Automated Text Classification: SML
-			\item The principles behind SML
-			\item The steps of SML \\\
-		\end{itemize}
-		
-Next, we will talk about:
-		\begin{itemize}
-			\item Some commonly used ML models
-		\end{itemize}
-		
-	\end{frame}
-
-
-\section{Some classical ML models}
-
-\begin{frame}{Regression}
-	
-	\begin{center}
-		\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{../pictures/MLprocess_model.png} \\\
-	\end{center}
-	
-	
-	% When we train a model, we can do so based on different functions. Any function can be used, as long as it uses features of cases as an input and produces a prediction based on these. 
-	
-\end{frame}
-
 
 \begin{frame}{Regression}
 	
@@ -536,6 +497,60 @@ Next, we will talk about:
 \end{frame}
 
 
+\begin{frame}[fragile]{What does this look like in code?}
+	
+First, vectorize the texts that need to be labeled: 
+
+\begin{lstlisting}
+from sklearn.feature_extraction.text import (TfidfVectorizer)
+
+tfidfvectorizer = TfidfVectorizer(stop_words="english")
+X_train = tfidfvectorizer.fit_transform(texts_train)
+X_test = tfidfvectorizer.transform(texts_test)
+
+\end{lstlisting}
+
+Where emails\_train and emails\_test are two lists with emails (strings)
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{What does this look like in code?}
+	
+Next, I train my machine and test it: 
+	
+\begin{lstlisting}
+from sklearn.linear_model import (LogisticRegression)
+
+logres = LogisticRegression()
+logres.fit(X_train, labels_train)
+y_pred = logres.predict(X_test)
+\end{lstlisting}
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{What does this look like in code?}
+	
+To train a model based on a tf-idf vectorizer and Log Regression:
+	
+\begin{lstlisting}
+from sklearn.feature_extraction.text import (TfidfVectorizer)
+from sklearn.linear_model import (LogisticRegression)
+
+tfidfvectorizer = TfidfVectorizer(stop_words="english")
+X_train = tfidfvectorizer.fit_transform(texts_train)
+X_test = tfidfvectorizer.transform(texts_test)
+
+logres = LogisticRegression()
+logres.fit(X_train, labels_train)
+y_pred = logres.predict(X_test)
+\end{lstlisting}
+	
+\end{frame}
+
+
+
 \begin{frame}{Na\"{\i}ve Bayes}
 	
 	\begin{center}
@@ -556,7 +571,7 @@ Next, we will talk about:
 	
 	$ P(\rm{A} \mid \rm{B}) = \frac{P(\rm{B} \mid \rm{A}) \cdot P(\rm{A})}{P(\rm{B})} $
 	
-	Mathematicians’ language for: the probability of A is B is the case/present/true. 
+	Mathematicians’ language for: the probability of A if B is the case/present/true. 
 	
 	$ P(\rm{label} \mid \rm{features}) = \frac{P(\rm{features} \mid \rm{label}) \cdot P(\rm{label})}{P(\rm{features})} $
 	
@@ -565,8 +580,7 @@ Next, we will talk about:
 	
 	% We use this formula to (1) train our model, (2) test it, and finally (3) evaluate our model.
 	
-	% Geef voorbeeld, een van de assigned readings
-	
+
 \end{frame}
 
 
@@ -650,41 +664,6 @@ Next, we will talk about:
 \end{frame}
 
 
-\begin{frame}{Neural Networks}
-	
-	\begin{center}
-		\includegraphics{../pictures/perceptron.png} \\\
-	\end{center}
-	
-	% What does a computer actually do with the models discussed above? In this lecture, we discuss neural networks as a machine learning algorithm.
-	
-	% Neural networks consist of connection between neurons that are activated if the total input is above a certain threshold. Simplest form: perceptron.
-	
-	% A perceptron is a single-layer neural network.
-	
-	% Input neurons (or IV’s) connected to an output neuron (or DV). Each of the connections between neurons has a weight which can be positive or negative. For the output neuron, the weighted sum of inputs is calculated and a function is applied to determine the results. Which function is not set, it could be, for example, a logistic regression!
-	
-\end{frame}
-
-
-\begin{frame}{Neural Networks}
-	
-	\begin{center}
-		\includegraphics{../pictures/neuralnetwork_hiddenlayer.png} \\\
-	\end{center}
-	
-	\begin{tiny}
-		\fullcite{ha_automatically_2021} 
-	\end{tiny}
-	
-	% Imagine we use machine learning to determine the positivity or negativity of online movie reviews (sentiment analysis). The input neurons could be the frequencies of words such as “great” (positive weight) and “horrible” (negative weight). Such a network is a bit simplistic, because a review that says something is “not great” is negative but this wouldn’t be picked up by our network.
-	
-	% To solve this, we can add a hidden layer of latent variables between the input and the output layer of the network.
-	
-	% Connect to Ha et al. (link to deep learning)
-	
-	
-\end{frame}
 
 
 \begin{frame}{Recap}
@@ -705,7 +684,6 @@ Next, we will talk about:
 		\item Rule-based Text Classification
 		\item Automated Text Classification: SML
 		\item The principles behind SML
-		\item The steps of SML
 		\item Some commonly used ML models \\\
 	\end{itemize}
 	
@@ -731,7 +709,7 @@ Next, we will talk about:
 	% Comment:
 	% Many different models that you can use! Which one is the best? Hard to say… often (as you could read for example, in Van Zoonen and Van der Meer for example) we try out different models and then we compare to determine which one is best. 
 	
-	% To validate models, we use two measures: precision and recall.
+	% To validate models, we often use two measures: precision and recall.
 	
 	
 \end{frame}
@@ -796,6 +774,22 @@ Next, we will talk about:
 \end{frame}
 
 
+\begin{frame}{\(F_1\)-score}
+	
+	\(F_1\)-score: The harmonic mean of precision and recall. \\
+	
+	\(F_1\)-score \(= 2 \cdot \frac{\rm precision \cdot recall}{\rm precision + recall}\)
+	
+	% Since the F1 score is an average of Precision and Recall, it means that the F1 score gives equal weight to Precision and Recall:
+	% A model will obtain a high F1 score if both Precision and Recall are high
+	% A model will obtain a low F1 score if both Precision and Recall are low
+	% A model will obtain a medium F1 score if one of Precision and Recall is low and the other is high
+	
+	
+\end{frame}
+
+
+
 \begin{frame}{Accuracy}
 	
 	Accuracy: In which percentage of all cases was our classifier right? \\
@@ -825,21 +819,6 @@ Next, we will talk about:
 	%More: https://machinelearningmastery.com/what-is-imbalanced-classification/	
 \end{frame}
 
-
-
-\begin{frame}{\(F_1\)-score}
-	
-	\(F_1\)-score: The harmonic mean of precision and recall. \\
-	
-	\(F_1\)-score \(= 2 \cdot \frac{\rm precision \cdot recall}{\rm precision + recall}\)
-	
-	% Since the F1 score is an average of Precision and Recall, it means that the F1 score gives equal weight to Precision and Recall:
-	% A model will obtain a high F1 score if both Precision and Recall are high
-	% A model will obtain a low F1 score if both Precision and Recall are low
-	% A model will obtain a medium F1 score if one of Precision and Recall is low and the other is high
-	
-	
-\end{frame}
 
 
 \begin{frame}{Validating Models}
@@ -874,10 +853,9 @@ In this week's tutorial, you will:
 
 \begin{frame}
 	
-To do before next meeting:
+To do before next lecture:
 	\begin{itemize}
-		\item Make the homework assignments for week 8: Complete the first six questions of next week's tutorial exercises
-		\item The exercises are available on Github
+		\item Make the homework assignments for week 8: Complete the first five questions of next week's tutorial exercises (available on Github)
 	\end{itemize}
 	
 \end{frame}
