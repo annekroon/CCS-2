@@ -498,19 +498,45 @@
 
 
 \begin{frame}[fragile]{What does this look like in code?}
+
+First, we need to read in the ingredients we need for SML.
+\begin{lstlisting}
+import csv
+from sklearn.model_selection import train_test_split
+
+tweets = []
+labels = []
+
+with open(file) as fi:
+     data = csv.reader(fi, delimiter='\t')
+     for row in data:
+          tweets.append(row[0])
+          labels.append(row[1])
+
+tweets_train, tweets_test, y_train, y_test = train_test_split(tweets, labels, test_size=0.2, random_state=42)
+\end{lstlisting}
 	
-First, vectorize the texts that need to be labeled: 
+Where file is some file containg tweets (column 0) and their labels (column 1).
+	
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{What does this look like in code?}
+	
+Second, vectorize the texts that need to be labeled: 
 
 \begin{lstlisting}
 from sklearn.feature_extraction.text import (TfidfVectorizer)
 
 tfidfvectorizer = TfidfVectorizer(stop_words="english")
-X_train = tfidfvectorizer.fit_transform(texts_train)
-X_test = tfidfvectorizer.transform(texts_test)
+X_train = tfidfvectorizer.fit_transform(tweets_train)
+X_test = tfidfvectorizer.transform(tweets_test)
 
 \end{lstlisting}
 
-Where texts\_train and texts\_test are two lists with emails (strings)
+Where tweets\_train and tweets\_test are two lists with tweets (strings)
 	
 \end{frame}
 
@@ -539,8 +565,8 @@ from sklearn.feature_extraction.text import (TfidfVectorizer)
 from sklearn.linear_model import (LogisticRegression)
 
 tfidfvectorizer = TfidfVectorizer(stop_words="english")
-X_train = tfidfvectorizer.fit_transform(texts_train)
-X_test = tfidfvectorizer.transform(texts_test)
+X_train = tfidfvectorizer.fit_transform(tweets_train)
+X_test = tfidfvectorizer.transform(tweets_test)
 
 logres = LogisticRegression()
 logres.fit(X_train, labels_train)
