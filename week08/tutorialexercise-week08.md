@@ -110,7 +110,7 @@ What does the output print? Based on this output, would you say the classifier p
 Let's try out some other classifiers as well to investigate which one would be best to use. Can you write a code that sets up a tf·idf vectorize and use this in a model based on Logistic Regression? Have a look at the code above and at the documentation of sklearn.
 
 
-Trouble figuring it out? (Note that a potential solution is provided here, but it is important that you go through it and make sure you understand what happens here and not merely copy and run the code)
+Trouble figuring it out? (Note that a potential solution is provided here, but try to go through it and compare it to the code used in Q3 and Q4 and spot the differences) 
 ```python
 tfidfvectorizer = TfidfVectorizer(stop_words="english")
 X_train = tfidfvectorizer.fit_transform(texts_train)
