@@ -21,21 +21,22 @@ import joblib
 
 ## Question 2. 
 
-As you noted when you read the article by Meppelink et al., there are a few steps that we need to take before we can use supervised machine learning. Namely:
-		- Determine the sample criteria
-		- Collect data
-		- Develop a codebook and hand-code the data
-		- Transform the text into vectors of numbers
+As you noted when you read the article by Van Zoonen & Van der Meer (2016), there are a few steps that we need to take before we can use supervised machine learning. Namely:
+- Collect data (in CS often texts, e.g., tweets)
+- Develop a codebook and hand-code the data
+- Transform the text into vectors of numbers
 
-In this tutorial, we focus on the actual machine learning part of the process. Hence, we will use a database that already has a train subset and a test subset consisting of tweets and their labels. In this dataset, tweets are annoted according to six emotions (sadness, joy, fear, anger, love, and surprise). Hence, we skip the first three steps of the process described above.
+In this tutorial, we focus on the actual machine learning part of the process. Hence, we will use a database that already has a train subset and a test subset consisting of tweets and their labels. In this dataset, tweets are annotated according to six emotions (sadness, joy, fear, anger, love, and surprise). Hence, we skip the first three steps of the process described above.
 
-Download the data from: https://www.kaggle.com/praveengovi/emotions-dataset-for-nlp 
+Download the data for this exercise which consists of two files: test.txt and train.txt
+These datafiles were retrieved from: https://www.kaggle.com/praveengovi/emotions-dataset-for-nlp 
+
 
 Can you write a script that opens each file and:
-		- Creates one list with the texts from the test-set
-		- Creates one list with the labels from the test-set
-		- Creates one list with the texts from the train-set
-		- Creates one list with the labels form the train set 
+- Creates one list with the texts from the test-set
+- Creates one list with the labels from the test-set
+- Creates one list with the texts from the train-set
+- Creates one list with the labels form the train set 
 
 What could you do to check that this process went well? Can you explore the data a bit (e.g. by checking how often each label is present in the different datasets)?
 
