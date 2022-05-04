@@ -510,7 +510,7 @@ X_test = tfidfvectorizer.transform(texts_test)
 
 \end{lstlisting}
 
-Where emails\_train and emails\_test are two lists with emails (strings)
+Where texts\_train and texts\_test are two lists with emails (strings)
 	
 \end{frame}
 
@@ -582,6 +582,28 @@ y_pred = logres.predict(X_test)
 	
 
 \end{frame}
+
+
+\begin{frame}[fragile]{What does this look like in code?}
+	
+Let's also train a model based on a count vectorizer and Naïve Bayes:
+	
+\begin{lstlisting}
+from sklearn.feature_extraction.text import (CountVectorizer)
+from sklearn.naive_bayes import MultinomialNBB
+
+countvectorizer = CountVectorizer(stop_words="english")
+X_train = countvectorizer.fit_transform(texts_train)
+X_test = countvectorizer.transform(texts_test)
+
+nb = MultinomialNB()
+nb.fit(X_train, labels_train)
+y_pred = nb.predict(X_test)
+\end{lstlisting}
+	
+\end{frame}
+
+
 
 
 \begin{frame}{Support Vector Machines}
@@ -755,6 +777,65 @@ y_pred = logres.predict(X_test)
 \end{frame}
 
 
+\begin{frame}[fragile]{What does this look like in code?}
+	
+Let's ask for a confusion matrix: 
+
+\begin{lstlisting}
+from sklearn.metrics import confusion_matrix
+
+y_test = [0, 1, 1, 1, 0]
+y_pred = [0, 0, 1, 1, 1]
+
+print(confusion_matrix(y_test, y_pred))
+\end{lstlisting}
+
+\begin{lstlistingoutput}
+[[1  1 ]
+[ 1  2]]
+\end{lstlistingoutput}
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{What does this look like in code?}
+	
+Let's get some metrics for validation: 
+	
+\begin{lstlisting}
+from sklearn.metrics import classification_report
+print(classification_report(y_test, y_pred))
+\end{lstlisting}
+	
+\begin{lstlistingoutput}
+              precision    recall  f1-score   support
+
+0       0.50      0.50      0.50         2
+1       0.67      0.67      0.67         3
+
+accuracy                           0.60         5
+macro avg       0.58      0.58      0.58         5
+weighted avg       0.60      0.60      0.60         5
+\end{lstlistingoutput}
+	
+\end{frame}
+
+
+\begin{frame}{\(F_1\)-score}
+	
+	\(F_1\)-score: The harmonic mean of precision and recall. \\
+	
+	\(F_1\)-score \(= 2 \cdot \frac{\rm precision \cdot recall}{\rm precision + recall}\)
+	
+	% Since the F1 score is an average of Precision and Recall, it means that the F1 score gives equal weight to Precision and Recall:
+	% A model will obtain a high F1 score if both Precision and Recall are high
+	% A model will obtain a low F1 score if both Precision and Recall are low
+	% A model will obtain a medium F1 score if one of Precision and Recall is low and the other is high
+	
+	
+\end{frame}
+
+
 
 \begin{frame}{Precision and Recall}
 	
@@ -774,19 +855,7 @@ y_pred = logres.predict(X_test)
 \end{frame}
 
 
-\begin{frame}{\(F_1\)-score}
-	
-	\(F_1\)-score: The harmonic mean of precision and recall. \\
-	
-	\(F_1\)-score \(= 2 \cdot \frac{\rm precision \cdot recall}{\rm precision + recall}\)
-	
-	% Since the F1 score is an average of Precision and Recall, it means that the F1 score gives equal weight to Precision and Recall:
-	% A model will obtain a high F1 score if both Precision and Recall are high
-	% A model will obtain a low F1 score if both Precision and Recall are low
-	% A model will obtain a medium F1 score if one of Precision and Recall is low and the other is high
-	
-	
-\end{frame}
+
 
 
 
