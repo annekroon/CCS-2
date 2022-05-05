@@ -1,7 +1,5 @@
 % !TeX document-id = {a90a2b0a-e08e-44ed-850a-35793bedbf3a}
-
 % !TeX TS-program = PdfLateX
-
 % !BIB program = biber
 \documentclass[handout]{beamer}
 %\documentclass[compress]{beamer}
@@ -139,6 +137,25 @@
 	\begin{frame}{Today}
 		\tableofcontents
 	\end{frame}
+
+
+\begin{frame}[standout]
+	Updated exam planning; The take-home exam will be published on 30 May at 9 am. The deadline for submitting your answers is on 2 June at 9 am. 
+\end{frame}
+
+\question{Everything clear from last weeks?}
+
+
+\begin{frame}{Main points from last week}
+	
+	\begin{alertblock}{I assume that by now, everybody knows:}
+		\begin{itemize}[<+>]
+			\item how to clean and preprocess textual data;
+			\item how to vectorize the data;
+			\item how to calculate cosine similarity using different techniques;
+		\end{itemize}
+	\end{alertblock}
+\end{frame}
 
 \section{Recommender Systems}
 
@@ -397,25 +414,37 @@ What are interesting features that you can use to base your recommendation on?
 
 \begin{frame}[fragile]{Get the most similar movies}
 First, create an array of cosine scores 
-\begin{minted}[fontsize=\tiny]{python}
-data['combined_features'] = data[['original_title', 'genres', 'overview', 'tagline']]
-.apply(lambda x: ','.join(x.dropna().astype(str)),axis=1)
+\begin{minted}[%
+		breaklines,
+		linenos,
+		fontsize=\scriptsize,
+		frame=single,
+		xleftmargin=0pt,]
+		{python}
+data['combined_features'] = data[['original_title', 'genres', 'overview', 'tagline']].apply(lambda x: ','.join(x.dropna().astype(str)),axis=1)
 tfidf = TfidfVectorizer(stop_words='english')
 tfidf_matrix = tfidf.fit_transform(data['combined_features'])
 cosine_sim = cosine_similarity(tfidf_matrix)
 \end{minted}
 	\pause
-Let's say we want to find the similarity scores associated with the movie \texttt{The Dark Night Rises}. Just by looking at the dataframe, we know it is at index \texttt{3}.
+Let's say we want to find the similarity scores associated with the movie \texttt{The Dark Night Rises}. 
 \end{frame}
 
 \begin{frame}{Example of a content-based recsys}
 	\makebox[\linewidth]{
 		\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/df-movies}}
+Let's say we want to find the similarity scores associated with the movie \texttt{The Dark Night Rises}. Just by looking at the dataframe, we know it is at index \texttt{3}.
 \end{frame}
 
 
 \begin{frame}[fragile]
-\begin{minted}[fontsize=\tiny]{python}
+\begin{minted}[%
+	breaklines,
+	linenos,
+	fontsize=\scriptsize,
+	frame=single,
+	xleftmargin=0pt,]
+	{python}
 cosine_sim[3]
 \end{minted}
 \pause
@@ -424,7 +453,13 @@ array([0.02331349, 0.00399197, 0.00780174, ..., 0.02860083, 0.03756737, 0.018984
 \end{minted}
 \pause
 A more systematic way to get the index value, is to simple look it up:
-\begin{minted}[fontsize=\tiny]{python}
+\begin{minted}[%
+	breaklines,
+	linenos,
+	fontsize=\scriptsize,
+	frame=single,
+	xleftmargin=0pt,]
+	{python}
 indices = pd.Series(data.index, index = data['original_title'])
 index = indices['the dark knight rises']
 print(index)
@@ -441,7 +476,13 @@ print(index)
 	\item<2->Before sorting the cosine scores, we map the movie-index to the cosine value. We can do so by simple enumerating the cosine scores:
 \end{itemize}
 \pause
-\begin{minted}[fontsize=\tiny]{python}
+\begin{minted}[%
+	breaklines,
+	linenos,
+	fontsize=\scriptsize,
+	frame=single,
+	xleftmargin=0pt,]
+	{python}
 sim_scores = list(enumerate(cosine_sim[index])) 
 \end{minted}
 \pause
@@ -452,7 +493,13 @@ sim_scores = list(enumerate(cosine_sim[index]))
 \end{minted}
 \pause
 Next, we can simple sort the cosine scores:
-\begin{minted}[fontsize=\tiny]{python}
+\begin{minted}[%
+	breaklines,
+	linenos,
+	fontsize=\scriptsize,
+	frame=single,
+	xleftmargin=0pt,]
+	{python}
 sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
 sim_scores = sim_scores[1:11]
 \end{minted}
@@ -467,7 +514,13 @@ sim_scores = sim_scores[1:11]
 \begin{frame}[fragile]{Get the most similar movies}
 	And finally look up the associated movies..
 	\pause
-	\begin{minted}[fontsize=\tiny]{python}
+\begin{minted}[%
+	breaklines,
+	linenos,
+	fontsize=\scriptsize,
+	frame=single,
+	xleftmargin=0pt,]
+	{python}
 movie_indices = [i[0] for i in sim_scores]
 movie_indices
 	\end{minted}
@@ -477,7 +530,13 @@ movie_indices
 	\end{minted}
 	\pause
 	Map the index values to the dataframe:
-	\begin{minted}[fontsize=\tiny]{python}
+\begin{minted}[%
+	breaklines,
+	linenos,
+	fontsize=\scriptsize,
+	frame=single,
+	xleftmargin=0pt,]
+	{python}
 data.iloc[movie_indices]['title']
 	\end{minted}
 	\pause
@@ -596,6 +655,17 @@ data.iloc[movie_indices]['title']
 	\makebox[\linewidth]{
 		\includegraphics[width=0.5\textwidth]{../pictures/userbased-amazon}}
 \end{frame}
+
+\section[Reflection]{The role of recommender systems in society}
+
+\begin{frame}{Reflection on the role of recommender systems in society}
+	\begin{alertblock}{Food for thought}
+		\begin{itemize}
+			\item <1->Consequences of recommender systems for democratic values in society
+		\end{itemize}
+	\end{alertblock}
+\end{frame}
+
 
 \section[Group ass]{Group Assignment}
 
