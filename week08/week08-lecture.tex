@@ -136,8 +136,7 @@
 	
 Last week, we talked about:
 	\begin{itemize}
-		\item Rule-based Text Classification
-		\item Automated Text Classification: SML
+		\item Supervised Machine Leaning (SML)
 		\item The principles behind SML
 		\item The steps of SML
 		\item Some commonly used ML models
@@ -146,7 +145,7 @@ Last week, we talked about:
 	
 At home, you:
 	\begin{itemize}
-		\item Worked with SML (homework assignment)
+		\item Got some hands-on experience SML (homework assignment)
 	\end{itemize}
 	
 \end{frame}
@@ -156,30 +155,179 @@ At home, you:
 	
 Today, we:
 	\begin{itemize}
-		\item Talk about the homework that you did
-		\item Take a deep dive in SML
+		\item Your first SML experience
+		\item Take a deep dive into validating SML-models
 		\item Take a critical look at SML 
 	\end{itemize}
 	
 \end{frame}
 
 
-\section{SML in practice}
-
-
-\begin{frame}{Cross-validation}
+\begin{frame}{Recap}
 	
-Let's review the homework assignment!
+This week, you practiced with code that:
+\begin{itemize}
+	\item Imported all required packages and modules needed to run the script (Q1)
+	\item Read in some data (Q2)
+	\item Set up a Count vectorizer (Q3)
+	\item Trained a Naïve Bayes model with the count vectorizer and requested some metrics for validation (Q4)
+	\item Set up a tf-idf vectorizer, used it in a LogRegression model and requested some metrics for validation (Q5)
+\end{itemize}
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{Recap Q1}
+	
+\begin{lstlisting}
+import csv
+from collections import Counter
+import matplotlib.pyplot as plt
+from sklearn.feature_extraction.text import (CountVectorizer, TfidfVectorizer)
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import accuracy_score
+from sklearn.linear_model import (LogisticRegression)
+from sklearn.metrics import confusion_matrix,classification_report
+from sklearn.pipeline import (make_pipeline, Pipeline)
+from sklearn.model_selection import GridSearchCV
+import pickle
+import joblib
+\end{lstlisting}
+	
+Why import all modules at the start of a Python Script?
+\end{frame}
+
+
+\begin{frame}[fragile]{Recap Q2}
+Read in the ingredients for SML (dataset is already split):
+\begin{lstlisting}
+test = "test.txt"
+train = "train.txt"
+
+texts_test = []
+labels_test = []
+
+with open(test) as fi:
+     data = csv.reader(fi, delimiter=';')
+     for row in data:
+          texts_test.append(row[0])
+          labels_test.append(row[1])
+
+\end{lstlisting}
+
+Mind: Choose the correct delimiter (e.g., ';', ',', '\textbackslash t'). \\
+IndexError: list index out of range' often pops up if you choose the wrong one.
+\end{frame}
+
+
+\begin{frame}[fragile]{Recap Q2}
+What happens here?
+\begin{lstlisting}
+len(texts_test) == len(labels_test)
+len(texts_train) == len(labels_train)
+\end{lstlisting}
+	
+\begin{lstlistingoutput}
+TRUE
+\end{lstlistingoutput}.
+\end{frame}
+
+
+\begin{frame}[fragile]{Recap Q2}
+Why would you do this?
+\begin{lstlisting}
+plt.bar(Counter(labels_train).keys(), Counter(labels_train).values())
+\end{lstlisting}
 	
 \end{frame}
 
 
 
-\begin{frame}{Neural Networks}
+\begin{frame}[fragile]{Recap Q3}
+Remember, the computer can't read words! We need to transform the texts and labels into vectorizers.
+\begin{lstlisting}
+countvectorizer = CountVectorizer(stop_words="english")
+X_train = countvectorizer.fit_transform(texts_train)
+X_test = countvectorizer.transform(texts_test)
+\end{lstlisting}
+
+When fit\_transform and when transform?
+\end{frame}
+
+
+\begin{frame}[fragile]{Recap Q4}
+The actual SML part (yes, truly, it is three lines of code!):
+\begin{lstlisting}
+nb = MultinomialNB()
+nb.fit(X_train, labels_train)
+y_pred = nb.predict(X_test)
+\end{lstlisting}
 	
-	\begin{center}
-		\includegraphics{../pictures/perceptron.png} \\\
-	\end{center}
+No output?
+\end{frame}
+
+\begin{frame}[fragile]{Recap Q4}
+You can check what was created:
+\begin{lstlisting}
+print(y_pred[:10])
+\end{lstlisting}
+
+\begin{lstlistingoutput}
+['sadness' 'sadness' 'sadness' 'joy' 'sadness' 'fear' 'sadness' 'joy' 'joy' 'sadness']
+\end{lstlistingoutput}
+\end{frame}
+
+
+\begin{frame}[fragile]{Recap Q4}
+
+\begin{lstlisting}
+accuracy = accuracy_score(labels_test, y_pred)
+print(accuracy)
+\end{lstlisting}
+	
+\begin{lstlistingoutput}
+0.7945
+\end{lstlistingoutput}
+\end{frame}
+
+
+\begin{frame}[fragile]{Recap Q5}
+Repeat with a different vectorizer and a different SML model!
+\begin{lstlisting}
+tfidfvectorizer = TfidfVectorizer(stop_words="english")
+X_train = tfidfvectorizer.fit_transform(texts_train)
+X_test = tfidfvectorizer.transform(texts_test)
+
+logres = LogisticRegression()
+logres.fit(X_train, labels_train)
+y_pred = logres.predict(X_test)
+
+print(classification_report(labels_test, y_pred))
+\end{lstlisting}
+	
+\end{frame}
+
+
+\begin{frame}{Up next}
+In the remainder of the exercise, you will:
+\begin{itemize}
+\item Write down code to compare different vectorizers/models in an effective way (Q6)
+		\item Learn about hyperparameters in vectorizers (Q7)
+		\item Practice with cross-validation and gridsearch (Q8 \& Q9)
+		\item Saving vectorizers and classifiers (Q10) 
+\end{itemize}
+
+Cross-validation? Hyperparameters? Gridsearch?
+\end{frame}
+
+
+%\section{SML in practice}
+
+%\begin{frame}{Neural Networks}
+	
+%	\begin{center}
+%		\includegraphics{../pictures/perceptron.png} \\\
+%	\end{center}
 	
 	% What does a computer actually do with the models discussed above? In this lecture, we discuss neural networks as a machine learning algorithm.
 	
@@ -189,18 +337,18 @@ Let's review the homework assignment!
 	
 	% Input neurons (or IV’s) connected to an output neuron (or DV). Each of the connections between neurons has a weight which can be positive or negative. For the output neuron, the weighted sum of inputs is calculated and a function is applied to determine the results. Which function is not set, it could be, for example, a logistic regression!
 	
-\end{frame}
+%\end{frame}
 
 
-\begin{frame}{Neural Networks}
+%\begin{frame}{Neural Networks}
 	
-	\begin{center}
-		\includegraphics{../pictures/neuralnetwork_hiddenlayer.png} \\\
-	\end{center}
+%	\begin{center}
+%		\includegraphics{../pictures/neuralnetwork_hiddenlayer.png} \\\
+%	\end{center}
 	
-	\begin{tiny}
-		\fullcite{ha_automatically_2021} 
-	\end{tiny}
+%	\begin{tiny}
+%		\fullcite{ha_automatically_2021} 
+%	\end{tiny}
 	
 	% Imagine we use machine learning to determine the positivity or negativity of online movie reviews (sentiment analysis). The input neurons could be the frequencies of words such as “great” (positive weight) and “horrible” (negative weight). Such a network is a bit simplistic, because a review that says something is “not great” is negative but this wouldn’t be picked up by our network.
 	
@@ -209,20 +357,73 @@ Let's review the homework assignment!
 	% Connect to Ha et al. (link to deep learning)
 	
 	
+%\end{frame}
+
+
+\section{More about validation}
+
+\begin{frame}{Finding the best performing model}
+
+We talked about validating models based on various metrics, such as accuracy, F1-score, precision, recall... \\\
+
+What is the most important metric when deciding what model is best?
 \end{frame}
 
+
+
+\begin{frame}{Finding the best performing model}
+
+\begin{center}
+	\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{../pictures/ConfusionMatrix1.png} \\\
+\end{center}
+
+Accuracy: In which percentage of all cases was our classifier right? 
+
+%Very high accuracy, yay!
+% But what if the true positive was some with a very contagious virus that can spread super quickly?
+
+\end{frame}
+
+
+
+\begin{frame}{Finding the best performing model}
+\begin{center}
+	\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{../pictures/ConfusionMatrix2.png} \\\
+\end{center}
+	
+Recall: How many of the cases that we wanted to find did we actually find? \\\
+Here: 0.88
+	
+% Pretty high recall, but we missed quite a bit of relevant documents here - this may cause problems in my study? 
+	
+\end{frame}
+
+
+
+\begin{frame}{Finding the best performing model}
+	\begin{center}
+		\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{../pictures/ConfusionMatrix2.png} \\\
+	\end{center}
+	
+	Precision:  How much of what we found is actually correct? \\\
+	Here: 0.75
+	
+	% Pretty high recall, but 25% of our labels are incorrect - this may cause problems in my study? 
+	
+\end{frame}
+
+
+\begin{frame}{Finding the best performing model}
+
+What if it is hard to say which one is most important and you want to find a balance between precision and recall?
+
+F1- score!
+		
+\end{frame}
 
 
 
 \section{Cross-validation}
-
-\begin{frame}{Cross-validation}
-
-We talked about validating models.
-
-\end{frame}
-
-
 
 \begin{frame}{Cross-validation}
 	
@@ -230,13 +431,18 @@ We talked about validating models.
 	
 	When we calculate the metrics discussed above for multiple models on the same test dataset, we run the risk of overfitting on the test data.
 	
-	Potential solution: Split the dataset into three smaller sets. A training dataset, a validation dataset and a test dataset.
-	
-	However, this requires us to have a very large labeled dataset. In reality, this is not always the case!
-	
 	%Consequence of this is, for example, that your model can classify your training data perfectly, but it can't classify other data very well anymore.
 	
 	%Overfitting the model generally takes the form of making an overly complex model to explain idiosyncrasies in the data under study. In reality, the data often studied has some degree of error or random noise within it. Thus, attempting to make the model conform too closely to slightly inaccurate data can infect the model with substantial errors and reduce its predictive power.
+	
+\end{frame}
+
+
+\begin{frame}{Cross-validation}
+	
+	Potential solution: Split the dataset into three smaller sets. A training dataset, a validation dataset and a test dataset.
+	
+	However, this requires us to have a very large labeled dataset. In reality, this is not always the case!
 	
 \end{frame}
 
@@ -276,10 +482,16 @@ We talked about validating models.
 	
 	To do this, the Grid Search algorithm is often used.
 	
-	More about hyperparameters in this week's tutorial!
-	
 \end{frame}
 
+
+\begin{frame}{Grid Search}
+	
+The GridSearchCV module (scikit-learn) searches for the best values of specified parameters using cross-validation.
+
+The outcome is the optimal combination of one or more parameters.
+	
+\end{frame}
 
 
 
@@ -287,8 +499,8 @@ We talked about validating models.
 	
 	We talked about:
 	\begin{itemize}
-		\item SML in practice
-		\item Cross-validation \\\
+		\item Your experience with SML so far
+		\item Cross-validation and grid search \\\
 	\end{itemize}
 	
 	Next, we will talk about:
@@ -304,19 +516,30 @@ We talked about validating models.
 
 \begin{frame}{Strengths and Challenges} 
 	
-	Strengths:
-	\begin{itemize}
-		\item Easier to code large datasets
-		\item Enhances replicable research
-		\item Easier to study "natural" human behavior \\\
-	\end{itemize}
+Strengths?
+
 	
-	Disadvantages:
-	\begin{itemize}
-		\item Resource constraints
-		\item Ethical considerations
-		\item Criticism required (see next slide)
-	\end{itemize}
+Challenges?
+
+\end{frame}
+
+
+
+\begin{frame}{Strengths and Challenges} 
+	
+Strengths:
+\begin{itemize}
+	\item Easier to code large datasets
+	\item Enhances replicable research
+	\item Easier to study "natural" human behavior \\\
+\end{itemize}
+	
+Challenges:
+\begin{itemize}
+	\item Resource constraints
+	\item Ethical considerations
+	\item Criticism required (see next slide)
+\end{itemize}
 
 % Strengths:
 % -	Makes it easier to code large datasets (cheaper, faster)
@@ -332,6 +555,16 @@ We talked about validating models.
 
 \begin{frame}{Strengths and Challenges}
 	
+	
+\begin{center}
+	\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{../pictures/ericsson.png} \\\
+\end{center}
+
+\end{frame}
+	
+
+
+\begin{frame}{Strengths and Challenges}
 	\begin{center}
 		\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{../pictures/toeslagenaffaire_headlines.png} \\\
 	\end{center}
@@ -342,26 +575,95 @@ We talked about validating models.
 \end{frame}
 
 
+\section{Looking back and ahead}
+
 \begin{frame}{Zooming out} 
 	
 	We talked about:
 	\begin{itemize}
+		\item The principles behind SML
+		\item Some frequently used SML models
+		\item Validating SML classifiers
 		\item SML in practice
-		\item Cross-validation
+		\item Cross-validation and grid search
 		\item Strengths and challenges associated to SML \\\
 \end{itemize}
+	
+
+\end{frame}
+
+
+\begin{frame}{Zooming out} 
 	
 This week's tutorial:
 	\begin{itemize}
 		\item Hands-on approach to take a further look into the machine learning process
-		\item Tutorial goal:
-		\begin{itemize}
-			\item To provide a stepping stone so that you can (independently) advance your machine learning skills
-		\end{itemize}
-		
+		\item Questions about prior tutorial exercises
 	\end{itemize}
 	
 \end{frame}
+
+
+\begin{frame}{Looking back} 
+	
+You started with the basics (e.g., what is a list, how to save data, write a loop).\\
+In two months, you learned:
+	\begin{itemize}
+		\item How to read in data
+		\item How to preprocess data
+		\item How transform text into data that a computer can understand
+		\item How to compare texts to provide a recommendation
+		\item How to analyze text to classify it automatically
+	
+	\end{itemize}
+	
+\end{frame}
+
+
+\begin{frame}{Looking at the very near future} 
+	
+One last grade for this course, the take-home exam.
+	\begin{itemize}
+		\item The take-home exam will be published on 30 May (9 am)
+		\item The deadline for submitting the take-home exam is on 2 June (9 am)
+		\item The exam covers materials discussed in weeks 1 through 7 (but you may of course also use anything you learned in week 8, this is not required, however) 
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}{Looking at the near future} 
+	
+Final course of the minor: the research project!
+\begin{itemize}
+		\item You will combine your programming skills with your skills as a researcher
+		\item Run a research project about ComScience using the materials you created for the group assignment in this course
+		\item More information follows in the first meeting of the research project
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Looking at the future} 
+	
+CCS-1 and CCS-2: An introduction to coding. You can continue to learn and work with Python.\\
+No course materials and instructors to help you out, but there are a lot of resources online!\\
+Our tips:
+	\begin{itemize}
+		\item Error message? Google is your best friend!
+		\item Check out the documentation of any module that you use to learn how it works
+		\item Check out pubs using the method you are interested in. Often, they publish their python scripts (e.g., Meppelink et al., 2021)
+	\end{itemize}
+	
+\end{frame}
+
+
+
+\begin{frame}{Looking at the future} 
+	
+Thank you for the past weeks and enjoy the research project!
+
+\end{frame}
+
+
+
 
 
 \end{document}

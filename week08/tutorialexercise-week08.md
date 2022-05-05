@@ -11,6 +11,7 @@ from collections import Counter
 import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import (CountVectorizer, TfidfVectorizer)
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import accuracy_score
 from sklearn.linear_model import (LogisticRegression)
 from sklearn.metrics import confusion_matrix,classification_report
 from sklearn.pipeline import (make_pipeline, Pipeline)
@@ -65,14 +66,15 @@ with open(train) as fi:
         labels_train.append(row[1])
 
         
-len(texts_test) == len(labels_test)
-len(texts_train) == len(labels_train)
-
-
 Counter(labels_train)
 Counter(labels_test)
 
 plt.bar(Counter(labels_test).keys(), Counter(labels_test).values())
+```
+
+```
+len(texts_test) == len(labels_test)
+len(texts_train) == len(labels_train)
 ```
 
 ## Question 3.
@@ -95,7 +97,7 @@ nb.fit(X_train, labels_train)
 
 y_pred = nb.predict(X_test)
 
-accuracy = nb.score(X_test, labels_test)
+accuracy = accuracy_score(labels_test, y_pred)
 print(accuracy)
 
 cm = confusion_matrix(labels_test, y_pred)
@@ -157,7 +159,7 @@ What classifier performs the best? Why do you think this is the best classifier?
 
 
 ## Question 7.
-In the first part of the code you are asked to run for question 6 (where you define the specifics of various classifiers) will see that for each classifier, the min_df and the max_df are set to 5 and 0.5 respectively. Take a look at the documentation of scikit-learn (https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html). Can you figure out what these numbers mean? Would you like to change these numbers? Why?
+In the first part of the code you are asked to run for question 6 (where you define the specifics of various classifiers) will see that for each classifier, the min_df and the max_df are set to 5 and 0.5 respectively. Take a look at the slides used in the lecture of week 2 and at the documentation of scikit-learn (https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html). Can you figure out what these numbers mean? Would you like to change these numbers? Why?
 
 ## Question 8.
 Question 7 asked you what the numbers 5 and 0.5 that were set for each classifier mean. In addition to these two hyperparameters, there are many more hyperparameters that we can set. It is up to you what hyperparameters to change from the default value and what value to give them (take a look at the documentation to learn more about each hyperparameter than you can set https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html). 
@@ -179,7 +181,7 @@ for name, vectorizer, classifier in configs:
 ```
 
 ## Question 9.
-Now, let’s perform a gridsearch to determine what the best value is for four parameters in a classifier with Logistic regression and a countvectorizer. The parameters we examine are the ngram_range, max_df, min_df, and C (check the documentation if you want to learn what these hyperparameters mean). 
+Now, let’s perform a gridsearch to determine what the best value is for four parameters in a classifier with Logistic regression. The hyperparameters we examine are the ngram_range, max_df, min_df, and C (check the documentation if you want to learn what these hyperparameters mean). 
 
 Run the code below. You may notice that it takes the computer quite some time to run this code. Why, do you think it takes your computer so long to run the code? 
 
