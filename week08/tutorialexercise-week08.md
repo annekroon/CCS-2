@@ -69,7 +69,7 @@ with open(train) as fi:
 Counter(labels_train)
 Counter(labels_test)
 
-plt.bar(Counter(labels_test).keys(), Counter(labels_test).values())
+plt.bar(Counter(labels_train).keys(), Counter(labels_train).values())
 ```
 
 ```
