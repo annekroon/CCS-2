@@ -1,6 +1,8 @@
 
 # Getting some hands-on experience with supervised machine learning
 
+Please note: In line with requested changes in the planning, the first 5 questions in this exercise will be discussed during the tutorial of week 7.
+
 ## Question 1. 
 In this tutorial you will work with supervised machine learning. We will classify movie reviews from IMBD into positive and negative reviews.
 To do this, first install and import the recquired packages and modules:
