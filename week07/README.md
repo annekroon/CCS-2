@@ -1,6 +1,9 @@
 # Week 7
 
-This week, we will take a look at text classification. In the lecture, we briefly review strictly rule-based methods and then we will explore supervised machine learning. During the tutorials, you will present your group projects.
+Note the following change in the schedule:
+In the lecture for this week, we will briefly review strictly rule-based methods for text classification after which we will explore supervised machine learning. During the tutorial, you will discuss the first 5 questions of the tutorial exercise for week 8.
+
+Next week (week 8), you will present your group projects.
 
 
 
