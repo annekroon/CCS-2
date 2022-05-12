@@ -235,6 +235,24 @@
 		
 	\end{frame}
 	
+
+
+\begin{frame}{What is ML?} 
+	
+Machine Learning: “a type of artificial intelligence in which computers use huge amounts of data to learn how to do tasks rather than being programmed to do them.” \\\
+	
+	\begin{tiny}
+		Oxford Dictionary
+	\end{tiny}
+	
+% the use and development of computer systems that are able to learn and adapt without following explicit instructions, by using algorithms and statistical models to analyse and draw inferences from patterns in data.
+	
+\end{frame}
+
+
+
+
+
 	\begin{frame}{What is SML?} 
 		
 		Supervised Machine Learning (SML): “A form of machine learning, where we aim to predict a variable that, for a least part of our data is known.” \\\
@@ -432,7 +450,7 @@
 
 
 
-\begin{frame}{Regression}
+\begin{frame}{Logistic Regression}
 	
 	\begin{center}
 		\includegraphics{../pictures/medialiteracydummy.png} \\\
@@ -447,7 +465,7 @@
 \end{frame}
 
 
-\begin{frame}{Regression}
+\begin{frame}{Logistic Regression}
 	
 	\begin{center}
 		\includegraphics{../pictures/Zhangetal_1.png} \\\
@@ -464,7 +482,7 @@
 \end{frame}
 
 
-\begin{frame}{Regression}
+\begin{frame}{Logistic Regression}
 	
 	\begin{center}
 		\includegraphics{../pictures/Zhangetal_2.png} \\\
@@ -479,7 +497,7 @@
 \end{frame}
 
 
-\begin{frame}{Regression}
+\begin{frame}{Logistic Regression}
 	
 	\begin{center}
 		\includegraphics{../pictures/Zhangetal_3.png} \\\
@@ -707,7 +725,6 @@ y_pred = nb.predict(X_test)
 	
 	% Using forests, we alleviate the problems of decision trees but we are still able to model non-linear relationships.
 	
-	% Connect to literature-example
 	
 \end{frame}
 
@@ -801,6 +818,29 @@ y_pred = nb.predict(X_test)
 	% A model with low recall is not able to find all (or a large part) of the positive cases in the data.
 	
 \end{frame}
+
+
+\begin{frame}[fragile]{What does this look like in code?}
+	
+A model based on a count vectorizer and Naïve Bayes:
+	
+\begin{lstlisting}
+from sklearn.feature_extraction.text import (CountVectorizer)
+from sklearn.naive_bayes import MultinomialNBB
+
+countvectorizer = CountVectorizer(stop_words="english")
+X_train = countvectorizer.fit_transform(texts_train)
+X_test = countvectorizer.transform(texts_test)
+
+nb = MultinomialNB()
+nb.fit(X_train, labels_train)
+y_pred = nb.predict(X_test)
+\end{lstlisting}
+	
+\end{frame}
+
+
+
 
 
 \begin{frame}[fragile]{What does this look like in code?}
