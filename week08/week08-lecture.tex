@@ -155,9 +155,10 @@ At home, you:
 	
 Today, we:
 	\begin{itemize}
-		\item Your first SML experience
+		\item Briefly review your first SML experience
 		\item Take a deep dive into validating SML-models
 		\item Take a critical look at SML 
+		\item Review what we learned about coding
 	\end{itemize}
 	
 \end{frame}
@@ -216,7 +217,7 @@ with open(test) as fi:
 \end{lstlisting}
 
 Mind: Choose the correct delimiter (e.g., ';', ',', '\textbackslash t'). \\
-IndexError: list index out of range' often pops up if you choose the wrong one.
+'IndexError: list index out of range' often pops up if you choose the wrong one.
 \end{frame}
 
 
@@ -232,27 +233,6 @@ TRUE
 \end{lstlistingoutput}.
 \end{frame}
 
-
-\begin{frame}[fragile]{Recap Q2}
-Why would you do this?
-\begin{lstlisting}
-plt.bar(Counter(labels_train).keys(), Counter(labels_train).values())
-\end{lstlisting}
-	
-\end{frame}
-
-
-
-\begin{frame}[fragile]{Recap Q3}
-Remember, the computer can't read words! We need to transform the texts and labels into vectorizers.
-\begin{lstlisting}
-countvectorizer = CountVectorizer(stop_words="english")
-X_train = countvectorizer.fit_transform(texts_train)
-X_test = countvectorizer.transform(texts_test)
-\end{lstlisting}
-
-When fit\_transform and when transform?
-\end{frame}
 
 
 \begin{frame}[fragile]{Recap Q4}
@@ -278,18 +258,6 @@ print(y_pred[:10])
 \end{frame}
 
 
-\begin{frame}[fragile]{Recap Q4}
-
-\begin{lstlisting}
-accuracy = accuracy_score(labels_test, y_pred)
-print(accuracy)
-\end{lstlisting}
-	
-\begin{lstlistingoutput}
-0.7945
-\end{lstlistingoutput}
-\end{frame}
-
 
 \begin{frame}[fragile]{Recap Q5}
 Repeat with a different vectorizer and a different SML model!
@@ -304,7 +272,8 @@ y_pred = logres.predict(X_test)
 
 print(classification_report(labels_test, y_pred))
 \end{lstlisting}
-	
+
+Learn from the documentation.
 \end{frame}
 
 
@@ -417,10 +386,15 @@ Here: 0.88
 
 What if it is hard to say which one is most important and you want to find a balance between precision and recall?
 
-F1- score!
 		
 \end{frame}
 
+
+\begin{frame}{Finding the best performing model}
+
+F1- score!
+	
+\end{frame}
 
 
 \section{Cross-validation}
@@ -440,7 +414,7 @@ F1- score!
 
 \begin{frame}{Cross-validation}
 	
-	Potential solution: Split the dataset into three smaller sets. A training dataset, a validation dataset and a test dataset.
+	Potential solution: Split the dataset into three smaller sets. A training dataset, a validation dataset, and a test dataset.
 	
 	However, this requires us to have a very large labeled dataset. In reality, this is not always the case!
 	
@@ -468,8 +442,10 @@ F1- score!
 			\item Fit a model on the training set and evaluate it on the test set
 			\item Retain the evaluation score and discard the model
 		\end{enumerate}
-		\item Summarize the evaluation scores to assess the model \\\
+		\item Average the evaluation scores to assess the model \\\
 	\end{enumerate}
+
+% If the model performs well, you would expect the find similar metrics for all folds
 
 \end{frame}
 	
@@ -491,6 +467,13 @@ The GridSearchCV module (scikit-learn) searches for the best values of specified
 
 The outcome is the optimal combination of one or more parameters.
 	
+\end{frame}
+
+
+\begin{frame}{Grid Search}
+	
+Questions 6 - 10 of the exercises for week 8 are about this procedure!
+
 \end{frame}
 
 
@@ -593,15 +576,6 @@ Challenges:
 \end{frame}
 
 
-\begin{frame}{Zooming out} 
-	
-This week's tutorial:
-	\begin{itemize}
-		\item Hands-on approach to take a further look into the machine learning process
-		\item Questions about prior tutorial exercises
-	\end{itemize}
-	
-\end{frame}
 
 
 \begin{frame}{Looking back} 
@@ -622,11 +596,10 @@ In two months, you learned:
 
 \begin{frame}{Looking at the very near future} 
 	
-One last grade for this course, the take-home exam.
+Two grades for this course remain:
 	\begin{itemize}
-		\item The take-home exam will be published on 30 May (9 am)
-		\item The deadline for submitting the take-home exam is on 2 June (9 am)
-		\item The exam covers materials discussed in weeks 1 through 7 (but you may of course also use anything you learned in week 8, this is not required, however) 
+		\item The presentation of your group project (during the tutorial tomorrow)
+		\item The take-home exam (published on 30 May, 9 am, with deadline on 2 June, 9 am)
 	\end{itemize}
 	
 \end{frame}
@@ -641,6 +614,14 @@ Final course of the minor: the research project!
 \end{itemize}
 \end{frame}
 
+
+\begin{frame}{Looking at the potential future} 
+	
+Let us know whether or not you are interested to do your Graduation Project (Bachelor Thesis) and/or Internship in the Digital Society domain (fill out the survey available on Canvas)!
+
+\end{frame}
+
+
 \begin{frame}{Looking at the future} 
 	
 CCS-1 and CCS-2: An introduction to coding. You can continue to learn and work with Python.\\
@@ -654,6 +635,34 @@ Our tips:
 	
 \end{frame}
 
+
+\begin{frame}{Looking at the future} 
+	
+When you use your computational skills for your thesis or any other project, you are part of the research community. You add value to your own work by making it accessible and understandable for others! How can you do so?
+	
+\end{frame}
+
+
+
+\begin{frame}{Looking at the future} 
+	
+	When you use your computational skills for your thesis or any other project, you are part of the research community. You add value to your own work by making it accessible and understandable for others! How can you do so?
+	\begin{itemize}
+		\item Keep your code clear and transparent
+		\item Avoid repetitive coding (try functions instead)
+		\item Use comments 
+		\item Check out PEP 8 (style guide for Python coding standards)
+		\item Simple does it!
+	\end{itemize}
+	
+\end{frame}
+
+
+\begin{frame}{Looking at the future} 
+	
+We taught you how to drive, now you can go out and explore the world of computational (communication) science!
+	
+\end{frame}
 
 
 \begin{frame}{Looking at the future} 
