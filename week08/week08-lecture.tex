@@ -290,44 +290,6 @@ Cross-validation? Hyperparameters? Gridsearch?
 \end{frame}
 
 
-%\section{SML in practice}
-
-%\begin{frame}{Neural Networks}
-	
-%	\begin{center}
-%		\includegraphics{../pictures/perceptron.png} \\\
-%	\end{center}
-	
-	% What does a computer actually do with the models discussed above? In this lecture, we discuss neural networks as a machine learning algorithm.
-	
-	% Neural networks consist of connection between neurons that are activated if the total input is above a certain threshold. Simplest form: perceptron.
-	
-	% A perceptron is a single-layer neural network.
-	
-	% Input neurons (or IV’s) connected to an output neuron (or DV). Each of the connections between neurons has a weight which can be positive or negative. For the output neuron, the weighted sum of inputs is calculated and a function is applied to determine the results. Which function is not set, it could be, for example, a logistic regression!
-	
-%\end{frame}
-
-
-%\begin{frame}{Neural Networks}
-	
-%	\begin{center}
-%		\includegraphics{../pictures/neuralnetwork_hiddenlayer.png} \\\
-%	\end{center}
-	
-%	\begin{tiny}
-%		\fullcite{ha_automatically_2021} 
-%	\end{tiny}
-	
-	% Imagine we use machine learning to determine the positivity or negativity of online movie reviews (sentiment analysis). The input neurons could be the frequencies of words such as “great” (positive weight) and “horrible” (negative weight). Such a network is a bit simplistic, because a review that says something is “not great” is negative but this wouldn’t be picked up by our network.
-	
-	% To solve this, we can add a hidden layer of latent variables between the input and the output layer of the network.
-	
-	% Connect to Ha et al. (link to deep learning)
-	
-	
-%\end{frame}
-
 
 \section{More about validation}
 
@@ -348,9 +310,6 @@ What is the most important metric when deciding what model is best?
 
 Accuracy: In which percentage of all cases was our classifier right? 
 
-%Very high accuracy, yay!
-% But what if the true positive was some with a very contagious virus that can spread super quickly?
-
 \end{frame}
 
 
@@ -362,8 +321,7 @@ Accuracy: In which percentage of all cases was our classifier right?
 	
 Recall: How many of the cases that we wanted to find did we actually find? \\\
 Here: 0.88
-	
-% Pretty high recall, but we missed quite a bit of relevant documents here - this may cause problems in my study? 
+
 	
 \end{frame}
 
@@ -376,8 +334,7 @@ Here: 0.88
 	
 	Precision:  How much of what we found is actually correct? \\\
 	Here: 0.75
-	
-	% Pretty high recall, but 25% of our labels are incorrect - this may cause problems in my study? 
+
 	
 \end{frame}
 
@@ -404,10 +361,7 @@ F1- score!
 	Overfitting: When a model fits \emph{exactly} against the data.
 	
 	When we calculate the metrics discussed above for multiple models on the same test dataset, we run the risk of overfitting on the test data.
-	
-	%Consequence of this is, for example, that your model can classify your training data perfectly, but it can't classify other data very well anymore.
-	
-	%Overfitting the model generally takes the form of making an overly complex model to explain idiosyncrasies in the data under study. In reality, the data often studied has some degree of error or random noise within it. Thus, attempting to make the model conform too closely to slightly inaccurate data can infect the model with substantial errors and reduce its predictive power.
+
 	
 \end{frame}
 
@@ -445,7 +399,7 @@ F1- score!
 		\item Average the evaluation scores to assess the model \\\
 	\end{enumerate}
 
-% If the model performs well, you would expect the find similar metrics for all folds
+
 
 \end{frame}
 	
@@ -524,14 +478,7 @@ Challenges:
 	\item Criticism required (see next slide)
 \end{itemize}
 
-% Strengths:
-% -	Makes it easier to code large datasets (cheaper, faster)
-% -	Enhances replicable research (exactly the same script can be used to by researchers to conduct a new content analysis)
-% -	Makes it easier to study “natural” human behavior (example: study social influence by hiring actors to see if it influences people’s reactions to videos; now, we can just analyze the comments people write and how these influence subsequent comments!)
 
-% Challenges
-% -	(Jordan & Mitchell, p. 5) Resource constraint (privacy, required processing capacities  communication constraint
-% -	Ethical questions: Who will have access to, and ownership of, online data and who will reap its benefits? (Jordan & Mitchell, p.6)
 
 \end{frame}
 
@@ -552,8 +499,6 @@ Challenges:
 		\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{../pictures/toeslagenaffaire_headlines.png} \\\
 	\end{center}
 	
-% As shown by Jordan & Mitchell, ML is used in many different facets of society. But it is impertinent that those who use ML remain critical of its capabilities. If a machine is trained based on human coded data, as is the case with SML, it will also learn about the prejudices that humans have: toeslagenaffaire voorbeeld. Laag inkomen werd door computer geleerd als voorspeller van fraude. Mensen met een laag inkomen werden er dus bij voorbaat al uitgepikt. 
-%  Remember that in the end, machines are created by humans and as humans we are responsible for how we use them. We have the responsibility to ask questions about what machines do and how and whether we should!
 	
 \end{frame}
 
