@@ -13,7 +13,7 @@
 |     The assignment does not mention which   variables are included/ excluded, and/or a rationale for selecting variables is   absent and/ or preprocessing steps are not clearly explicated.    |     The assignment mentions which variables   are included, and which ones are excluded. In addition, a rationale for doing   so is present. In addition, the preprocessing steps are described, however   not complete or at times not completely clear.           |     The assignment mentions which variables   are included, and which ones are excluded. A clear and convincing rationale   for inclusion/ exclusion is present. In addition, the preprocessing steps are   clear and convincingly described; it becomes clear why and how the data was   preprocessed.           |     The assignment mentions which variables   are included, and which ones are excluded. A clear and convincing rationale   for inclusion/ exclusion is present. The preprocessing steps are clear,   convincingly described; it becomes clear why and how the data was   preprocessed. The preprocessing steps are well   thought out and of advanced level.           |
 
 
-- The Method section should explain the *analytical strategy* (i.e., the type of analytical strategy to be used to explore the dataset, such as visualizing the data, providing summary statistics with regards to variables, and/or using an inductive technique for text analysis, such as LDA to describe topics present in the data).  
+- The Method section should explain the *analytical strategy* (i.e., the type of analytical strategy to be used to explore the dataset, such as visualizing the data, providing summary statistics with regards to variables, and/or using an inductive technique for text analysis, such as LDA to describe topics present in the data).
 
 
 |     Insufficient     |     Weak     |     Good    |     Strong     |
@@ -51,7 +51,7 @@
 |     The demonstration of the recommender   system is not presented, or not clearly descripted. Clear example cases are   missing.     |     The recommender system only minimally   descripted; it does not fully become clear how the recommender system works.   Clear example cases are not provided.           |     The recommender system is clearly   demonstrated; it becomes clear how the recommender system works, and what   output can be expected. Clear example cases are provided.           |     The recommender system is clearly   demonstrated; it becomes clear how the recommender system works, and what   output can be expected. Clear example cases are provided. The recommender system is of an advanced level.            |
 
 
-## 2. Code for explorative/inductive data analysis (30%)  
+## 2. Code for explorative/inductive data analysis (30%)
 *Grading is based on the scripts for preprocessing and analyzing the data*
 
 - Exploring and describing the dataset.
@@ -73,7 +73,7 @@
 |     The code to conduct the inductive   analysis is missing or has clear flaws.     |     The code to conduct the inductive   analysis is present, but of minimal quality.     |     Elaborate and smart code is provided to   conduct the inductive analysis data.     |     Elaborate and smart code provided to   conduct the inductive analysis. The code is of   advanced level.     |
 
 
-## 3. Code for recommender system (20%)  
+## 3. Code for recommender system (20%)
 *Grading is based on the scripts for building a recommender system*
 
 - Building a recommender system
